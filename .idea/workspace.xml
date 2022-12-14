@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fab60dd8-eb7c-4c60-b32b-122cb20be9a8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HotelApplication.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Classes/ConnectDB.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Classes/MainClass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Classes/MainConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Classes/ModelClassLarge.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controllers/CheckInController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controllers/CheckOutController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controllers/LoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controllers/MainPanelController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controllers/MiniControllers/EditRoomController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controllers/MiniControllers/ReceiptController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controllers/RecordsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controllers/RoomListController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controllers/ServicesController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controllers/SettingsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controllers/Splashcontroller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controllers/SummaryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MainPanes/CheckIn.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MainPanes/CheckOut.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MainPanes/Login.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MainPanes/MainPane.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MainPanes/MainStyle.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MainPanes/Records.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MainPanes/RoomList.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MainPanes/Services.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MainPanes/Settings.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MainPanes/Splash.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MainPanes/Summary.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Raw/Receipt.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Start.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/SubPanes/EditRoom.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/SubPanes/Receipt.fxml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2IdwsWRee0BcLObVLRJicjP7g64" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Java Projects/HotelApplication/src/Classes",
+    "project.structure.last.edited": "Global Libraries",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Java Projects\HotelApplication\src\Classes" />
+      <recent name="C:\Java Projects\HotelApplication\src\MainPanes" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Controllers" />
+      <recent name="Classes" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="HotelApplication" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Start" />
+      <module name="HotelApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fab60dd8-eb7c-4c60-b32b-122cb20be9a8" name="Changes" comment="" />
+      <created>1670524981107</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1670524981107</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>

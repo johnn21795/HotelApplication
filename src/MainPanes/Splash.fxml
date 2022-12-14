@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXProgressBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="373.0" prefWidth="600.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.Splashcontroller">
+   <children>
+      <Label fx:id="richtech" layoutX="154.0" layoutY="11.0" onMouseClicked="#mouseEvent" styleClass="MainName" text="Louisiana Hotel &amp; Suites" textFill="#822f2f">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <JFXProgressBar fx:id="Bar" layoutX="24.0" layoutY="288.0" prefHeight="30.0" prefWidth="547.0" progress="0.1" style="-fx-background-color: red;" />
+      <Label fx:id="accounttech" alignment="CENTER" layoutX="84.0" layoutY="56.0" onMouseClicked="#mouseEvent" prefHeight="47.0" prefWidth="459.0" styleClass="MainSubName" text="Hotel Management Application" textFill="WHITE" />
+      <Label layoutX="32.0" layoutY="178.0" style="-fx-font-weight: bold; -fx-font-size: 14; -fx-text-fill: #000077;" text="Version  1.0.1" />
+      <HBox layoutX="229.0" layoutY="261.0">
+         <children>
+            <Label style="-fx-font-weight: bold; -fx-text-fill: #000077;" styleClass="labelx" text="Loading:   " />
+            <Label fx:id="Label" style="-fx-text-fill: #000077;" styleClass="labelx" text="20%" />
+         </children>
+      </HBox>
+      <Label fx:id="Update" alignment="CENTER" layoutX="21.0" layoutY="220.0" prefHeight="20.0" prefWidth="547.0" style="-fx-font-weight: bold; -fx-font-size: 12;" text="Downloading Database...Please Wait" visible="false" />
+      <VBox alignment="CENTER" layoutX="11.0" layoutY="325.0">
+         <children>
+            <Label style="-fx-font-weight: bold; -fx-font-size: 12; -fx-text-fill: #000077;" text="Powered by Zenaya" />
+            <Label style="-fx-font-weight: bold; -fx-font-size: 12; -fx-text-fill: #000077;" text="08142605775" />
+         </children>
+      </VBox>
+      <Label layoutX="24.0" layoutY="150.0" style="-fx-font-weight: bold; -fx-font-size: 20; -fx-text-fill: #000077;" text="2022 Edition" />
+      <VBox alignment="CENTER" layoutX="413.0" layoutY="325.0">
+         <children>
+            <Label style="-fx-font-weight: bold; -fx-font-size: 12; -fx-text-fill: #000077;" text="For Complaint and Information" />
+            <Label alignment="CENTER" style="-fx-font-weight: bold; -fx-font-size: 12; -fx-text-fill: #000077;" text="08142605775" />
+         </children>
+      </VBox>
+     </children>
+</AnchorPane>

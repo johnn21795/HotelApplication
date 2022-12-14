@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="root" stylesheets="@/MainPanes/MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoginController">
+   <center>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="373.0" prefWidth="474.0">
+         <children>
+      
+            <Label fx:id="richtech" alignment="CENTER" layoutX="53.0" layoutY="14.0" style="-fx-font-size: 30; -fx-text-fill: #000033;" text="Louisiana Hotel &amp; Suites" textFill="#822f2f" AnchorPane.leftAnchor="53.0" AnchorPane.rightAnchor="49.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="accounttech" alignment="CENTER" layoutX="80.0" layoutY="59.0" onMouseClicked="#mouseEvent" prefHeight="47.0" prefWidth="314.0" styleClass="MainSubName" text="Log In" textFill="WHITE" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" />
+            <VBox layoutX="41.0" layoutY="153.0" prefHeight="174.0" prefWidth="377.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="56.0" AnchorPane.topAnchor="153.0">
+               <children>
+                  <JFXComboBox fx:id="StaffBox" labelFloat="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="35.0" prefHeight="25.0" prefWidth="283.0" promptText="Operator Id" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </JFXComboBox>
+                  <JFXPasswordField fx:id="PassField" labelFloat="true" maxHeight="1.7976931348623157E308" minHeight="35.0" onAction="#actionEvent" prefHeight="25.0" prefWidth="283.0" promptText="Password" styleClass="jfx-combo-box" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </JFXPasswordField>
+                  <HBox>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                     <children>
+                        <Region maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <JFXButton fx:id="LoginBut" minHeight="35.0" minWidth="100.0" onAction="#actionEvent" text="Log in" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

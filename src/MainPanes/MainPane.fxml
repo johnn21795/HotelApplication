@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="rootPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="200.0" prefWidth="1280.0" stylesheets="@/MainPanes/MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainPanelController">
+    <center>
+        <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="TOP_LEFT">
+            <children>
+                <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="609.0" prefWidth="200.0" styleClass="Sianchor" HBox.hgrow="ALWAYS">
+                    <children>
+                        <AnchorPane fx:id="RoomListPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <fx:include fx:id="roomListPane" source="/MainPanes/RoomList.fxml" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="CheckInPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <fx:include source="/MainPanes/CheckIn.fxml" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children></AnchorPane>
+<!--                        <AnchorPane fx:id="ServicesPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">-->
+<!--                            <children>-->
+<!--                                <fx:include source="/MainPanes/Services.fxml" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />-->
+<!--                            </children></AnchorPane>-->
+                        <AnchorPane fx:id="CheckOutPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <fx:include source="/MainPanes/CheckOut.fxml" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                            </children></AnchorPane>
+<!--                        <AnchorPane fx:id="ReportPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">-->
+<!--                     <children>-->
+<!--                        <fx:include source="/MainPanes/Summary.fxml" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />-->
+<!--                     </children></AnchorPane>-->
+                        <AnchorPane fx:id="RecordsPane"  maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <fx:include source="/MainPanes/Records.fxml" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="SettingsPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <fx:include source="/MainPanes/Settings.fxml" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children></AnchorPane>
+                  <AnchorPane fx:id="HomePane" visible="false" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="Homepane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                    </children>
+                    <HBox.margin>
+                        <Insets left="10.0" />
+                    </HBox.margin>
+                </AnchorPane>
+            </children>
+            <BorderPane.margin>
+                <Insets />
+            </BorderPane.margin>
+        </HBox>
+    </center>
+    <top>
+        <HBox prefHeight="42.0" prefWidth="1300.0" BorderPane.alignment="CENTER">
+            <children>
+            <HBox prefHeight="43.0" prefWidth="150.0">
+               <children>
+                  <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold;" text="Logged In" />
+                        <JFXButton fx:id="OperatorID" buttonType="RAISED" maxWidth="1.7976931348623157E308" onAction="#MainNavigation" text="JAMES">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="10.0" right="10.0" top="1.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+                <VBox prefHeight="48.0" prefWidth="183.0">
+                    <children>
+                        <Label fx:id="MainDate" maxWidth="1.7976931348623157E308" onMouseClicked="#mouseEvent" styleClass="MainDate" text="WEDNESDAY 12 JUNE 2020" VBox.vgrow="ALWAYS" />
+                        <Label fx:id="MainTime" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseClicked="#mouseEvent" styleClass="MainSubName" text="1:04:54 PM" />
+                    </children>
+                </VBox>
+                <Region maxWidth="1.7976931348623157E308" prefHeight="69.0" prefWidth="185.0" HBox.hgrow="ALWAYS" />
+                <VBox  alignment="CENTER" prefWidth="400.0">
+                    <children>
+                        <Label styleClass="MainName" text=" Louisiana Hotel &amp; Suites " />
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="MainSubName" text="Hotel Management Software" />
+                    </children>
+                </VBox>
+                <Region maxWidth="1.7976931348623157E308" prefHeight="69.0" prefWidth="185.0" HBox.hgrow="ALWAYS" />
+                <VBox>
+                    <children>
+                        <Label fx:id="versionLabel" alignment="CENTER" onMouseClicked="#mouseEvent" styleClass="label" text="   Version 3.2.2  " />
+                        <JFXButton fx:id="NotificationButton" maxHeight="27.0" maxWidth="160.0" style="-fx-background-color: linear-gradient(#901500, #490b02); -fx-text-fill: white; -fx-font-weight: bold;"  mnemonicParsing="false" onAction="#MainNavigation" text="0 Notifications" VBox.vgrow="ALWAYS">
+<!--                            <graphic>-->
+<!--                                <FontAwesomeIcon glyphName="BELL" size="1.5em" styleClass="fontawesome" />-->
+<!--                            </graphic>-->
+                        </JFXButton>
+                    </children>
+                </VBox>
+                <Region maxWidth="10.0" prefHeight="30.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+            </children>
+        </HBox>
+    </top>
+   <left>
+      <VBox prefHeight="609.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="HomeButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="55.0" mnemonicParsing="false" onAction="#MainNavigation" text="Home" VBox.vgrow="ALWAYS">
+               <graphic>
+                   <FontAwesomeIcon glyphName="HOME" size="2em" styleClass="fontawesome" translateX="-30.0" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="RoomListButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="55.0" mnemonicParsing="false" onAction="#MainNavigation" text="Room List" VBox.vgrow="ALWAYS">
+               <graphic>
+                   <FontAwesomeIcon glyphName="BED" size="2em" styleClass="fontawesome" translateX="-20.0" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="CheckInButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="55.0" mnemonicParsing="false" onAction="#MainNavigation" text="Check In" VBox.vgrow="ALWAYS">
+               <graphic>
+                   <FontAwesomeIcon glyphName="SIGN_IN" size="2em" styleClass="fontawesome" translateX="-20.0" />
+               </graphic>
+            </JFXButton>
+<!--            <JFXButton  fx:id="ServicesButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="55.0" mnemonicParsing="false" onAction="#MainNavigation" text="Services" VBox.vgrow="ALWAYS">-->
+<!--               <graphic>-->
+<!--                   <FontAwesomeIcon glyphName="CUTLERY" size="2em" styleClass="fontawesome" translateX="-20.0" />-->
+<!--               </graphic>-->
+<!--            </JFXButton>-->
+            <JFXButton fx:id="SignOutButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="55.0" mnemonicParsing="false" onAction="#MainNavigation" text="Check out" VBox.vgrow="ALWAYS">
+               <graphic>
+                   <FontAwesomeIcon glyphName="SIGN_OUT"  rotate="180.0" size="2em" styleClass="fontawesome" translateX="-20.0"  />
+
+               </graphic>
+            </JFXButton>
+<!--            <JFXButton  fx:id="ReportButton" layoutX="10.0" layoutY="575.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="55.0" mnemonicParsing="false" onAction="#MainNavigation" text="Report" VBox.vgrow="ALWAYS">-->
+<!--               <graphic>-->
+<!--                  <FontAwesomeIcon glyphName="LINE_CHART" size="2em" styleClass="fontawesome" translateX="-20.0" />-->
+<!--               </graphic>-->
+<!--            </JFXButton>-->
+            <JFXButton fx:id="RecordsButton" layoutX="10.0" layoutY="296.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="55.0" mnemonicParsing="false" onAction="#MainNavigation" text="Records" VBox.vgrow="ALWAYS">
+               <graphic>
+                  <FontAwesomeIcon glyphName="FOLDER_OPEN" size="2em" styleClass="fontawesome" translateX="-18.0" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="SettingsButton" layoutX="10.0" layoutY="338.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="55.0" mnemonicParsing="false" onAction="#MainNavigation" text="Settings" VBox.vgrow="ALWAYS">
+               <graphic>
+                  <FontAwesomeIcon glyphName="GEAR" size="2em" styleClass="fontawesome" translateX="-18.0" />
+               </graphic>
+            </JFXButton>
+            <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+             <JFXButton fx:id="ImgButton" buttonType="RAISED" layoutX="10.0" layoutY="110.0" onAction="#MainNavigation" text="" VBox.vgrow="NEVER" />
+         </children>
+      </VBox>
+   </left>
+</BorderPane>

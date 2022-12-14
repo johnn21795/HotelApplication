@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.RecordsController">
+   <children>
+      <JFXTabPane prefHeight="593.0" prefWidth="1015.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <tabs>
+            <Tab closable="false" text="Check-Ins">
+               <content>
+                  <AnchorPane prefHeight="542.0" prefWidth="1151.0">
+                     <children>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <TableView fx:id="CheckInTable" editable="true" layoutX="29.0" layoutY="52.0" onDragDetected="#dragStart" onKeyReleased="#keyEvent" onMouseClicked="#mouseEvent" onMouseDragged="#dragAction" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
+                                 <columns>
+                                    <TableColumn fx:id="NoCol1" prefWidth="50" text="No" />
+                                    <TableColumn fx:id="DateCol1" prefWidth="100" text="Date" />
+                                    <TableColumn fx:id="ReceiptCol1" prefWidth="74.0" text="Receipt" />
+                                    <TableColumn fx:id="NameCol1" prefWidth="164.0" text="Name" />
+                                    <TableColumn fx:id="PhoneCol1" prefWidth="122.0" text="Phone" />
+                                    <TableColumn fx:id="AdultCol1" prefWidth="67.0" text="Adult" visible="false" />
+                                    <TableColumn fx:id="GenderCol1" prefWidth="113.0" text="Gender" visible="false" />
+                                    <TableColumn fx:id="RoomCol1" prefWidth="78.0" text="Room" />
+                                    <TableColumn fx:id="CheckInCol1" prefWidth="197.0" text="Checked In" />
+                                    <TableColumn fx:id="CheckOutCol1" prefWidth="150.0" text="ToCheck Out" />
+                                    <TableColumn fx:id="isCheckOutCol1" prefWidth="100.0" text="CheckedOut" />
+                                 </columns>
+                              </TableView>
+                              <HBox layoutX="31.0" layoutY="14.0" prefHeight="31.0" prefWidth="1134.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="15.0">
+                                 <children>
+                                    <JFXTextField fx:id="SearchField1" labelFloat="true" onKeyReleased="#keyEvent" prefHeight="31.0" promptText="Search" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets right="30.0" />
+                                       </HBox.margin>
+                                    </JFXTextField>
+                                    <JFXButton fx:id="SearchBut1" onAction="#actionEvent" prefHeight="30.0" prefWidth="105.0" text="Search" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets left="30.0" right="30.0" />
+                                       </HBox.margin>
+                                    </JFXButton>
+                                    <JFXDatePicker fx:id="StartDate1" promptText="Start Date" />
+                                    <JFXDatePicker fx:id="EndDate1" layoutX="869.0" layoutY="10.0" promptText="End Date">
+                                       <HBox.margin>
+                                          <Insets left="50.0" right="80.0" />
+                                       </HBox.margin>
+                                    </JFXDatePicker>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab closable="false" text="Payments">
+               <content>
+                  <AnchorPane prefHeight="542.0" prefWidth="1151.0">
+                     <children>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <TableView fx:id="PaymentsTable" editable="true" layoutX="29.0" layoutY="52.0" onDragDetected="#dragStart" onKeyReleased="#keyEvent" onMouseClicked="#mouseEvent" onMouseDragged="#dragAction" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
+                                 <columns>
+                                    <TableColumn fx:id="NoCol2" prefWidth="50" text="No" />
+                                    <TableColumn fx:id="DateCol2" prefWidth="90.0" text="Date" />
+                                    <TableColumn fx:id="ReceiptCol2" prefWidth="87.0" text="Receipt" />
+                                    <TableColumn fx:id="NameCol2" prefWidth="141.0" text="Name" />
+                                    <TableColumn fx:id="RoomCol2" prefWidth="77.0" text="Room" />
+                                    <TableColumn fx:id="TimeCol2" prefWidth="122.0" text="Time" />
+                                    <TableColumn fx:id="TotalCol2" prefWidth="99.0" text="Total" />
+                                    <TableColumn fx:id="PaidCol2" prefWidth="93.0" text="Paid" />
+                                    <TableColumn fx:id="BalanceCol2" prefWidth="83.0" text="Balance" />
+                                    <TableColumn fx:id="MethodCol2" prefWidth="147.0" text="Method" />
+
+                                 </columns>
+                              </TableView>
+                              <HBox layoutX="4.0" layoutY="13.0" prefHeight="31.0" prefWidth="1134.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="11.0">
+                                 <children>
+                                    <JFXTextField fx:id="SearchField2" labelFloat="true" onKeyReleased="#keyEvent" prefHeight="31.0" promptText="Search" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets right="30.0" />
+                                       </HBox.margin>
+                                    </JFXTextField>
+                                    <JFXButton fx:id="SearchBut2" onAction="#actionEvent" prefHeight="30.0" prefWidth="105.0" text="Search" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets left="30.0" right="30.0" />
+                                       </HBox.margin>
+                                    </JFXButton>
+                                    <JFXDatePicker fx:id="StartDate2" promptText="Start Date" />
+                                    <JFXDatePicker fx:id="EndDate2" layoutX="869.0" layoutY="10.0" promptText="End Date">
+                                       <HBox.margin>
+                                          <Insets left="50.0" right="80.0" />
+                                       </HBox.margin>
+                                    </JFXDatePicker>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab closable="false" text="Receipts">
+               <content>
+                  <AnchorPane prefHeight="542.0" prefWidth="1151.0">
+                     <children>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <TableView fx:id="ReceiptTable" editable="true" layoutX="29.0" layoutY="52.0" onDragDetected="#dragStart" onKeyReleased="#keyEvent" onMouseClicked="#mouseEvent" onMouseDragged="#dragAction" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
+                                 <columns>
+                                    <TableColumn fx:id="NoCol3" prefWidth="37.0" text="No"/>
+                                    <TableColumn fx:id="DateCol3" prefWidth="90.0" text="Date"/>
+                                    <TableColumn fx:id="ReceiptCol3" prefWidth="70.0" text="Receipt"/>
+                                    <TableColumn fx:id="NameCol3" prefWidth="112.0" text="Name"/>
+                                    <TableColumn fx:id="PhoneCol3" prefWidth="60.0" text="Phone"/>
+                                    <TableColumn fx:id="AddressCol3" prefWidth="96.0" text="Address" visible="false"/>
+                                    <TableColumn fx:id="AdultCol3" prefWidth="146.0" text="Adult" visible="false"/>
+                                    <TableColumn fx:id="GenderCol3" prefWidth="63.0" text="Gender" visible="false"/>
+                                    <TableColumn fx:id="RoomCol3" prefWidth="66.0" text="Room"/>
+                                    <TableColumn fx:id="CheckInCol3" prefWidth="160.0" text="Checked In"/>
+                                    <TableColumn fx:id="CheckOutCol3" prefWidth="150.0" text="To Check Out" visible="false"/>
+                                    <TableColumn fx:id="isCheckOutCol3" prefWidth="117.0" text="CheckedOut"/>
+                                    <TableColumn fx:id="OccupantsCol3" prefWidth="86.0" text="Occupants"/>
+                                    <TableColumn fx:id="DaysCol3" minWidth="1.0" prefWidth="82.0" text="Days"/>
+                                    <TableColumn fx:id="TotalCol3" minWidth="1.0" prefWidth="104.0" text="Total"/>
+                                    <TableColumn fx:id="PaidCol3" minWidth="1.0" prefWidth="105.0" text="Paid"/>
+                                    <TableColumn fx:id="BalanceCol3" minWidth="1.0" prefWidth="116.0" text="Balance" visible="false"/>
+                                    <TableColumn fx:id="MethodCol3" minWidth="1.0" prefWidth="105.0" text="Paid Via"/>
+                                 </columns>
+                              </TableView>
+                              <HBox layoutX="31.0" layoutY="14.0" prefHeight="31.0" prefWidth="1134.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="15.0">
+                                 <children>
+                                    <JFXTextField fx:id="SearchField3" labelFloat="true" onKeyReleased="#keyEvent" prefHeight="31.0" promptText="Search" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets right="30.0" />
+                                       </HBox.margin>
+                                    </JFXTextField>
+                                    <JFXButton fx:id="SearchBut3" onAction="#actionEvent" prefHeight="30.0" prefWidth="105.0" text="Search" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets left="30.0" right="30.0" />
+                                       </HBox.margin>
+                                    </JFXButton>
+                                    <JFXDatePicker fx:id="StartDate3" promptText="Start Date" />
+                                    <JFXDatePicker fx:id="EndDate3" layoutX="869.0" layoutY="10.0" promptText="End Date">
+                                       <HBox.margin>
+                                          <Insets left="50.0" right="80.0" />
+                                       </HBox.margin>
+                                    </JFXDatePicker>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab closable="false" text="Rooms">
+               <content>
+                  <AnchorPane prefHeight="542.0" prefWidth="1151.0">
+                     <children>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <TableView fx:id="RoomTable" editable="true" layoutX="29.0" layoutY="52.0" onDragDetected="#dragStart" onKeyReleased="#keyEvent" onMouseClicked="#mouseEvent" onMouseDragged="#dragAction" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
+                                 <columns>
+                                    <TableColumn fx:id="NoCol4" prefWidth="50" text="No" />
+                                    <TableColumn fx:id="RoomCol4" prefWidth="102.0" text="Room No." />
+                                    <TableColumn fx:id="RoomNameCol4" prefWidth="102.0" text="Room"  />
+                                    <TableColumn fx:id="StatusCol4" prefWidth="136.0" text="Status" />
+                                    <TableColumn fx:id="TimesCol4" prefWidth="167.0" text="Times Booked" />
+                                    <TableColumn fx:id="TotalDaysCol" prefWidth="145.0" text="Total Days Booked" />
+                                    <TableColumn fx:id="RateCol4" prefWidth="112.0" text="Rate" />
+                                    <TableColumn fx:id="AmountCol4" prefWidth="141.0" text="Total Amount" />
+                                    <TableColumn fx:id="CheckInCol4" prefWidth="135.0" text="Checked In" />
+                                    <TableColumn fx:id="ToCheckOutCol4" prefWidth="124.0" text="To Check Out" visible="false" />
+                                    <TableColumn fx:id="isCheckOutCol4" prefWidth="94.0" text="CheckedOut" visible="false" />
+                                 </columns>
+                              </TableView>
+                              <HBox layoutX="31.0" layoutY="14.0" prefHeight="31.0" prefWidth="1134.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="15.0">
+                                 <children>
+                                    <JFXTextField fx:id="SearchField4" labelFloat="true" onKeyReleased="#keyEvent" prefHeight="31.0" promptText="Search" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets right="30.0" />
+                                       </HBox.margin>
+                                    </JFXTextField>
+                                    <JFXButton fx:id="SearchBut4" onAction="#actionEvent" prefHeight="30.0" prefWidth="105.0" text="Search" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets left="30.0" right="30.0" />
+                                       </HBox.margin>
+                                    </JFXButton>
+                                    <JFXDatePicker fx:id="StartDate4" promptText="Start Date" />
+                                    <JFXDatePicker fx:id="EndDate4" layoutX="869.0" layoutY="10.0" promptText="End Date">
+                                       <HBox.margin>
+                                          <Insets left="50.0" right="80.0" />
+                                       </HBox.margin>
+                                    </JFXDatePicker>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
+   </children>
+   <padding>
+      <Insets left="5.0" top="5.0" />
+   </padding>
+</AnchorPane>

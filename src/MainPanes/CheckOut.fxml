@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.CheckOutController">
+   <children>
+      <JFXTabPane prefHeight="593.0" prefWidth="1015.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <tabs>
+            <Tab closable="false" text="Check Out">
+               <content>
+                  <AnchorPane prefHeight="542.0" prefWidth="1151.0">
+                     <children>
+                        <HBox layoutX="20.0" layoutY="50.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="50.0">
+                           <children>
+                              <VBox layoutX="380.0" layoutY="10.0" prefHeight="442.0" prefWidth="322.0">
+                                 <children>
+                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="MainDate" text="Guest Information" />
+                                    <HBox>
+                                       <children>
+                                          <JFXComboBox fx:id="NameBox"  onAction="#actionEvent" editable="true" onKeyReleased="#keyEvent"  maxWidth="1.7976931348623157E308" minWidth="220.0" prefHeight="25.0" prefWidth="232.0" promptText="Name or Phone" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox prefHeight="0.0" prefWidth="308.0">
+                                       <children>
+                                          <Label minWidth="85.0" styleClass="boldText" text="Name:">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="Name" prefHeight="25.0" prefWidth="154.0" text="Room 1" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="30.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox prefHeight="15.0">
+                                       <children>
+                                          <Label minWidth="85.0" styleClass="boldText" text="Phone:">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="Phone" prefHeight="25.0" prefWidth="174.0" text="GPhone" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox prefHeight="15.0">
+                                       <children>
+                                          <Label minWidth="85.0" styleClass="boldText" text="Address:">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="Address" prefHeight="25.0" prefWidth="147.0" text="5000/ Night" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox prefHeight="15.0">
+                                       <children>
+                                          <Label minWidth="85.0" styleClass="boldText" text="Gender">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="Gender" prefHeight="25.0" prefWidth="123.0" text="Available" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="200.0" prefHeight="15.0">
+                                       <children>
+                                          <Label minWidth="85.0" styleClass="boldText" text="isAdult:">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="IsAdult" prefHeight="25.0" prefWidth="123.0" text="Available" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="232.0" prefHeight="15.0">
+                                       <children>
+                                          <Label minWidth="85.0" styleClass="boldText" text="Room:">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="RmNumber" prefHeight="25.0" prefWidth="123.0" text="Available" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="264.0" prefHeight="15.0">
+                                       <children>
+                                          <Label minWidth="85.0" styleClass="boldText" text="Days:">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="Days" prefHeight="25.0" prefWidth="123.0" text="Available" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <Region maxWidth="1.7976931348623157E308" prefHeight="442.0" prefWidth="163.0" HBox.hgrow="ALWAYS" />
+                              <VBox prefHeight="442.0" prefWidth="281.0">
+                                 <children>
+                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="MainDate" text="Room Information" />
+                                    <HBox layoutX="10.0" layoutY="141.0" prefHeight="25.0" prefWidth="183.0">
+                                       <children>
+                                          <JFXTextField fx:id="RoomNo" maxWidth="260.0" onKeyReleased="#keyEvent" prefHeight="25.0" prefWidth="260.0" promptText="Room No." />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <Label minWidth="85.0" styleClass="boldText" text="Room No:">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="RmNo" text="1" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="30.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox prefHeight="0.0" prefWidth="308.0">
+                                       <children>
+                                          <Label minWidth="85.0" styleClass="boldText" text="Name:">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="RmName" prefHeight="25.0" prefWidth="154.0" text="Room 1" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox prefHeight="15.0">
+                                       <children>
+                                          <Label minWidth="85.0" styleClass="boldText" text="Type:">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="RmType" prefHeight="25.0" prefWidth="174.0" text="Single" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox prefHeight="15.0">
+                                       <children>
+                                          <Label minWidth="85.0" styleClass="boldText" text="Rate:">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="Rate" prefHeight="25.0" prefWidth="147.0" text="5000/ Night" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="257.0">
+                                       <children>
+                                          <Label maxHeight="1.7976931348623157E308" minWidth="85.0" styleClass="boldText" text="CheckedIn Date:">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="ChDate" maxHeight="1.7976931348623157E308" text="27th Dec 2022" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="289.0">
+                                       <children>
+                                          <Label maxHeight="1.7976931348623157E308" minWidth="85.0" styleClass="boldText" text="CheckedIn Time:">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="ChTime" prefHeight="30.0" prefWidth="76.0" text="12:00am" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="168.0" prefHeight="15.0">
+                                       <children>
+                                          <Label minWidth="85.0" styleClass="boldText" text="Occupants:">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="Occupants" prefHeight="25.0" prefWidth="147.0" text="3" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="210.0">
+                                       <children>
+                                          <Label maxHeight="1.7976931348623157E308" minWidth="85.0" styleClass="boldText" text="CheckOut Date:">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="ChOutDate" maxHeight="1.7976931348623157E308" text="27th Dec 2022" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="326.0">
+                                       <children>
+                                          <Label maxHeight="1.7976931348623157E308" minWidth="85.0" styleClass="boldText" text="CheckOut Time:">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="ChOutTime" prefHeight="30.0" prefWidth="76.0" text="12:00am" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <Region maxWidth="1.7976931348623157E308" prefHeight="442.0" prefWidth="161.0" HBox.hgrow="ALWAYS" />
+                              <VBox prefHeight="442.0" prefWidth="244.0">
+                                 <children>
+                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="MainDate" text="Payment Information" />
+                                    <HBox layoutX="10.0" layoutY="47.0" minHeight="25.0" prefHeight="14.0" prefWidth="221.0">
+                                       <children>
+                                          <Label minWidth="120.0" prefHeight="28.0" prefWidth="120.0" styleClass="boldText" text="Receipt No:" />
+                                          <Label fx:id="Receipt" prefHeight="25.0" prefWidth="63.0" text="1" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox prefHeight="14.0" prefWidth="221.0">
+                                       <children>
+                                          <Label minWidth="120.0" styleClass="boldText" text="Total Amount:  " />
+                                          <Label fx:id="TAmount" prefHeight="25.0" prefWidth="63.0" text="10,000" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="30.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox prefHeight="18.0" prefWidth="221.0">
+                                       <children>
+                                          <Label minWidth="120.0" prefHeight="27.0" prefWidth="120.0" styleClass="boldText" text="Paid:" />
+                                          <Label fx:id="TPaid" prefHeight="25.0" prefWidth="61.0" text="5,000" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox prefHeight="19.0" prefWidth="221.0">
+                                       <children>
+                                          <Label minWidth="120.0" prefHeight="25.0" prefWidth="120.0" styleClass="boldText" text="Paid Via:" />
+                                          <Label fx:id="Via" prefHeight="25.0" prefWidth="64.0" text="Transfer" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox prefHeight="18.0" prefWidth="221.0">
+                                       <children>
+                                          <Label minWidth="120.0" prefHeight="24.0" prefWidth="120.0" styleClass="boldText" text="Balance:" />
+                                          <Label fx:id="TBalance" prefHeight="25.0" prefWidth="63.0" text="5,000" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <VBox fx:id="PayBox" visible="false">
+                                       <children>
+                                          <JFXTextField fx:id="Deposit" onKeyReleased="#keyEvent" promptText="Balance">
+                                             <VBox.margin>
+                                                <Insets top="15.0" />
+                                             </VBox.margin>
+                                          </JFXTextField>
+                                          <JFXTextField fx:id="Method" onKeyReleased="#keyEvent" promptText="Payment Method">
+                                             <VBox.margin>
+                                                <Insets top="15.0" />
+                                             </VBox.margin>
+                                          </JFXTextField>
+                                          <JFXButton fx:id="PayBut" maxWidth="1.7976931348623157E308" minHeight="30.0" minWidth="100.0" onAction="#actionEvent" text="Collect Balance">
+                                             <VBox.margin>
+                                                <Insets top="15.0" />
+                                             </VBox.margin>
+                                          </JFXButton>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <JFXButton fx:id="ChkBut" layoutX="940.0" layoutY="479.0" minHeight="50.0" minWidth="200.0" onAction="#checkOut" text="Check Out" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="479.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
+   </children>
+   <padding>
+      <Insets left="5.0" top="5.0" />
+   </padding>
+</AnchorPane>

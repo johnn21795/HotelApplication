@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="383.0" prefWidth="329.0" stylesheets="@../MainPanes/MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MiniControllers.EditRoomController">
+   <children>
+      <Label layoutX="81.0" layoutY="7.0" styleClass="MainDate" text="Add/Edit Rooms" />
+      <JFXTextField fx:id="RnNo" labelFloat="true" layoutX="21.0" layoutY="52.0" onKeyReleased="#keyEvet" prefHeight="25.0" prefWidth="86.0" promptText="Room No." />
+      <VBox layoutY="97.0" prefHeight="179.0" prefWidth="316.0">
+         <children>
+            <HBox prefHeight="25.0" prefWidth="316.0">
+               <children>
+                  <JFXTextField fx:id="NwRmNo" labelFloat="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#actionEvent" prefHeight="25.0" prefWidth="110.0" promptText="Room Name">
+                     <HBox.margin>
+                        <Insets left="20.0" right="15.0" />
+                     </HBox.margin>
+                  </JFXTextField>
+                  <JFXButton fx:id="SaveBut1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="60.0" onAction="#actionEvent" text="Save">
+                     <HBox.margin>
+                        <Insets left="10.0" right="5.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <Label fx:id="SaveTxt1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Saved!" visible="false">
+                     <HBox.margin>
+                        <Insets left="10.0" right="5.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="15.0" top="15.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="25.0" prefWidth="316.0">
+               <children>
+                  <JFXTextField fx:id="RmTp" labelFloat="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#actionEvent" prefHeight="25.0" prefWidth="110.0" promptText="Room Type">
+                     <HBox.margin>
+                        <Insets left="20.0" right="15.0" />
+                     </HBox.margin>
+                  </JFXTextField>
+                  <JFXButton fx:id="SaveBut2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="60.0" onAction="#actionEvent" text="Save">
+                     <HBox.margin>
+                        <Insets left="10.0" right="5.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <Label fx:id="SaveTxt2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Saved!" visible="false">
+                     <HBox.margin>
+                        <Insets left="10.0" right="5.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="15.0" top="15.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="25.0" prefWidth="316.0">
+               <children>
+                  <JFXTextField fx:id="RateField" labelFloat="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#actionEvent" prefHeight="25.0" prefWidth="110.0" promptText="Rate">
+                     <HBox.margin>
+                        <Insets left="20.0" right="15.0" />
+                     </HBox.margin>
+                  </JFXTextField>
+                  <JFXButton fx:id="SaveBut3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="60.0" onAction="#actionEvent" text="Save">
+                     <HBox.margin>
+                        <Insets left="10.0" right="5.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <Label fx:id="SaveTxt3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Saved!" visible="false">
+                     <HBox.margin>
+                        <Insets left="10.0" right="5.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="15.0" top="15.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+      <JFXButton fx:id="FinishBut" layoutX="215.0" layoutY="296.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#actionEvent" prefHeight="25.0" prefWidth="78.0" text="Finish" />
+      <Label fx:id="SaveTxt4" layoutX="158.0" layoutY="55.0" text="Successful!" visible="false" />
+   </children>
+</AnchorPane>

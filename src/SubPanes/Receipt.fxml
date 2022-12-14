@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="362.0" stylesheets="@../MainPanes/MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MiniControllers.ReceiptController">
+   <children>
+      <Label  layoutX="71.0" layoutY="4.0" styleClass="MainDate" text="Louisiana Hotel &amp; Suites" textFill="#822f2f">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="95.0" layoutY="34.0" prefHeight="20.0" prefWidth="177.0" styleClass="MainSubhead" text="Comfort plus Hospitality" />
+      <HBox layoutX="11.0" layoutY="107.0">
+         <children>
+            <Label styleClass="boldText" text="Date:   " />
+            <Label fx:id="Date" text="3rd Dec 2022" />
+         </children>
+      </HBox>
+      <HBox layoutX="228.0" layoutY="107.0">
+         <children>
+            <Label styleClass="boldText" text="Time:   " />
+            <Label fx:id="Time" text="11:45pm" />
+         </children>
+      </HBox>
+      <VBox layoutX="14.0" layoutY="150.0" prefHeight="305.0" prefWidth="274.0">
+         <children>
+            <HBox>
+               <children>
+                  <Label minWidth="85.0" styleClass="boldText" text="Name:  " />
+                  <Label fx:id="Name" text="Chukwuedo James" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label minWidth="85.0" styleClass="boldText" text="Phone:  " />
+                  <Label fx:id="Phone" text="08143255147" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="15.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label minWidth="85.0" styleClass="boldText" text="Room:" />
+                  <Label fx:id="Room" text="1" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label minWidth="85.0" styleClass="boldText" text="Occupants:" />
+                  <Label fx:id="People" text="1" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label minWidth="85.0" styleClass="boldText" text="Days:" />
+                  <Label fx:id="Days" text="1" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="15.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label minWidth="85.0" styleClass="boldText" text="Amount:" />
+                  <Label fx:id="Amount" text="14,000" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label minWidth="85.0" styleClass="boldText" text="Paid:" />
+                  <Label fx:id="Paid" text="14,000" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label minWidth="85.0" styleClass="boldText" text="Balance:" />
+                  <Label fx:id="Balance" text="0" />
+               </children>
+            </HBox>
+            <Region prefHeight="200.0" prefWidth="200.0" />
+         </children>
+      </VBox>
+      <JFXButton fx:id="PrintBut" onAction="#actionEvent" layoutX="280.0" layoutY="460.0" text="Print" />
+      <Label alignment="CENTER" layoutX="136.0" layoutY="77.0" prefHeight="25.0" prefWidth="95.0" styleClass="boldText" text="RECEIPT" />
+      <HBox layoutX="11.0" layoutY="60.0">
+         <children>
+            <Label prefHeight="25.0" prefWidth="39.0" styleClass="boldText" text="No:" />
+            <Label fx:id="RNo" alignment="CENTER" prefHeight="25.0" prefWidth="39.0" text="199" />
+         </children>
+      </HBox>
+      <HBox layoutX="14.0" layoutY="395.0">
+         <children>
+            <Label minWidth="85.0" styleClass="boldText" text="CheckOut Date:   " />
+            <Label fx:id="CheckOut" text="5th Dec 2022  11:45pm" />
+         </children>
+      </HBox>
+      <JFXButton fx:id="SaveBut" onAction="#saveReceipt" layoutX="28.0" layoutY="460.0" text="Save" />
+   </children>
+</AnchorPane>
