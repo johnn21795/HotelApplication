@@ -15,7 +15,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import org.apache.poi.hssf.record.formula.functions.Na;
 
 import java.net.URL;
 import java.time.LocalDate;

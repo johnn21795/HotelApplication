@@ -12,9 +12,25 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.awt.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -146,6 +162,138 @@ public class ReceiptController implements Initializable {
 
 
 
+
+    }
+
+    public void printAddress(ActionEvent event) throws Exception {
+        XSSFWorkbook workbook;
+        XSSFSheet sheet;
+        XSSFCellStyle cellStyle;
+        XSSFFont font ;
+        Map<String, CellStyle> cellStyles = new HashMap();
+
+        File temp =  new File(System.getProperty("user.home") + "/ReceiptTemp.xlsx");
+        Files.copy(new File(System.getProperty("user.home") + "/Receipt.xlsx").toPath(), temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
+         workbook = new XSSFWorkbook(temp);
+
+        sheet = workbook.getSheetAt(0);
+
+        cellStyle = workbook.createCellStyle();
+
+        font = workbook.createFont();
+        font.setFontHeightInPoints((short) 11);
+        font.setFontName("Calibri");
+        font.setBold(true);
+        cellStyle.setWrapText(true);
+        cellStyle.setFont(font);
+        cellStyles.put("main", cellStyle);
+
+        cellStyle = workbook.createCellStyle();
+        font = workbook.createFont();
+        font.setFontHeightInPoints((short) 11);
+        font.setFontName("Calibri");
+        cellStyle.setFont(font);
+        cellStyle.setWrapText(true);
+        cellStyles.put("normal", cellStyle);
+
+        cellStyle = workbook.createCellStyle();
+        font = workbook.createFont();
+        font.setFontHeightInPoints((short) 11);
+        font.setFontName("Calibri");
+        cellStyle.setFont(font);
+        cellStyle.setWrapText(true);
+        cellStyle.setVerticalAlignment(VerticalAlignment.DISTRIBUTED);
+        cellStyles.put("address", cellStyle);
+
+        //Receipt No
+        Row row = sheet.getRow(4);
+        Cell cell = row.createCell(0);
+        cell.setCellStyle(cellStyles.get("main"));
+        cell.setCellValue("No:"+this.RNo.getText());
+
+        //DATE
+        row = sheet.getRow(6);
+        cell = row.createCell(1);
+        cell.setCellStyle(cellStyles.get("normal"));
+        cell.setCellValue(this.Date.getText());
+
+        //TIME
+        row = sheet.getRow(6);
+        cell = row.createCell(4);
+        cell.setCellStyle(cellStyles.get("normal"));
+        cell.setCellValue(this.Time.getText());
+
+        //NAME
+        row = sheet.getRow(8);
+        cell = row.createCell(1);
+        cell.setCellStyle(cellStyles.get("normal"));
+        cell.setCellValue(this.Name.getText());
+
+
+        //PHONE
+        row = sheet.getRow(9);
+        cell = row.createCell(1);
+        cell.setCellStyle(cellStyles.get("normal"));
+        cell.setCellValue(this.Phone.getText());
+
+        //ROOM
+        row = sheet.getRow(11);
+        cell = row.createCell(1);
+        cell.setCellStyle(cellStyles.get("normal"));
+        cell.setCellValue(this.Room.getText());
+
+        //GUESTS
+        row = sheet.getRow(12);
+        cell = row.createCell(1);
+        cell.setCellStyle(cellStyles.get("normal"));
+        cell.setCellValue(this.People.getText());
+
+        //DAYS
+        row = sheet.getRow(13);
+        cell = row.createCell(1);
+        cell.setCellStyle(cellStyles.get("normal"));
+        cell.setCellValue(this.Days.getText());
+
+        //AMOUNT
+        row = sheet.getRow(15);
+        cell = row.createCell(1);
+        cell.setCellStyle(cellStyles.get("normal"));
+        cell.setCellValue(this.Amount.getText());
+
+        //PAID
+        row = sheet.getRow(16);
+        cell = row.createCell(1);
+        cell.setCellStyle(cellStyles.get("normal"));
+        cell.setCellValue(this.Paid.getText());
+
+        //BALANCE
+        row = sheet.getRow(17);
+        cell = row.createCell(1);
+        cell.setCellStyle(cellStyles.get("normal"));
+        cell.setCellValue(this.Balance.getText());
+
+        //CHECKOUT
+        row = sheet.getRow(19);
+        cell = row.createCell(1);
+        cell.setCellStyle(cellStyles.get("normal"));
+        cell.setCellValue(this.CheckOut.getText());
+
+        File destination = new File(System.getProperty("user.home") + "/Desktop/Receipts/"+this.Name.getText()+"-"+this.RNo.getText()+".xlsx");
+        destination.mkdir();
+        FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + "/MyReceipt.xlsx");
+        workbook.write(outputStream);
+        workbook.close();
+        if (outputStream != null) {
+            try {
+                outputStream.close();
+            } catch (Throwable ignored) {
+            }
+        } else {
+            outputStream.close();
+        }
+        Files.move(new File(System.getProperty("user.home") + "/MyReceipt.xlsx").toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        Desktop desktop = Desktop.getDesktop();
+        desktop.open(destination);
 
     }
 }
