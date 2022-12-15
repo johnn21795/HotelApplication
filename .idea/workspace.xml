@@ -2,22 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fab60dd8-eb7c-4c60-b32b-122cb20be9a8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Controllers/MiniControllers/CheckoutController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controllers/MiniControllers/checkOut.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SubPanes/Checkout.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Classes/MainClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Classes/MainClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/CheckInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/CheckInController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/CheckOutController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/CheckOutController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/MainPanelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/MainPanelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/MiniControllers/EditRoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/MiniControllers/EditRoomController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/MiniControllers/ReceiptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/MiniControllers/ReceiptController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controllers/RecordsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/RecordsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/RoomListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/RoomListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainPanes/CheckOut.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainPanes/CheckOut.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainPanes/Records.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainPanes/Records.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainPanes/RoomList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainPanes/RoomList.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SubPanes/Receipt.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/SubPanes/Receipt.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

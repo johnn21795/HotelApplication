@@ -100,6 +100,26 @@ public class RecordsController implements Initializable {
     public JFXDatePicker EndDate1;
     public TableColumn<ModelClassLarge, ?> TimeCol2;
     public TableColumn<ModelClassLarge, ?> MethodCol2;
+    public TableView<ModelClassLarge> ReceiptTable5;
+    public TableColumn<ModelClassLarge, ?> NoCol5;
+    public TableColumn<ModelClassLarge, ?> DateCol5;
+    public TableColumn<ModelClassLarge, ?> NameCol5;
+    public TableColumn<ModelClassLarge, ?> ReceiptCol5;
+    public TableColumn<ModelClassLarge, ?> PhoneCol5;
+    public TableColumn<ModelClassLarge, ?> AdultCol5;
+    public TableColumn<ModelClassLarge, ?> GenderCol5;
+    public TableColumn<ModelClassLarge, ?> AddressCol5;
+    public TableColumn<ModelClassLarge, ?> RoomCol5;
+    public TableColumn<ModelClassLarge, ?> CheckInCol5;
+    public TableColumn<ModelClassLarge, ?> CheckOutCol5;
+    public TableColumn<ModelClassLarge, ?> isCheckOutCol5;
+    public TableColumn<ModelClassLarge, ?> OccupantsCol5;
+    public TableColumn<ModelClassLarge, ?> DaysCol5;
+    public TableColumn<ModelClassLarge, ?> TotalCol5;
+    public TableColumn<ModelClassLarge, ?> PaidCol5;
+
+    public TableColumn<ModelClassLarge, ?> BalanceCol5;
+    public TableColumn<ModelClassLarge, ?> MethodCol5;
 
 
     public  RecordsController() {
@@ -169,6 +189,26 @@ public class RecordsController implements Initializable {
 
 
         }
+        if(mouseEvent.getSource().equals(RoomTable)){
+            if(mouseEvent.getClickCount() > 1){
+                int Room = Integer.parseInt(RoomTable.getSelectionModel().getSelectedItem().getCol1());
+                RoomTable.setVisible(false);
+                ReceiptTable5.setVisible(true);
+                ReceiptTable5.setOnMouseClicked(e-> {
+                    if(e.isShiftDown()){
+                        RoomTable.setVisible(true);
+                        ReceiptTable5.setVisible(false);
+                    }
+                    
+                });
+
+
+                ObservableList<ModelClassLarge> Data = MainClass.FillTableLarge(20, "SELECT Date,Receipt,Name,Phone,Address,isAdult,Gender,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate,CheckedOutTime,Occupants,Days,Rate,Total,Paid,Balance,Method FROM Receipts WHERE Room ="+Room+"");
+                LoadReceiptsTable5(Data);
+            }
+            
+
+        }
     }
 
 
@@ -184,7 +224,7 @@ public class RecordsController implements Initializable {
                         try {
                             Data[1] = MainClass.FillTableLarge(11, "SELECT Date,Receipt,Name,Phone,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime, CheckedOutDate, CheckedOutTime FROM CheckIns ");
                             Data[2] = MainClass.FillTableLarge(9, "SELECT Date,Receipt,Name,Room,Time,Total,Paid,Balance,Method FROM Payments ");
-                            Data[3] = MainClass.FillTableLarge(20, "SELECT Date,Receipt,Name,Phone,Address,isAdult,Gender,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate,CheckedOutTime,Occupants,Days,Rate,Total,Paid,Method,Balance FROM Receipts ");
+                            Data[3] = MainClass.FillTableLarge(20, "SELECT Date,Receipt,Name,Phone,Address,isAdult,Gender,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate,CheckedOutTime,Occupants,Days,Rate,Total,Paid,Balance,Method FROM Receipts ");
                             Data[0] = MainClass.FillTableLarge(8, "SELECT Number,Status,TimesBooked,DaysBooked,Rate,TotalAmount,CheckInDate || ' ' ||CheckInTime as CheckedIn,Name FROM RoomList  ");
                             for(ModelClassLarge m : Data[0]){
                                 if(m.getCol7().contains("NO")){
@@ -333,8 +373,28 @@ public class RecordsController implements Initializable {
         PaidCol3.setCellValueFactory(new PropertyValueFactory<>("col18"));
         MethodCol3.setCellValueFactory(new PropertyValueFactory<>("col19"));
         BalanceCol3.setCellValueFactory(new PropertyValueFactory<>("col20"));
-
-
         ReceiptTable.setItems(data);
+    }
+    public void LoadReceiptsTable5(ObservableList<ModelClassLarge> data)throws Exception   {
+        ReceiptTable5.setItems(null);
+        NoCol5.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        DateCol5.setCellValueFactory(new PropertyValueFactory<>("col1"));
+        ReceiptCol5.setCellValueFactory(new PropertyValueFactory<>("col2"));
+        NameCol5.setCellValueFactory(new PropertyValueFactory<>("col3"));
+        PhoneCol5.setCellValueFactory(new PropertyValueFactory<>("col4"));
+        AddressCol5.setCellValueFactory(new PropertyValueFactory<>("col5"));
+        AdultCol5.setCellValueFactory(new PropertyValueFactory<>("col6"));
+        GenderCol5.setCellValueFactory(new PropertyValueFactory<>("col7"));
+        RoomCol5.setCellValueFactory(new PropertyValueFactory<>("col8"));
+        CheckInCol5.setCellValueFactory(new PropertyValueFactory<>("col9"));
+        CheckOutCol5.setCellValueFactory(new PropertyValueFactory<>("col10"));
+        isCheckOutCol5.setCellValueFactory(new PropertyValueFactory<>("col13"));
+        OccupantsCol5.setCellValueFactory(new PropertyValueFactory<>("col15"));
+        DaysCol5.setCellValueFactory(new PropertyValueFactory<>("col16"));
+        TotalCol5.setCellValueFactory(new PropertyValueFactory<>("col17"));
+        PaidCol5.setCellValueFactory(new PropertyValueFactory<>("col18"));
+        MethodCol5.setCellValueFactory(new PropertyValueFactory<>("col19"));
+        BalanceCol5.setCellValueFactory(new PropertyValueFactory<>("col20"));
+        ReceiptTable5.setItems(data);
     }
 }

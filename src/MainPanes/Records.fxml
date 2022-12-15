@@ -184,6 +184,28 @@
                                     <TableColumn fx:id="isCheckOutCol4" prefWidth="94.0" text="CheckedOut" visible="false" />
                                  </columns>
                               </TableView>
+                              <TableView fx:id="ReceiptTable5" visible="false" editable="true" layoutX="29.0" layoutY="52.0" onMouseClicked="#mouseEvent" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
+                                 <columns>
+                                    <TableColumn fx:id="NoCol5" prefWidth="37.0" text="No"/>
+                                    <TableColumn fx:id="DateCol5" prefWidth="90.0" text="Date"/>
+                                    <TableColumn fx:id="ReceiptCol5" prefWidth="70.0" text="Receipt"/>
+                                    <TableColumn fx:id="NameCol5" prefWidth="112.0" text="Name"/>
+                                    <TableColumn fx:id="PhoneCol5" prefWidth="60.0" text="Phone"/>
+                                    <TableColumn fx:id="AddressCol5" prefWidth="96.0" text="Address" visible="false"/>
+                                    <TableColumn fx:id="AdultCol5" prefWidth="146.0" text="Adult" visible="false"/>
+                                    <TableColumn fx:id="GenderCol5" prefWidth="63.0" text="Gender" visible="false"/>
+                                    <TableColumn fx:id="RoomCol5" prefWidth="66.0" text="Room"/>
+                                    <TableColumn fx:id="CheckInCol5" prefWidth="160.0" text="Checked In"/>
+                                    <TableColumn fx:id="CheckOutCol5" prefWidth="150.0" text="To Check Out" visible="false"/>
+                                    <TableColumn fx:id="isCheckOutCol5" prefWidth="117.0" text="CheckedOut"/>
+                                    <TableColumn fx:id="OccupantsCol5" prefWidth="86.0" text="Guests"/>
+                                    <TableColumn fx:id="DaysCol5" minWidth="1.0" prefWidth="82.0" text="Days"/>
+                                    <TableColumn fx:id="TotalCol5" minWidth="1.0" prefWidth="104.0" text="Total"/>
+                                    <TableColumn fx:id="PaidCol5" minWidth="1.0" prefWidth="105.0" text="Paid"/>
+                                    <TableColumn fx:id="BalanceCol5" minWidth="1.0" prefWidth="116.0" text="Balance" visible="false"/>
+                                    <TableColumn fx:id="MethodCol5" minWidth="1.0" prefWidth="105.0" text="Paid Via"/>
+                                 </columns>
+                              </TableView>
                               <HBox layoutX="31.0" layoutY="14.0" prefHeight="31.0" prefWidth="1134.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="15.0">
                                  <children>
                                     <JFXTextField fx:id="SearchField4" labelFloat="true" onKeyReleased="#keyEvent" prefHeight="31.0" promptText="Search" HBox.hgrow="ALWAYS">
