@@ -218,7 +218,7 @@
                                     </HBox>
                                     <HBox layoutX="10.0" layoutY="168.0" prefHeight="15.0">
                                        <children>
-                                          <Label minWidth="85.0" styleClass="boldText" text="Occupants:">
+                                          <Label minWidth="85.0" styleClass="boldText" text="Guests:">
                                              <HBox.margin>
                                                 <Insets right="20.0" />
                                              </HBox.margin>

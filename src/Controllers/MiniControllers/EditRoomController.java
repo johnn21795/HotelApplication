@@ -105,6 +105,8 @@ public class EditRoomController implements Initializable {
                         alert.close();
                     }
                 }
+                MainClass.reloadRoomListTables = true;
+                MainClass.reloadRecordsTables = true;
             } catch (NumberFormatException e) {
                 text = "Only Number Allowed";
                 alert.setHeaderText(null);

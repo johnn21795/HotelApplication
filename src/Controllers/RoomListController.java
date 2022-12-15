@@ -48,6 +48,11 @@ public class RoomListController implements Initializable {
     public TableColumn<ModelClassLarge, ?> CheckInCol2;
     public TableColumn<ModelClassLarge, ?> RoomCol2;
     public TableColumn<ModelClassLarge, ?> AdultCol2;
+    public JFXTextField Search2;
+    public JFXButton SearchBut2;
+    public JFXButton CheckBut;
+    public JFXButton ReservedBut;
+    public JFXTextField Search1;
 
     public RoomListController(){
         try {
@@ -80,7 +85,7 @@ public class RoomListController implements Initializable {
                     public Void call() {
                         try {
                             data[0] = MainClass.FillTableLarge(6, "SELECT Number,Name,Type,Rate,Status,Occupant FROM RoomList");
-                            data[1] = MainClass.FillTableLarge(12, "SELECT Date,Receipt,Name,Phone,Gender,isAdult,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate FROM CheckIns WHERE CheckedOutDate = 'NO' ");
+                            data[1] = MainClass.FillTableLarge(12, "SELECT Date,Receipt,Name,Phone,Gender,isAdult,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate FROM Occupants WHERE CheckedOutDate = 'NO' ");
 
                             for(ModelClassLarge m : data[1]){
                                 String checkIn = MainClass.returnDate3Format(LocalDate.parse(m.getCol8(), MainClass.DatabaseDateFormat)) +"  "+m.getCol9();
@@ -144,7 +149,24 @@ public class RoomListController implements Initializable {
         keepAlive.restart();
     }
 
-    public void keyEvent(KeyEvent keyEvent) {
+    public void keyEvent(KeyEvent keyEvent) throws Exception {
+        if(keyEvent.getSource().equals(Search1)){
+            String query = Search1.getText();
+            LoadRoomList(MainClass.FillTableLarge(6, "SELECT Number,Name,Type,Rate,Status,Occupant FROM RoomList WHERE Type Like '%"+query+"%' or Name Like '%"+query+"%' or Occupant Like '%"+query+"%' or Rate Like '%"+query+"%'"));
+        }
+        if(keyEvent.getSource().equals(Search2)){
+            String query = Search2.getText();
+            ObservableList<ModelClassLarge> data = MainClass.FillTableLarge(12, "SELECT Date,Receipt,Name,Phone,Gender,isAdult,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate FROM Occupants WHERE CheckedOutDate = 'NO' AND  Phone Like '%" + query + "%' or Name Like '%" + query + "%' or Room = '" + query + "' or Receipt = '" + query + "' ");
+            for(ModelClassLarge m : data){
+                String checkIn = MainClass.returnDate3Format(LocalDate.parse(m.getCol8(), MainClass.DatabaseDateFormat)) +"  "+m.getCol9();
+                String checkOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol10(), MainClass.DatabaseDateFormat)) +"  "+m.getCol11();
+                m.setCol1( LocalDate.parse(m.getCol1(), MainClass.DatabaseDateFormat).format(MainClass.UIDateFormat));
+                m.setCol4( "0"+m.getCol4());
+                m.setCol8(checkIn);
+                m.setCol9(checkOut);
+            }
+            LoadGuestList(data);
+        }
     }
 
     public void mouseEvent(MouseEvent mouseEvent) {
@@ -157,8 +179,39 @@ public class RoomListController implements Initializable {
     }
 
     public void actionEvent(ActionEvent event) throws Exception {
-        if(event.getSource().equals(SearchBut)){
-            LoadRoomList(MainClass.FillTableLarge(6, "SELECT Number,Name,Type,Rate,Status,Occupant FROM RoomList"));
+        if(event.getSource().equals(SearchBut1)){
+            String query = Search1.getText();
+            if(Search1.getText().isEmpty()){
+                LoadRoomList(MainClass.FillTableLarge(6, "SELECT Number,Name,Type,Rate,Status,Occupant FROM RoomList"));
+            }else {
+                LoadRoomList(MainClass.FillTableLarge(6, "SELECT Number,Name,Type,Rate,Status,Occupant FROM RoomList WHERE Type Like '%"+query+"%' or Name Like '%"+query+"%' or Occupant Like '%"+query+"%' or Rate Like '%"+query+"%'"));
+            }
+        }
+        if(event.getSource().equals(SearchBut2)){
+            String query = Search2.getText();
+            if(Search2.getText().isEmpty()){
+                ObservableList<ModelClassLarge> data = MainClass.FillTableLarge(12, "SELECT Date,Receipt,Name,Phone,Gender,isAdult,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate FROM Occupants WHERE CheckedOutDate = 'NO' ");
+                for(ModelClassLarge m : data){
+                    String checkIn = MainClass.returnDate3Format(LocalDate.parse(m.getCol8(), MainClass.DatabaseDateFormat)) +"  "+m.getCol9();
+                    String checkOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol10(), MainClass.DatabaseDateFormat)) +"  "+m.getCol11();
+                    m.setCol1( LocalDate.parse(m.getCol1(), MainClass.DatabaseDateFormat).format(MainClass.UIDateFormat));
+                    m.setCol4( "0"+m.getCol4());
+                    m.setCol8(checkIn);
+                    m.setCol9(checkOut);
+                }
+                LoadGuestList(data);
+            }else {
+                ObservableList<ModelClassLarge> data = MainClass.FillTableLarge(12, "SELECT Date,Receipt,Name,Phone,Gender,isAdult,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate FROM Occupants WHERE CheckedOutDate = 'NO' AND Phone Like '%"+query+"%' or Name Like '%"+query+"%' or Room = "+query+" or Receipt = "+query+" ");
+                for(ModelClassLarge m : data){
+                    String checkIn = MainClass.returnDate3Format(LocalDate.parse(m.getCol8(), MainClass.DatabaseDateFormat)) +"  "+m.getCol9();
+                    String checkOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol10(), MainClass.DatabaseDateFormat)) +"  "+m.getCol11();
+                    m.setCol1( LocalDate.parse(m.getCol1(), MainClass.DatabaseDateFormat).format(MainClass.UIDateFormat));
+                    m.setCol4( "0"+m.getCol4());
+                    m.setCol8(checkIn);
+                    m.setCol9(checkOut);
+                }
+                LoadGuestList(data);
+            }
         }
         if(event.getSource().equals(StatusBox1)){
             switch (StatusBox1.getSelectionModel().getSelectedItem()){
@@ -177,6 +230,14 @@ public class RoomListController implements Initializable {
                     break;
 
             }
+        }
+        if(event.getSource().equals(CheckBut)){
+            CheckInController.setRoom(Integer.parseInt(RoomListTable.getSelectionModel().getSelectedItem().getCol1()));
+            MainPanelController.checkIn = true;
+        }
+        if(event.getSource().equals(ReservedBut)){
+            MainClass.EditDatabase("UPDATE RoomList SET Status = 'Reserved' WHERE Number = "+Integer.parseInt(RoomListTable.getSelectionModel().getSelectedItem().getCol1()));
+            LoadRoomList(MainClass.FillTableLarge(6, "SELECT Number,Name,Type,Rate,Status,Occupant FROM RoomList WHERE Status = 'Available' "));
         }
     }
 

@@ -42,21 +42,18 @@
                                       <items>
                                         <MenuItem fx:id="MenuItem" mnemonicParsing="false">
                                              <graphic>
-                                                <JFXButton fx:id="SoldBut" text="Mark as Sold" />
+                                                <JFXButton fx:id="CheckBut" onAction="#actionEvent" text="Check-In" />
                                              </graphic>
                                           </MenuItem>
                                           <MenuItem mnemonicParsing="false">
                                              <graphic>
-                                                <JFXButton fx:id="UnSoldBut" text="Mark UnSold" />
+                                                <JFXButton fx:id="ReservedBut" onAction="#actionEvent" text="Reserve Room" />
                                              </graphic>
                                           </MenuItem>
                                       </items>
                                     </ContextMenu>
                                  </contextMenu>
-                                 <tooltip>
-                                    <Tooltip fx:id="ImageTip" autoHide="true" opacity="0.84" text="Ctrl +Click to view Image" />
-                                 </tooltip>
-                              </TableView>
+                                 </TableView>
                               <HBox layoutX="31.0" layoutY="14.0" prefHeight="31.0" prefWidth="1134.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="15.0">
                                  <children>
                                     <JFXTextField fx:id="Search1" labelFloat="true" onKeyReleased="#keyEvent" prefHeight="31.0" promptText="Search" HBox.hgrow="ALWAYS">
@@ -104,12 +101,12 @@
                               </TableView>
                               <HBox layoutX="31.0" layoutY="14.0" prefHeight="31.0" prefWidth="1134.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="15.0">
                                  <children>
-                                    <JFXTextField fx:id="Search3" labelFloat="true" onKeyReleased="#keyEvent" prefHeight="31.0" promptText="Search" HBox.hgrow="ALWAYS">
+                                    <JFXTextField fx:id="Search2" labelFloat="true" onKeyReleased="#keyEvent" prefHeight="31.0" promptText="Search" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets right="30.0" />
                                        </HBox.margin>
                                     </JFXTextField>
-                                    <JFXButton fx:id="SearchBut3" onAction="#actionEvent" prefHeight="30.0" prefWidth="105.0" text="Search" HBox.hgrow="ALWAYS">
+                                    <JFXButton fx:id="SearchBut2" onAction="#actionEvent" prefHeight="30.0" prefWidth="105.0" text="Search" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets right="20.0" />
                                        </HBox.margin>

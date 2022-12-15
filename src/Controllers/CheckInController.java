@@ -14,12 +14,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.awt.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -64,7 +66,10 @@ public class CheckInController implements Initializable {
 
     static int Receipt = 1;
 
+    public static JFXTextField RoomNo2;
 
+
+    ObservableList<Map<String, String>> People = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -72,6 +77,7 @@ public class CheckInController implements Initializable {
 
             clearUI();
             Male.selectedProperty().set(!Female.isSelected());
+            RoomNo2 = RoomNo;
             //Get Receipt Number
 
         } catch (Exception e) {
@@ -79,7 +85,10 @@ public class CheckInController implements Initializable {
         }
     }
 
-    ObservableList<Map<String, String>> People = FXCollections.observableArrayList();
+    public static void setRoom(int Room)throws Exception{
+        RoomNo2.setText(String.valueOf(Room));
+    }
+
 
     public void actionEvent(ActionEvent actionEvent) throws Exception {
         if(actionEvent.getSource().equals(DPicker)){
@@ -151,8 +160,6 @@ public class CheckInController implements Initializable {
                 try{
                     Selected = OccupantBox.getSelectionModel().getSelectedIndex();
                 }catch (Exception ignored){}
-                System.out.println(People);
-                System.out.println(People.size());
                 People.set(Math.max(Selected, 0), person);
 
                 FName.setDisable(true);
@@ -177,6 +184,9 @@ public class CheckInController implements Initializable {
             try{
                 selected = OccupantBox.getSelectionModel().getSelectedIndex();
             }catch (Exception ignored){}
+            if(selected < 0){
+                return;
+            }
             Map<String,String> person;
             person = People.get(selected);
             FName.setText(person.get("FName"));
@@ -354,7 +364,9 @@ public class CheckInController implements Initializable {
         Phone.setDisable(false);
         Address.setDisable(false);
         OccupantBox.setItems(null);
+        OccupantBox.setVisible(false);
         TotOccupants.setText("0");
+        SaveBut.setText("Save");
         RoomNo.setText("");
         Days.setText("0");
         RmName.setText("");

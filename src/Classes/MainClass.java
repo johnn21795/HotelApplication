@@ -240,7 +240,7 @@ public class MainClass {
         }
         return x;
     }
-    public static int getInt(String sql, String Column,boolean isOffline) throws Exception {
+    public static int getInt(String sql, String Column) throws Exception {
         Connection con;
         con  =ConnectDB.Main();
         PreparedStatement ps = con.prepareStatement(sql);
@@ -405,8 +405,6 @@ public class MainClass {
     public static boolean InsertReceipt(ObservableList<String> data, ObservableList<Map<String, String>> occupants) {
         String sql = "INSERT INTO Receipts (Date,Name,Phone,Address,isAdult,Gender,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate,CheckedOutTime,Occupants,Days,Rate,Total,Paid,Method,Balance) " +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?); ";
-        String sql2 = "INSERT INTO Occupants (Date,Name,Phone,Receipt,Address,,,IsAdult,Gender,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate,CheckOutTime,Days " +
-                "VALUES ( ) ";
         boolean isSuccessful = false;
         try {
             Connection con = ConnectDB.Main();
@@ -455,7 +453,7 @@ public class MainClass {
                     ps = con.prepareStatement(sql);
                     ps.setObject(1, data.get(0));
                     ps.setObject(2, MainClass.returnTitleCase(occupant.get("FName") + " " + MainClass.returnTitleCase(occupant.get("LName"))));
-                    ps.setObject(3,Objects.equals(occupant.get("Phone"), "") ? data.get(3) : occupant.get("Phone"));
+                    ps.setObject(3,Objects.equals(occupant.get("Phone"), "") ? data.get(2) : occupant.get("Phone"));
                     ps.setObject(4, Objects.equals(occupant.get("Address"), "") ? data.get(3) : occupant.get("Address"));
                     ps.setObject(5, occupant.get("isAdult"));
                     ps.setObject(6, occupant.get("Gender"));
@@ -501,7 +499,10 @@ public class MainClass {
     }
 
     public static Map<String, String> getCheckOutData(String name, int room) throws  Exception {
-        String sql = "SELECT Name,Phone,Address,Gender,isAdult,Room,Days,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,Receipt FROM CheckIns WHERE Name = '"+name+"' AND Room = "+room+"";
+        String sql = "SELECT Name,Phone,Address,Gender,isAdult,Room,Days,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,Receipt FROM Occupants WHERE CheckedOutDate = 'NO' AND  Name = '"+name+"' AND Room = "+room+"";
+        if(name.equalsIgnoreCase("")){
+            sql = "SELECT Name,Phone,Address,Gender,isAdult,Room,Days,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,Receipt FROM Occupants WHERE CheckedOutDate = 'NO' AND Room = "+room+"";
+        }
 
         String sql2 = "SELECT Name,Type,Rate FROM RoomList WHERE Number = "+room+" ";
 
@@ -556,21 +557,24 @@ public class MainClass {
         return Data;
     }
 
+
+
     public static boolean InsertPayment(ObservableList<String> data) throws Exception {
         boolean isSuccessful = false;
         try {
-            String sql = "INSERT INTO Receipts (Date,Receipt,Name,Room,Time,Total,Paid,Balance,Method) VALUES(?,?,?,?,?,?,?,?,?)";
+            String sql;
             Connection con = ConnectDB.Main();
+            sql = "INSERT INTO Payments (Date,Receipt,Name,Room,Time,Total,Paid,Balance,Method) VALUES(?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setObject(1, data.get(0));
-            ps.setObject(2, data.get(1));
-            ps.setObject(3, data.get(2));
-            ps.setObject(4, data.get(3));
-            ps.setObject(5, data.get(4));
-            ps.setObject(7, data.get(5));
-            ps.setObject(8, data.get(7));
-            ps.setObject(9, data.get(8));
-            ps.setObject(10, data.get(9));
+            ps.setObject(2, data.get(20));
+            ps.setObject(3, data.get(1));
+            ps.setObject(4, data.get(6));
+            ps.setObject(5, data.get(8));
+            ps.setObject(6, data.get(16));
+            ps.setObject(7, data.get(17));
+            ps.setObject(8, data.get(19));
+            ps.setObject(9, data.get(18));
             ps.execute();
             ps.close();
             isSuccessful = true;
@@ -645,12 +649,12 @@ public class MainClass {
 
     public static boolean setCheckOut(String name, int room) throws Exception{
         boolean isSuccessful = false;
+        Connection con = ConnectDB.Main();
         try {
             String sql = "UPDATE Checkins SET CheckedOutDate = ? , CheckedOutTime = ? WHERE Name = ? AND  Room = ?";
             System.out.println(sql);
             String Date = LocalDate.now().format(MainClass.DatabaseDateFormat);
             String Time = LocalTime.now().format(MainClass.timeFormatter);
-            Connection con = ConnectDB.Main();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setObject(1, Date);
             ps.setObject(2, Time);
@@ -677,8 +681,10 @@ public class MainClass {
             ps.setObject(2, Time);
             ps.setObject(3, room);
             ps.execute();
+            con.close();
             isSuccessful = true;
         } catch (Exception e) {
+            con.close();
 e.printStackTrace();
         }
 

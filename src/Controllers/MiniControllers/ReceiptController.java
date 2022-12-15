@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
@@ -50,22 +51,16 @@ public class ReceiptController implements Initializable {
     public Label RNo;
     public Label CheckOut;
     public JFXButton SaveBut;
+    public Label ViewAll;
 
     ObservableList<String> MainData = FXCollections.observableArrayList();
     ObservableList<Map<String, String>> Occupants = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("Init");
         rootPane.getStylesheets().remove(0);
         rootPane.getStylesheets().add("file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/currentTheme.css");
 
-
-
-    }
-
-    private void LoadUI() {
-        System.out.println("Load UI");
     }
 
     public void actionEvent(ActionEvent event) {
@@ -73,7 +68,6 @@ public class ReceiptController implements Initializable {
     }
 
     public void getData(ObservableList<String> data, ObservableList<Map<String, String>> people) {
-        System.out.println("Get Data");
         MainData = data;
         Occupants = people;
         this.RNo.setText(MainData.get(0));
@@ -174,7 +168,7 @@ public class ReceiptController implements Initializable {
 
         File temp =  new File(System.getProperty("user.home") + "/ReceiptTemp.xlsx");
         Files.copy(new File(System.getProperty("user.home") + "/Receipt.xlsx").toPath(), temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
-         workbook = new XSSFWorkbook(temp);
+         workbook = new XSSFWorkbook(OPCPackage.openOrCreate(temp));
 
         sheet = workbook.getSheetAt(0);
 
@@ -282,7 +276,7 @@ public class ReceiptController implements Initializable {
         destination.mkdir();
         FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + "/MyReceipt.xlsx");
         workbook.write(outputStream);
-        workbook.close();
+//        workbook.close();
         if (outputStream != null) {
             try {
                 outputStream.close();

@@ -2,44 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fab60dd8-eb7c-4c60-b32b-122cb20be9a8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HotelApplication.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Classes/ConnectDB.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Classes/MainClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Classes/MainConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Classes/ModelClassLarge.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controllers/CheckInController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controllers/CheckOutController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controllers/LoginController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controllers/MainPanelController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controllers/MiniControllers/EditRoomController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controllers/MiniControllers/ReceiptController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controllers/RecordsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controllers/RoomListController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controllers/ServicesController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controllers/SettingsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controllers/Splashcontroller.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controllers/SummaryController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MainPanes/CheckIn.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MainPanes/CheckOut.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MainPanes/Login.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MainPanes/MainPane.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MainPanes/MainStyle.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MainPanes/Records.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MainPanes/RoomList.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MainPanes/Services.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MainPanes/Settings.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MainPanes/Splash.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MainPanes/Summary.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Raw/Receipt.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Start.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SubPanes/EditRoom.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SubPanes/Receipt.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controllers/MiniControllers/CheckoutController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controllers/MiniControllers/checkOut.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/SubPanes/Checkout.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/MainClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Classes/MainClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/CheckInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/CheckInController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/CheckOutController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/CheckOutController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/MainPanelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/MainPanelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/MiniControllers/EditRoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/MiniControllers/EditRoomController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/MiniControllers/ReceiptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/MiniControllers/ReceiptController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/RecordsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/RecordsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/RoomListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/RoomListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainPanes/CheckOut.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainPanes/CheckOut.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainPanes/Records.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainPanes/Records.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainPanes/RoomList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainPanes/RoomList.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SubPanes/Receipt.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/SubPanes/Receipt.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,18 +48,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Java Projects/HotelApplication/src/Classes",
-    "project.structure.last.edited": "Global Libraries",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Java Projects/HotelApplication/src/Classes&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Java Projects\HotelApplication\src\Classes" />

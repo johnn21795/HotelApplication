@@ -11,6 +11,7 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -130,14 +131,46 @@ public class RecordsController implements Initializable {
     public void keyEvent(KeyEvent keyEvent) {
     }
 
-    public void mouseEvent(MouseEvent mouseEvent) {
+    public void mouseEvent(MouseEvent mouseEvent) throws Exception {
+        if(mouseEvent.getSource().equals(CheckInTable)){
+            ObservableList<ModelClassLarge>Data =FXCollections.observableArrayList();
+            if(mouseEvent.isShiftDown()){
+                Data = MainClass.FillTableLarge(11, "SELECT Date,Receipt,Name,Phone,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime, CheckedOutDate, CheckedOutTime FROM CheckIns ");
+            }
+            if(mouseEvent.getClickCount() > 1){
+                int Receipt = Integer.parseInt(CheckInTable.getSelectionModel().getSelectedItem().getCol2());
+                int Guests = MainClass.getInt("SELECT Occupants FROM Receipts WHERE Receipt = "+Receipt+" ", "Occupants");
+                if(Guests > 1){
+                    Data = MainClass.FillTableLarge(11, "SELECT Date,Receipt,Name,Phone,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime, CheckedOutDate, CheckedOutTime FROM Occupants WHERE Receipt = "+Receipt+"");
+                }else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Single Check-in");
+                    alert.showAndWait();
+                    return;
+                }
+
+            }
+            if(!Data.isEmpty()){
+                for(ModelClassLarge m : Data){
+                    String checkIn = MainClass.returnDate3Format(LocalDate.parse(m.getCol6(), MainClass.DatabaseDateFormat)) +"  "+m.getCol7();
+                    String checkOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol8(), MainClass.DatabaseDateFormat)) +"  "+m.getCol9();
+                    m.setCol1( LocalDate.parse(m.getCol1(), MainClass.DatabaseDateFormat).format(MainClass.UIDateFormat));
+                    m.setCol4( "0"+m.getCol4());
+                    m.setCol6(checkIn);
+                    m.setCol7(checkOut);
+                    if(!m.getCol10().equalsIgnoreCase("NO")){
+                        String checkedOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol10(), MainClass.DatabaseDateFormat)) +"  "+m.getCol11();
+                        m.setCol10(checkedOut);
+                    }
+                }
+                LoadCheckInTable(Data);
+            }
+
+
+        }
     }
 
-    public void dragStart(MouseEvent mouseEvent) {
-    }
-
-    public void dragAction(MouseEvent mouseEvent) {
-    }
 
     public void FirstLoad() {
         final ObservableList<ModelClassLarge>[] Data = new ObservableList[]{FXCollections.observableArrayList(),FXCollections.observableArrayList(),FXCollections.observableArrayList(),FXCollections.observableArrayList()};
@@ -149,8 +182,7 @@ public class RecordsController implements Initializable {
                     public Void call() {
                         System.out.println("Loading Room Table");
                         try {
-
-                            Data[1] = MainClass.FillTableLarge(10, "SELECT Date,Receipt,Name,Phone,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime, CheckedOutDate FROM CheckIns ");
+                            Data[1] = MainClass.FillTableLarge(11, "SELECT Date,Receipt,Name,Phone,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime, CheckedOutDate, CheckedOutTime FROM CheckIns ");
                             Data[2] = MainClass.FillTableLarge(9, "SELECT Date,Receipt,Name,Room,Time,Total,Paid,Balance,Method FROM Payments ");
                             Data[3] = MainClass.FillTableLarge(20, "SELECT Date,Receipt,Name,Phone,Address,isAdult,Gender,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate,CheckedOutTime,Occupants,Days,Rate,Total,Paid,Method,Balance FROM Receipts ");
                             Data[0] = MainClass.FillTableLarge(8, "SELECT Number,Status,TimesBooked,DaysBooked,Rate,TotalAmount,CheckInDate || ' ' ||CheckInTime as CheckedIn,Name FROM RoomList  ");
@@ -166,6 +198,10 @@ public class RecordsController implements Initializable {
                                 m.setCol4( "0"+m.getCol4());
                                 m.setCol6(checkIn);
                                 m.setCol7(checkOut);
+                                if(!m.getCol10().equalsIgnoreCase("NO")){
+                                    String checkedOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol10(), MainClass.DatabaseDateFormat)) +"  "+m.getCol11();
+                                    m.setCol10(checkedOut);
+                                }
                             }
                             for(ModelClassLarge m : Data[2]){
                                 m.setCol1( LocalDate.parse(m.getCol1(), MainClass.DatabaseDateFormat).format(MainClass.UIDateFormat));
@@ -233,8 +269,6 @@ public class RecordsController implements Initializable {
         keepAlive.restart();
     }
 
-
-
     public void LoadRoomTable(ObservableList<ModelClassLarge> data)throws Exception   {
         RoomTable.setItems(null);
         NoCol4.setCellValueFactory(new PropertyValueFactory<>("Id"));
@@ -247,7 +281,6 @@ public class RecordsController implements Initializable {
         CheckInCol4.setCellValueFactory(new PropertyValueFactory<>("col7"));
         RoomNameCol4.setCellValueFactory(new PropertyValueFactory<>("col8"));
         RoomTable.setItems(data);
-
     }
     public void LoadCheckInTable(ObservableList<ModelClassLarge> data)throws Exception   {
         CheckInTable.setItems(null);

@@ -100,6 +100,8 @@ public class MainPanelController implements Initializable {
     public static boolean isOfflineDatabaseSet = false;
     public static boolean isOfflineDatabaseConnected = false;
 
+    public static boolean checkIn = false;
+
     Splashcontroller splashcontroller = new Splashcontroller();
 
 
@@ -228,17 +230,26 @@ public class MainPanelController implements Initializable {
                    MyTime = (""+ LocalTime.now().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)));
                    while(true){
                        updateMessage(""+LocalTime.now().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)));
+                       if(checkIn){
+                           break;
+                       }
                        Thread.sleep(1000);
                    }
+                   return null;
                    }
             };   
         }
     
     };
-     Timeservice.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
-        @Override
-        public void handle(WorkerStateEvent event){
-         } });
+     Timeservice.setOnSucceeded(event -> {
+         try {
+             MainNav(Mpanes.get(2) );
+             checkIn =false;
+             TimeService();
+         } catch (Exception e) {
+             throw new RuntimeException(e);
+         }
+     });
      MainTime.textProperty().bind(Timeservice.messageProperty());
             Timeservice.restart();
              

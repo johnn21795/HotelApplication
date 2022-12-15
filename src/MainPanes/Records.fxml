@@ -21,7 +21,7 @@
                      <children>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <TableView fx:id="CheckInTable" editable="true" layoutX="29.0" layoutY="52.0" onDragDetected="#dragStart" onKeyReleased="#keyEvent" onMouseClicked="#mouseEvent" onMouseDragged="#dragAction" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
+                              <TableView fx:id="CheckInTable" editable="true" layoutX="29.0" layoutY="52.0"   onMouseClicked="#mouseEvent" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
                                  <columns>
                                     <TableColumn fx:id="NoCol1" prefWidth="50" text="No" />
                                     <TableColumn fx:id="DateCol1" prefWidth="100" text="Date" />
@@ -68,7 +68,7 @@
                      <children>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <TableView fx:id="PaymentsTable" editable="true" layoutX="29.0" layoutY="52.0" onDragDetected="#dragStart" onKeyReleased="#keyEvent" onMouseClicked="#mouseEvent" onMouseDragged="#dragAction" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
+                              <TableView fx:id="PaymentsTable" editable="true" layoutX="29.0" layoutY="52.0"  onMouseClicked="#mouseEvent"  prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
                                  <columns>
                                     <TableColumn fx:id="NoCol2" prefWidth="50" text="No" />
                                     <TableColumn fx:id="DateCol2" prefWidth="90.0" text="Date" />
@@ -115,7 +115,7 @@
                      <children>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <TableView fx:id="ReceiptTable" editable="true" layoutX="29.0" layoutY="52.0" onDragDetected="#dragStart" onKeyReleased="#keyEvent" onMouseClicked="#mouseEvent" onMouseDragged="#dragAction" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
+                              <TableView fx:id="ReceiptTable" editable="true" layoutX="29.0" layoutY="52.0" onMouseClicked="#mouseEvent" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
                                  <columns>
                                     <TableColumn fx:id="NoCol3" prefWidth="37.0" text="No"/>
                                     <TableColumn fx:id="DateCol3" prefWidth="90.0" text="Date"/>
@@ -129,7 +129,7 @@
                                     <TableColumn fx:id="CheckInCol3" prefWidth="160.0" text="Checked In"/>
                                     <TableColumn fx:id="CheckOutCol3" prefWidth="150.0" text="To Check Out" visible="false"/>
                                     <TableColumn fx:id="isCheckOutCol3" prefWidth="117.0" text="CheckedOut"/>
-                                    <TableColumn fx:id="OccupantsCol3" prefWidth="86.0" text="Occupants"/>
+                                    <TableColumn fx:id="OccupantsCol3" prefWidth="86.0" text="Guests"/>
                                     <TableColumn fx:id="DaysCol3" minWidth="1.0" prefWidth="82.0" text="Days"/>
                                     <TableColumn fx:id="TotalCol3" minWidth="1.0" prefWidth="104.0" text="Total"/>
                                     <TableColumn fx:id="PaidCol3" minWidth="1.0" prefWidth="105.0" text="Paid"/>
@@ -169,7 +169,7 @@
                      <children>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <TableView fx:id="RoomTable" editable="true" layoutX="29.0" layoutY="52.0" onDragDetected="#dragStart" onKeyReleased="#keyEvent" onMouseClicked="#mouseEvent" onMouseDragged="#dragAction" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
+                              <TableView fx:id="RoomTable" editable="true" layoutX="29.0" layoutY="52.0"  onMouseClicked="#mouseEvent"  prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
                                  <columns>
                                     <TableColumn fx:id="NoCol4" prefWidth="50" text="No" />
                                     <TableColumn fx:id="RoomCol4" prefWidth="102.0" text="Room No." />
