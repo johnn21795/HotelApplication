@@ -75,8 +75,8 @@ public class MainPanelController implements Initializable {
 
 
     Alert alert;
-    static String currentStyle = "file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/currentTheme.css";
-    static File currentStyleFile = new File(System.getProperty("user.home") + "/currentTheme.css");
+    static String currentStyle = "file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/MainStyle.css";
+    static File currentStyleFile = new File(System.getProperty("user.home") + "/MainStyle.css");
     /**
      * Initializes the controller class.
      */
@@ -109,7 +109,7 @@ public class MainPanelController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             rootPane.getStylesheets().remove(0);
-            rootPane.getStylesheets().add("file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/currentTheme.css");
+            rootPane.getStylesheets().add("file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/MainStyle.css");
             try {
                 Image img = new Image("file:\\"+FileLocation);
                 BackgroundSize size = new BackgroundSize(1.0, 1.0, true, true, true, true );

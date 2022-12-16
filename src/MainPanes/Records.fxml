@@ -5,6 +5,8 @@
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -13,15 +15,15 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.RecordsController">
    <children>
-      <JFXTabPane prefHeight="593.0" prefWidth="1015.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <JFXTabPane fx:id="RecordsTab" prefHeight="593.0" prefWidth="1015.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <tabs>
-            <Tab closable="false" text="Check-Ins">
+            <Tab fx:id="CheckInTab" closable="false" text="Check-Ins">
                <content>
                   <AnchorPane prefHeight="542.0" prefWidth="1151.0">
                      <children>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <TableView fx:id="CheckInTable" editable="true" layoutX="29.0" layoutY="52.0"   onMouseClicked="#mouseEvent" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
+                              <TableView fx:id="CheckInTable" editable="true" layoutX="29.0" layoutY="52.0" onMouseClicked="#mouseEvent" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
                                  <columns>
                                     <TableColumn fx:id="NoCol1" prefWidth="50" text="No" />
                                     <TableColumn fx:id="DateCol1" prefWidth="100" text="Date" />
@@ -48,8 +50,8 @@
                                           <Insets left="30.0" right="30.0" />
                                        </HBox.margin>
                                     </JFXButton>
-                                    <JFXDatePicker fx:id="StartDate1" promptText="Start Date" />
-                                    <JFXDatePicker fx:id="EndDate1" layoutX="869.0" layoutY="10.0" promptText="End Date">
+                                    <JFXDatePicker fx:id="StartDate1" onAction="#actionEvent" promptText="Start Date" />
+                                    <JFXDatePicker fx:id="EndDate1" layoutX="869.0" layoutY="10.0" onAction="#actionEvent" promptText="End Date">
                                        <HBox.margin>
                                           <Insets left="50.0" right="80.0" />
                                        </HBox.margin>
@@ -68,7 +70,7 @@
                      <children>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <TableView fx:id="PaymentsTable" editable="true" layoutX="29.0" layoutY="52.0"  onMouseClicked="#mouseEvent"  prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
+                              <TableView fx:id="PaymentsTable" editable="true" layoutX="29.0" layoutY="52.0" onMouseClicked="#mouseEvent" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
                                  <columns>
                                     <TableColumn fx:id="NoCol2" prefWidth="50" text="No" />
                                     <TableColumn fx:id="DateCol2" prefWidth="90.0" text="Date" />
@@ -82,6 +84,17 @@
                                     <TableColumn fx:id="MethodCol2" prefWidth="147.0" text="Method" />
 
                                  </columns>
+                                 <contextMenu>
+                                    <ContextMenu>
+                                      <items>
+                                        <MenuItem mnemonicParsing="false">
+                                             <graphic>
+                                                <JFXButton fx:id="Summary" onAction="#actionEvent" text="Summary" />
+                                             </graphic>
+                                          </MenuItem>
+                                      </items>
+                                    </ContextMenu>
+                                 </contextMenu>
                               </TableView>
                               <HBox layoutX="4.0" layoutY="13.0" prefHeight="31.0" prefWidth="1134.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="11.0">
                                  <children>
@@ -95,8 +108,8 @@
                                           <Insets left="30.0" right="30.0" />
                                        </HBox.margin>
                                     </JFXButton>
-                                    <JFXDatePicker fx:id="StartDate2" promptText="Start Date" />
-                                    <JFXDatePicker fx:id="EndDate2" layoutX="869.0" layoutY="10.0" promptText="End Date">
+                                    <JFXDatePicker fx:id="StartDate2"  onAction="#actionEvent" promptText="Start Date" />
+                                    <JFXDatePicker fx:id="EndDate2"  onAction="#actionEvent" layoutX="869.0" layoutY="10.0" promptText="End Date">
                                        <HBox.margin>
                                           <Insets left="50.0" right="80.0" />
                                        </HBox.margin>
@@ -117,25 +130,41 @@
                            <children>
                               <TableView fx:id="ReceiptTable" editable="true" layoutX="29.0" layoutY="52.0" onMouseClicked="#mouseEvent" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
                                  <columns>
-                                    <TableColumn fx:id="NoCol3" prefWidth="37.0" text="No"/>
-                                    <TableColumn fx:id="DateCol3" prefWidth="90.0" text="Date"/>
-                                    <TableColumn fx:id="ReceiptCol3" prefWidth="70.0" text="Receipt"/>
-                                    <TableColumn fx:id="NameCol3" prefWidth="112.0" text="Name"/>
-                                    <TableColumn fx:id="PhoneCol3" prefWidth="60.0" text="Phone"/>
-                                    <TableColumn fx:id="AddressCol3" prefWidth="96.0" text="Address" visible="false"/>
-                                    <TableColumn fx:id="AdultCol3" prefWidth="146.0" text="Adult" visible="false"/>
-                                    <TableColumn fx:id="GenderCol3" prefWidth="63.0" text="Gender" visible="false"/>
-                                    <TableColumn fx:id="RoomCol3" prefWidth="66.0" text="Room"/>
-                                    <TableColumn fx:id="CheckInCol3" prefWidth="160.0" text="Checked In"/>
-                                    <TableColumn fx:id="CheckOutCol3" prefWidth="150.0" text="To Check Out" visible="false"/>
-                                    <TableColumn fx:id="isCheckOutCol3" prefWidth="117.0" text="CheckedOut"/>
-                                    <TableColumn fx:id="OccupantsCol3" prefWidth="86.0" text="Guests"/>
-                                    <TableColumn fx:id="DaysCol3" minWidth="1.0" prefWidth="82.0" text="Days"/>
-                                    <TableColumn fx:id="TotalCol3" minWidth="1.0" prefWidth="104.0" text="Total"/>
-                                    <TableColumn fx:id="PaidCol3" minWidth="1.0" prefWidth="105.0" text="Paid"/>
-                                    <TableColumn fx:id="BalanceCol3" minWidth="1.0" prefWidth="116.0" text="Balance" visible="false"/>
-                                    <TableColumn fx:id="MethodCol3" minWidth="1.0" prefWidth="105.0" text="Paid Via"/>
+                                    <TableColumn fx:id="NoCol3" prefWidth="37.0" text="No" />
+                                    <TableColumn fx:id="DateCol3" prefWidth="90.0" text="Date" />
+                                    <TableColumn fx:id="ReceiptCol3" prefWidth="70.0" text="Receipt" />
+                                    <TableColumn fx:id="NameCol3" prefWidth="112.0" text="Name" />
+                                    <TableColumn fx:id="PhoneCol3" prefWidth="60.0" text="Phone" />
+                                    <TableColumn fx:id="AddressCol3" prefWidth="96.0" text="Address" visible="false" />
+                                    <TableColumn fx:id="AdultCol3" prefWidth="146.0" text="Adult" visible="false" />
+                                    <TableColumn fx:id="GenderCol3" prefWidth="63.0" text="Gender" visible="false" />
+                                    <TableColumn fx:id="RoomCol3" prefWidth="66.0" text="Room" />
+                                    <TableColumn fx:id="CheckInCol3" prefWidth="160.0" text="Checked In" />
+                                    <TableColumn fx:id="CheckOutCol3" prefWidth="150.0" text="To Check Out" visible="false" />
+                                    <TableColumn fx:id="isCheckOutCol3" prefWidth="117.0" text="CheckedOut" />
+                                    <TableColumn fx:id="OccupantsCol3" prefWidth="86.0" text="Guests" />
+                                    <TableColumn fx:id="DaysCol3" minWidth="1.0" prefWidth="82.0" text="Days" />
+                                    <TableColumn fx:id="TotalCol3" minWidth="1.0" prefWidth="104.0" text="Total" />
+                                    <TableColumn fx:id="PaidCol3" minWidth="1.0" prefWidth="105.0" text="Paid" />
+                                    <TableColumn fx:id="BalanceCol3" minWidth="1.0" prefWidth="116.0" text="Balance" visible="false" />
+                                    <TableColumn fx:id="MethodCol3" minWidth="1.0" prefWidth="105.0" text="Paid Via" />
                                  </columns>
+                                 <contextMenu>
+                                    <ContextMenu>
+                                      <items>
+                                        <MenuItem mnemonicParsing="false">
+                                             <graphic>
+                                                <JFXButton fx:id="ShowGuests" onAction="#actionEvent" text="Show Guests" />
+                                             </graphic>
+                                          </MenuItem>
+                                          <MenuItem mnemonicParsing="false">
+                                             <graphic>
+                                                <JFXButton fx:id="ShowReceipt" onAction="#actionEvent" text="Show Receipt" />
+                                             </graphic>
+                                          </MenuItem>
+                                      </items>
+                                    </ContextMenu>
+                                 </contextMenu>
                               </TableView>
                               <HBox layoutX="31.0" layoutY="14.0" prefHeight="31.0" prefWidth="1134.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="15.0">
                                  <children>
@@ -149,8 +178,8 @@
                                           <Insets left="30.0" right="30.0" />
                                        </HBox.margin>
                                     </JFXButton>
-                                    <JFXDatePicker fx:id="StartDate3" promptText="Start Date" />
-                                    <JFXDatePicker fx:id="EndDate3" layoutX="869.0" layoutY="10.0" promptText="End Date">
+                                    <JFXDatePicker fx:id="StartDate3"  onAction="#actionEvent" promptText="Start Date" />
+                                    <JFXDatePicker fx:id="EndDate3"  onAction="#actionEvent" layoutX="869.0" layoutY="10.0" promptText="End Date">
                                        <HBox.margin>
                                           <Insets left="50.0" right="80.0" />
                                        </HBox.margin>
@@ -169,11 +198,11 @@
                      <children>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <TableView fx:id="RoomTable" editable="true" layoutX="29.0" layoutY="52.0"  onMouseClicked="#mouseEvent"  prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
+                              <TableView fx:id="RoomTable" editable="true" layoutX="29.0" layoutY="52.0" onMouseClicked="#mouseEvent" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
                                  <columns>
                                     <TableColumn fx:id="NoCol4" prefWidth="50" text="No" />
                                     <TableColumn fx:id="RoomCol4" prefWidth="102.0" text="Room No." />
-                                    <TableColumn fx:id="RoomNameCol4" prefWidth="102.0" text="Room"  />
+                                    <TableColumn fx:id="RoomNameCol4" prefWidth="102.0" text="Room" />
                                     <TableColumn fx:id="StatusCol4" prefWidth="136.0" text="Status" />
                                     <TableColumn fx:id="TimesCol4" prefWidth="167.0" text="Times Booked" />
                                     <TableColumn fx:id="TotalDaysCol" prefWidth="145.0" text="Total Days Booked" />
@@ -184,26 +213,26 @@
                                     <TableColumn fx:id="isCheckOutCol4" prefWidth="94.0" text="CheckedOut" visible="false" />
                                  </columns>
                               </TableView>
-                              <TableView fx:id="ReceiptTable5" visible="false" editable="true" layoutX="29.0" layoutY="52.0" onMouseClicked="#mouseEvent" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
+                              <TableView fx:id="ReceiptTable5" editable="true" layoutX="29.0" layoutY="52.0" onMouseClicked="#mouseEvent" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" visible="false" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
                                  <columns>
-                                    <TableColumn fx:id="NoCol5" prefWidth="37.0" text="No"/>
-                                    <TableColumn fx:id="DateCol5" prefWidth="90.0" text="Date"/>
-                                    <TableColumn fx:id="ReceiptCol5" prefWidth="70.0" text="Receipt"/>
-                                    <TableColumn fx:id="NameCol5" prefWidth="112.0" text="Name"/>
-                                    <TableColumn fx:id="PhoneCol5" prefWidth="60.0" text="Phone"/>
-                                    <TableColumn fx:id="AddressCol5" prefWidth="96.0" text="Address" visible="false"/>
-                                    <TableColumn fx:id="AdultCol5" prefWidth="146.0" text="Adult" visible="false"/>
-                                    <TableColumn fx:id="GenderCol5" prefWidth="63.0" text="Gender" visible="false"/>
-                                    <TableColumn fx:id="RoomCol5" prefWidth="66.0" text="Room"/>
-                                    <TableColumn fx:id="CheckInCol5" prefWidth="160.0" text="Checked In"/>
-                                    <TableColumn fx:id="CheckOutCol5" prefWidth="150.0" text="To Check Out" visible="false"/>
-                                    <TableColumn fx:id="isCheckOutCol5" prefWidth="117.0" text="CheckedOut"/>
-                                    <TableColumn fx:id="OccupantsCol5" prefWidth="86.0" text="Guests"/>
-                                    <TableColumn fx:id="DaysCol5" minWidth="1.0" prefWidth="82.0" text="Days"/>
-                                    <TableColumn fx:id="TotalCol5" minWidth="1.0" prefWidth="104.0" text="Total"/>
-                                    <TableColumn fx:id="PaidCol5" minWidth="1.0" prefWidth="105.0" text="Paid"/>
-                                    <TableColumn fx:id="BalanceCol5" minWidth="1.0" prefWidth="116.0" text="Balance" visible="false"/>
-                                    <TableColumn fx:id="MethodCol5" minWidth="1.0" prefWidth="105.0" text="Paid Via"/>
+                                    <TableColumn fx:id="NoCol5" prefWidth="37.0" text="No" />
+                                    <TableColumn fx:id="DateCol5" prefWidth="90.0" text="Date" />
+                                    <TableColumn fx:id="ReceiptCol5" prefWidth="70.0" text="Receipt" />
+                                    <TableColumn fx:id="NameCol5" prefWidth="112.0" text="Name" />
+                                    <TableColumn fx:id="PhoneCol5" prefWidth="60.0" text="Phone" />
+                                    <TableColumn fx:id="AddressCol5" prefWidth="96.0" text="Address" visible="false" />
+                                    <TableColumn fx:id="AdultCol5" prefWidth="146.0" text="Adult" visible="false" />
+                                    <TableColumn fx:id="GenderCol5" prefWidth="63.0" text="Gender" visible="false" />
+                                    <TableColumn fx:id="RoomCol5" prefWidth="66.0" text="Room" />
+                                    <TableColumn fx:id="CheckInCol5" prefWidth="160.0" text="Checked In" />
+                                    <TableColumn fx:id="CheckOutCol5" prefWidth="150.0" text="To Check Out" visible="false" />
+                                    <TableColumn fx:id="isCheckOutCol5" prefWidth="117.0" text="CheckedOut" />
+                                    <TableColumn fx:id="OccupantsCol5" prefWidth="86.0" text="Guests" />
+                                    <TableColumn fx:id="DaysCol5" minWidth="1.0" prefWidth="82.0" text="Days" />
+                                    <TableColumn fx:id="TotalCol5" minWidth="1.0" prefWidth="104.0" text="Total" />
+                                    <TableColumn fx:id="PaidCol5" minWidth="1.0" prefWidth="105.0" text="Paid" />
+                                    <TableColumn fx:id="BalanceCol5" minWidth="1.0" prefWidth="116.0" text="Balance" visible="false" />
+                                    <TableColumn fx:id="MethodCol5" minWidth="1.0" prefWidth="105.0" text="Paid Via" />
                                  </columns>
                               </TableView>
                               <HBox layoutX="31.0" layoutY="14.0" prefHeight="31.0" prefWidth="1134.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="15.0">
@@ -218,8 +247,8 @@
                                           <Insets left="30.0" right="30.0" />
                                        </HBox.margin>
                                     </JFXButton>
-                                    <JFXDatePicker fx:id="StartDate4" promptText="Start Date" />
-                                    <JFXDatePicker fx:id="EndDate4" layoutX="869.0" layoutY="10.0" promptText="End Date">
+                                    <JFXDatePicker fx:id="StartDate4"  onAction="#actionEvent" promptText="Start Date" />
+                                    <JFXDatePicker fx:id="EndDate4"  onAction="#actionEvent" layoutX="869.0" layoutY="10.0" promptText="End Date">
                                        <HBox.margin>
                                           <Insets left="50.0" right="80.0" />
                                        </HBox.margin>

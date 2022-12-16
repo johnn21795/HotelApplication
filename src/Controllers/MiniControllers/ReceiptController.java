@@ -1,8 +1,7 @@
 package Controllers.MiniControllers;
 
 import Classes.MainClass;
-import Controllers.RecordsController;
-import Controllers.RoomListController;
+import Classes.ModelClassLarge;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +11,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -26,7 +24,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -59,7 +56,7 @@ public class ReceiptController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         rootPane.getStylesheets().remove(0);
-        rootPane.getStylesheets().add("file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/currentTheme.css");
+        rootPane.getStylesheets().add("file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/MainStyle.css");
 
     }
 
@@ -82,6 +79,24 @@ public class ReceiptController implements Initializable {
         this.Paid.setText(MainData.get(10));
         this.Balance.setText(MainData.get(11));
         this.CheckOut.setText(MainClass.returnDate3Format(LocalDate.parse(MainData.get(12), MainClass.DatabaseDateFormat))+"  "+ MainData.get(13));
+    }
+
+    public void fetchData(int Receipt)throws Exception{
+        this.SaveBut.setVisible(false);
+        this.PrintBut.setVisible(false);
+        ObservableList<ModelClassLarge>  Data = MainClass.FillTableLarge(20, "SELECT Date,Receipt,Name,Phone,Address,isAdult,Gender,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate,CheckedOutTime,Occupants,Days,Rate,Total,Paid,Balance,Method FROM Receipts WHERE Receipt ="+Receipt+" ");
+        this.RNo.setText(String.valueOf(Data.get(0).getCol2()));
+        this.Date.setText(String.valueOf(Data.get(0).getCol1()));
+        this.Time.setText(String.valueOf(Data.get(0).getCol10()));
+        this.Name.setText(String.valueOf(Data.get(0).getCol3()));
+        this.Phone.setText(String.valueOf(Data.get(0).getCol4()));
+        this.Room.setText(String.valueOf(Data.get(0).getCol8()));
+        this.People.setText(String.valueOf(Data.get(0).getCol15()));
+        this.Days.setText(String.valueOf(Data.get(0).getCol16()));
+        this.Amount.setText(String.valueOf(Data.get(0).getCol18()));
+        this.Paid.setText(String.valueOf(Data.get(0).getCol19()));
+        this.Balance.setText(String.valueOf(Data.get(0).getCol20()));
+        this.CheckOut.setText(MainClass.returnDate3Format(LocalDate.parse(String.valueOf( Data.get(0).getCol13()), MainClass.DatabaseDateFormat))+"  "+ Data.get(0).getCol14());
     }
 
     public void saveReceipt() throws Exception {

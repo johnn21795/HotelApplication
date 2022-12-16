@@ -2,24 +2,34 @@ package Controllers;
 
 import Classes.MainClass;
 import Classes.ModelClassLarge;
+import Controllers.MiniControllers.PaySummaryController;
+import Controllers.MiniControllers.ReceiptController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class RecordsController implements Initializable {
@@ -120,6 +130,11 @@ public class RecordsController implements Initializable {
 
     public TableColumn<ModelClassLarge, ?> BalanceCol5;
     public TableColumn<ModelClassLarge, ?> MethodCol5;
+    public JFXButton Summary;
+    public JFXButton ShowGuests;
+    public JFXButton ShowReceipt;
+    public Tab CheckInTab;
+    public JFXTabPane RecordsTab;
 
 
     public  RecordsController() {
@@ -137,6 +152,244 @@ public class RecordsController implements Initializable {
 
 
     public void actionEvent(ActionEvent actionEvent) throws Exception {
+        //check ins
+        if(actionEvent.getSource().equals(SearchBut1)){
+            ObservableList<ModelClassLarge> Data = MainClass.FillTableLarge(11, "SELECT Date,Receipt,Name,Phone,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime, CheckedOutDate, CheckedOutTime FROM Occupants ");
+            if(!Data.isEmpty()) {
+                for (ModelClassLarge m : Data) {
+                    String checkIn = MainClass.returnDate3Format(LocalDate.parse(m.getCol6(), MainClass.DatabaseDateFormat)) + "  " + m.getCol7();
+                    String checkOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol8(), MainClass.DatabaseDateFormat)) + "  " + m.getCol9();
+                    m.setCol1(LocalDate.parse(m.getCol1(), MainClass.DatabaseDateFormat).format(MainClass.UIDateFormat));
+                    m.setCol4("0" + m.getCol4());
+                    m.setCol6(checkIn);
+                    m.setCol7(checkOut);
+                    if (!m.getCol10().equalsIgnoreCase("NO")) {
+                        String checkedOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol10(), MainClass.DatabaseDateFormat)) + "  " + m.getCol11();
+                        m.setCol10(checkedOut);
+                    }
+                }
+            }
+            LoadCheckInTable(Data);
+        }
+        if(actionEvent.getSource().equals(StartDate1)){
+            try{
+                LocalDate endDate = EndDate1.getValue();
+                ObservableList<ModelClassLarge> Data = MainClass.FillTableLarge(11, "SELECT Date,Receipt,Name,Phone,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime, CheckedOutDate, CheckedOutTime FROM Occupants WHERE Date Between '"+StartDate1.getValue().format(MainClass.DatabaseDateFormat)+"' AND '"+endDate.format(MainClass.DatabaseDateFormat)+"' ");
+                if(!Data.isEmpty()) {
+                    for (ModelClassLarge m : Data) {
+                        String checkIn = MainClass.returnDate3Format(LocalDate.parse(m.getCol6(), MainClass.DatabaseDateFormat)) + "  " + m.getCol7();
+                        String checkOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol8(), MainClass.DatabaseDateFormat)) + "  " + m.getCol9();
+                        m.setCol1(LocalDate.parse(m.getCol1(), MainClass.DatabaseDateFormat).format(MainClass.UIDateFormat));
+                        m.setCol4("0" + m.getCol4());
+                        m.setCol6(checkIn);
+                        m.setCol7(checkOut);
+                        if (!m.getCol10().equalsIgnoreCase("NO")) {
+                            String checkedOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol10(), MainClass.DatabaseDateFormat)) + "  " + m.getCol11();
+                            m.setCol10(checkedOut);
+                        }
+                    }
+                }
+                LoadCheckInTable(Data);
+            }catch (Exception ignored){
+
+            }
+        }
+        if(actionEvent.getSource().equals(EndDate1)){
+            try{
+                LocalDate startDate = StartDate1.getValue();
+                ObservableList<ModelClassLarge> Data = MainClass.FillTableLarge(11, "SELECT Date,Receipt,Name,Phone,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime, CheckedOutDate, CheckedOutTime FROM Occupants WHERE Date Between '"+startDate.format(MainClass.DatabaseDateFormat)+"' AND '"+EndDate1.getValue().format(MainClass.DatabaseDateFormat)+"' ");
+                if(!Data.isEmpty()) {
+                    for (ModelClassLarge m : Data) {
+                        String checkIn = MainClass.returnDate3Format(LocalDate.parse(m.getCol6(), MainClass.DatabaseDateFormat)) + "  " + m.getCol7();
+                        String checkOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol8(), MainClass.DatabaseDateFormat)) + "  " + m.getCol9();
+                        m.setCol1(LocalDate.parse(m.getCol1(), MainClass.DatabaseDateFormat).format(MainClass.UIDateFormat));
+                        m.setCol4("0" + m.getCol4());
+                        m.setCol6(checkIn);
+                        m.setCol7(checkOut);
+                        if (!m.getCol10().equalsIgnoreCase("NO")) {
+                            String checkedOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol10(), MainClass.DatabaseDateFormat)) + "  " + m.getCol11();
+                            m.setCol10(checkedOut);
+                        }
+                    }
+                }
+                LoadCheckInTable(Data);
+            }catch (Exception ignored){
+
+            }
+        }
+
+        //Payments
+        if(actionEvent.getSource().equals(SearchBut2)){
+            ObservableList<ModelClassLarge> Data = MainClass.FillTableLarge(9, "SELECT Date,Receipt,Name,Room,Time,Total,Paid,Method,Balance FROM Payments ");
+            if(!Data.isEmpty()) {
+                for(ModelClassLarge m : Data){
+                    m.setCol1( LocalDate.parse(m.getCol1(), MainClass.DatabaseDateFormat).format(MainClass.UIDateFormat));
+                }
+            }
+            LoadPaymentTable(Data);
+        }
+        if(actionEvent.getSource().equals(StartDate2)){
+            try{
+                LocalDate endDate = EndDate2.getValue();
+                ObservableList<ModelClassLarge> Data = MainClass.FillTableLarge(9, "SELECT Date,Receipt,Name,Room,Time,Total,Paid,Method,Balance FROM Payments WHERE Date Between '"+StartDate2.getValue().format(MainClass.DatabaseDateFormat)+"' AND '"+endDate.format(MainClass.DatabaseDateFormat)+"' ");
+                if(!Data.isEmpty()) {
+                    for(ModelClassLarge m : Data){
+                        m.setCol1( LocalDate.parse(m.getCol1(), MainClass.DatabaseDateFormat).format(MainClass.UIDateFormat));
+                    }
+                }
+                LoadPaymentTable(Data);
+            }catch (Exception ignored){
+
+
+            }
+        }
+        if(actionEvent.getSource().equals(EndDate2)){
+            try{
+                LocalDate startDate = StartDate2.getValue();
+                ObservableList<ModelClassLarge> Data = MainClass.FillTableLarge(9, "SELECT Date,Receipt,Name,Room,Time,Total,Paid,Method,Balance FROM Payments WHERE Date Between '"+startDate.format(MainClass.DatabaseDateFormat)+"' AND '"+EndDate2.getValue().format(MainClass.DatabaseDateFormat)+"' ");
+                if(!Data.isEmpty()) {
+                    for(ModelClassLarge m : Data){
+                        m.setCol1( LocalDate.parse(m.getCol1(), MainClass.DatabaseDateFormat).format(MainClass.UIDateFormat));
+                    }
+                }
+                LoadPaymentTable(Data);
+            }catch (Exception ignored){
+
+            }
+        }
+        if(actionEvent.getSource().equals(Summary)){
+            try {
+                Stage stage = new Stage();
+                FXMLLoader Loaders = new FXMLLoader();
+                Parent root1 = Loaders.load(getClass().getResource("../SubPanes/PaySummary.fxml").openStream());
+                PaySummaryController summaryController;
+                summaryController = Loaders.getController();
+                summaryController.getInfo(StartDate2.getValue(), EndDate2.getValue());
+                Scene scene = new Scene(root1);
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
+        }
+
+        //Receipt
+        if(actionEvent.getSource().equals(ShowReceipt)){
+            try {
+                Stage stage = new Stage();
+                FXMLLoader Loaders = new FXMLLoader();
+                Parent root1 = Loaders.load(getClass().getResource("../SubPanes/Receipt.fxml").openStream());
+                ReceiptController receiptController;
+                receiptController = Loaders.getController();
+                receiptController.fetchData(Integer.parseInt(ReceiptTable.getSelectionModel().getSelectedItem().getCol2()));
+                Scene scene = new Scene(root1);
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
+        }
+        if(actionEvent.getSource().equals(ShowGuests)){
+            ObservableList<ModelClassLarge>Data;
+            int Receipt = Integer.parseInt(ReceiptTable.getSelectionModel().getSelectedItem().getCol2());
+            int Guests = Integer.parseInt(ReceiptTable.getSelectionModel().getSelectedItem().getCol15());
+            if(Guests > 1){
+                RecordsTab.getSelectionModel().select(0);
+                Data = MainClass.FillTableLarge(11, "SELECT Date,Receipt,Name,Phone,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime, CheckedOutDate, CheckedOutTime FROM Occupants WHERE Receipt = "+Receipt+"");
+                if(!Data.isEmpty()){
+                    for(ModelClassLarge m : Data){
+                        String checkIn = MainClass.returnDate3Format(LocalDate.parse(m.getCol6(), MainClass.DatabaseDateFormat)) +"  "+m.getCol7();
+                        String checkOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol8(), MainClass.DatabaseDateFormat)) +"  "+m.getCol9();
+                        m.setCol1( LocalDate.parse(m.getCol1(), MainClass.DatabaseDateFormat).format(MainClass.UIDateFormat));
+                        m.setCol4( "0"+m.getCol4());
+                        m.setCol6(checkIn);
+                        m.setCol7(checkOut);
+                        if(!m.getCol10().equalsIgnoreCase("NO")){
+                            String checkedOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol10(), MainClass.DatabaseDateFormat)) +"  "+m.getCol11();
+                            m.setCol10(checkedOut);
+                        }
+                    }
+                    LoadCheckInTable(Data);
+                }
+            }else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(null);
+                alert.setContentText("Single Check-in");
+                alert.showAndWait();
+                return;
+            }
+        }
+        if(actionEvent.getSource().equals(SearchBut3)){
+            ObservableList<ModelClassLarge>  Data = MainClass.FillTableLarge(20, "SELECT Date,Receipt,Name,Phone,Address,isAdult,Gender,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate,CheckedOutTime,Occupants,Days,Rate,Total,Paid,Balance,Method FROM Receipts ");
+            if(!Data.isEmpty()) {
+                for(ModelClassLarge m : Data){
+                    String checkIn = MainClass.returnDate3Format(LocalDate.parse(m.getCol9(), MainClass.DatabaseDateFormat)) +"  "+m.getCol10();
+                    String checkOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol11(), MainClass.DatabaseDateFormat)) +"  "+m.getCol12();
+                    m.setCol1( LocalDate.parse(m.getCol1(), MainClass.DatabaseDateFormat).format(MainClass.UIDateFormat));
+                    m.setCol4( "0"+m.getCol4());
+                    m.setCol9(checkIn);
+                    m.setCol10(checkOut);
+                    if(!m.getCol13().equalsIgnoreCase("NO")){
+                        String checkedOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol13(), MainClass.DatabaseDateFormat)) +"  "+m.getCol14();
+                        m.setCol13(checkedOut);
+                    }
+                }
+            }
+            LoadReceiptsTable(Data);
+        }
+        if(actionEvent.getSource().equals(StartDate3)){
+            try{
+                LocalDate endDate = EndDate3.getValue();
+                ObservableList<ModelClassLarge> Data = MainClass.FillTableLarge(20, "SELECT Date,Receipt,Name,Phone,Address,isAdult,Gender,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate,CheckedOutTime,Occupants,Days,Rate,Total,Paid,Balance,Method FROM Receipts WHERE Date Between '"+StartDate3.getValue().format(MainClass.DatabaseDateFormat)+"' AND '"+endDate.format(MainClass.DatabaseDateFormat)+"' ");
+                if(!Data.isEmpty()) {
+                    for(ModelClassLarge m : Data){
+                        String checkIn = MainClass.returnDate3Format(LocalDate.parse(m.getCol9(), MainClass.DatabaseDateFormat)) +"  "+m.getCol10();
+                        String checkOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol11(), MainClass.DatabaseDateFormat)) +"  "+m.getCol12();
+                        m.setCol1( LocalDate.parse(m.getCol1(), MainClass.DatabaseDateFormat).format(MainClass.UIDateFormat));
+                        m.setCol4( "0"+m.getCol4());
+                        m.setCol9(checkIn);
+                        m.setCol10(checkOut);
+                        if(!m.getCol13().equalsIgnoreCase("NO")){
+                            String checkedOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol13(), MainClass.DatabaseDateFormat)) +"  "+m.getCol14();
+                            m.setCol13(checkedOut);
+                        }
+                    }
+                }
+                LoadReceiptsTable(Data);
+            }catch (Exception ignored){
+
+            }
+        }
+        if(actionEvent.getSource().equals(EndDate3)){
+            try{
+                LocalDate startDate = StartDate3.getValue();
+                ObservableList<ModelClassLarge> Data = MainClass.FillTableLarge(20, "SELECT Date,Receipt,Name,Phone,Address,isAdult,Gender,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate,CheckedOutTime,Occupants,Days,Rate,Total,Paid,Balance,Method FROM Receipts WHERE Date Between '"+startDate.format(MainClass.DatabaseDateFormat)+"' AND '"+EndDate3.getValue().format(MainClass.DatabaseDateFormat)+"' ");
+                if(!Data.isEmpty()) {
+                    for(ModelClassLarge m : Data){
+                        String checkIn = MainClass.returnDate3Format(LocalDate.parse(m.getCol9(), MainClass.DatabaseDateFormat)) +"  "+m.getCol10();
+                        String checkOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol11(), MainClass.DatabaseDateFormat)) +"  "+m.getCol12();
+                        m.setCol1( LocalDate.parse(m.getCol1(), MainClass.DatabaseDateFormat).format(MainClass.UIDateFormat));
+                        m.setCol4( "0"+m.getCol4());
+                        m.setCol9(checkIn);
+                        m.setCol10(checkOut);
+                        if(!m.getCol13().equalsIgnoreCase("NO")){
+                            String checkedOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol13(), MainClass.DatabaseDateFormat)) +"  "+m.getCol14();
+                            m.setCol13(checkedOut);
+                        }
+                    }
+                }
+                LoadReceiptsTable(Data);
+            }catch (Exception ignored){
+
+            }
+        }
+
+
+
         if(actionEvent.getSource().equals(SearchBut4)){
             ObservableList<ModelClassLarge> Data = MainClass.FillTableLarge(8, "SELECT Number,Status,TimesBooked,DAysBooked,Rate,TotalAmount,CheckInDate || ' ' ||CheckInTime as CheckedIn,Name FROM RoomList ");
             for(ModelClassLarge m : Data){
@@ -148,7 +401,56 @@ public class RecordsController implements Initializable {
 
     }
 
-    public void keyEvent(KeyEvent keyEvent) {
+    public void keyEvent(KeyEvent keyEvent) throws Exception {
+        if(keyEvent.getSource().equals(SearchField1)){
+            String query = SearchField1.getText();
+            ObservableList<ModelClassLarge> Data = MainClass.FillTableLarge(11, "SELECT Date,Receipt,Name,Phone,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime, CheckedOutDate, CheckedOutTime FROM Occupants WHERE Name Like '%" + query + "%' or Phone Like '%" + query + "%'  or Address Like '%" + query + "%' ");
+            if(!Data.isEmpty()) {
+                for (ModelClassLarge m : Data) {
+                    String checkIn = MainClass.returnDate3Format(LocalDate.parse(m.getCol6(), MainClass.DatabaseDateFormat)) + "  " + m.getCol7();
+                    String checkOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol8(), MainClass.DatabaseDateFormat)) + "  " + m.getCol9();
+                    m.setCol1(LocalDate.parse(m.getCol1(), MainClass.DatabaseDateFormat).format(MainClass.UIDateFormat));
+                    m.setCol4("0" + m.getCol4());
+                    m.setCol6(checkIn);
+                    m.setCol7(checkOut);
+                    if (!m.getCol10().equalsIgnoreCase("NO")) {
+                        String checkedOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol10(), MainClass.DatabaseDateFormat)) + "  " + m.getCol11();
+                        m.setCol10(checkedOut);
+                    }
+                }
+            }
+            LoadCheckInTable(Data);
+        }
+        if(keyEvent.getSource().equals(SearchField2)){
+            String query = SearchField2.getText();
+            ObservableList<ModelClassLarge> Data = MainClass.FillTableLarge(9, "SELECT Date,Receipt,Name,Room,Time,Total,Paid,Method,Balance FROM Payments WHERE Name Like '%" + query + "%' or Method Like '%" + query + "%'  or Total Like '%" + query + "%' ");
+            if(!Data.isEmpty()) {
+                for(ModelClassLarge m : Data){
+                    m.setCol1( LocalDate.parse(m.getCol1(), MainClass.DatabaseDateFormat).format(MainClass.UIDateFormat));
+                }
+            }
+            LoadPaymentTable(Data);
+        }
+        if(keyEvent.getSource().equals(SearchField3)){
+            String query = SearchField3.getText();
+            ObservableList<ModelClassLarge> Data = MainClass.FillTableLarge(20, "SELECT  Date,Receipt,Name,Phone,Address,isAdult,Gender,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate,CheckedOutTime,Occupants,Days,Rate,Total,Paid,Balance,Method FROM Receipts  WHERE Name Like '%" + query + "%' or Phone Like '%" + query + "%'  or Total Like '%" + query + "%' ");
+            if(!Data.isEmpty()) {
+                for(ModelClassLarge m : Data){
+                    String checkIn = MainClass.returnDate3Format(LocalDate.parse(m.getCol9(), MainClass.DatabaseDateFormat)) +"  "+m.getCol10();
+                    String checkOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol11(), MainClass.DatabaseDateFormat)) +"  "+m.getCol12();
+                    m.setCol1( LocalDate.parse(m.getCol1(), MainClass.DatabaseDateFormat).format(MainClass.UIDateFormat));
+                    m.setCol4( "0"+m.getCol4());
+                    m.setCol9(checkIn);
+                    m.setCol10(checkOut);
+                    if(!m.getCol13().equalsIgnoreCase("NO")){
+                        String checkedOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol13(), MainClass.DatabaseDateFormat)) +"  "+m.getCol14();
+                        m.setCol13(checkedOut);
+                    }
+                }
+            }
+            LoadReceiptsTable(Data);
+        }
+
     }
 
     public void mouseEvent(MouseEvent mouseEvent) throws Exception {
@@ -253,6 +555,10 @@ public class RecordsController implements Initializable {
                                 m.setCol4( "0"+m.getCol4());
                                 m.setCol9(checkIn);
                                 m.setCol10(checkOut);
+                                if(!m.getCol13().equalsIgnoreCase("NO")){
+                                    String checkedOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol13(), MainClass.DatabaseDateFormat)) +"  "+m.getCol14();
+                                    m.setCol13(checkedOut);
+                                }
                             }
                         } catch (Exception e) {
                             e.printStackTrace();

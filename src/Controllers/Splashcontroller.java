@@ -65,7 +65,7 @@ public class Splashcontroller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try{
             root.getStylesheets().remove(0);
-            root.getStylesheets().add("file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/currentTheme.css");
+            root.getStylesheets().add("file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/MainStyle.css");
 
             LocalDate D = LocalDate.now();
             LocalTime T = LocalTime.now();

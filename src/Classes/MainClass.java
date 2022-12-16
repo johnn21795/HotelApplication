@@ -146,6 +146,7 @@ public class MainClass {
 
     }
     public static ObservableList<ModelClassLarge> FillTableLarge(int columns, String sql)throws Exception{
+        System.out.println(sql);
         Connection con;
         con  =ConnectDB.Main();
         ObservableList<Object> column ;
@@ -215,6 +216,25 @@ public class MainClass {
             String value = rs.getString(Value);
             Data.put(key, value);
         }
+        con.close();
+        return Data;
+    }
+    public static ObservableList<Map<String, Object>> getObservableMap(String sql, String[] keys) throws Exception{
+        ObservableList<Map<String, Object>> Data = FXCollections.observableArrayList();
+        Connection con;
+        con =ConnectDB.Main();
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            for (String column: keys){
+                Map<String, Object> data = new HashMap<>();
+                data.put(column,rs.getObject(column) );
+                Data.add(data);
+            }
+        }
+        System.out.println(Data);
+        System.out.println("Data 01: "+Data.get(0));
+
         con.close();
         return Data;
     }

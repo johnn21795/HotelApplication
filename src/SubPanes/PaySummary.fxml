@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="335.0" prefWidth="379.0" stylesheets="@../../../../Users/JAMES/currentTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MiniControllers.PaySummaryController">
+   <children>
+      <Label layoutX="144.0" layoutY="14.0" styleClass="MainDate" text="SUMMARY" />
+      <HBox layoutX="17.0" layoutY="44.0" prefHeight="25.0" prefWidth="357.0">
+         <children>
+            <Label prefHeight="25.0" prefWidth="63.0" styleClass="boldText" text="From:" />
+            <Label fx:id="StartDate" prefHeight="25.0" prefWidth="142.0" />
+            <Label prefHeight="25.0" prefWidth="36.0" styleClass="boldText" text="To:" />
+            <Label fx:id="EndDate" prefHeight="25.0" prefWidth="90.0" text="0" />
+         </children>
+      </HBox>
+      <TableView fx:id="Table" layoutX="6.0" layoutY="75.0" prefHeight="186.0" prefWidth="367.0">
+        <columns>
+          <TableColumn fx:id="NoCol" prefWidth="36.0" text="No" />
+          <TableColumn fx:id="MetCol" prefWidth="76.0" text="Method" />
+            <TableColumn fx:id="TotCol" prefWidth="94.0" text="Total" />
+            <TableColumn fx:id="PaidCol" prefWidth="86.0" text="Paid" />
+            <TableColumn fx:id="BalCol" prefWidth="74.0" text="Balance" />
+        </columns>
+      </TableView>
+      <HBox layoutX="152.0" layoutY="267.0">
+         <children>
+            <Label prefHeight="25.0" prefWidth="104.0" styleClass="boldText" text="Grand Total:" />
+            <Label fx:id="GTotal" prefHeight="25.0" prefWidth="103.0" text="0" />
+         </children>
+      </HBox>
+      <HBox layoutX="152.0" layoutY="292.0">
+         <children>
+            <Label prefHeight="25.0" prefWidth="104.0" styleClass="boldText" text="Paid:" />
+            <Label fx:id="GPaid" prefHeight="25.0" prefWidth="90.0" text="0" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
