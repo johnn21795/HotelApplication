@@ -56,7 +56,7 @@ public class ReceiptController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         rootPane.getStylesheets().remove(0);
-        rootPane.getStylesheets().add("file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/MainStyle.css");
+        rootPane.getStylesheets().add("file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/currentTheme.css");
 
     }
 
@@ -96,7 +96,10 @@ public class ReceiptController implements Initializable {
         this.Amount.setText(String.valueOf(Data.get(0).getCol18()));
         this.Paid.setText(String.valueOf(Data.get(0).getCol19()));
         this.Balance.setText(String.valueOf(Data.get(0).getCol20()));
-        this.CheckOut.setText(MainClass.returnDate3Format(LocalDate.parse(String.valueOf( Data.get(0).getCol13()), MainClass.DatabaseDateFormat))+"  "+ Data.get(0).getCol14());
+        if(!Data.get(0).getCol13().equalsIgnoreCase("NO")){
+            this.CheckOut.setText(MainClass.returnDate3Format(LocalDate.parse(String.valueOf( Data.get(0).getCol13()), MainClass.DatabaseDateFormat))+"  "+ Data.get(0).getCol14());
+        }
+
     }
 
     public void saveReceipt() throws Exception {
@@ -174,7 +177,7 @@ public class ReceiptController implements Initializable {
 
     }
 
-    public void printAddress(ActionEvent event) throws Exception {
+    public void printAddress() throws Exception {
         XSSFWorkbook workbook;
         XSSFSheet sheet;
         XSSFCellStyle cellStyle;
@@ -183,7 +186,7 @@ public class ReceiptController implements Initializable {
 
         File temp =  new File(System.getProperty("user.home") + "/ReceiptTemp.xlsx");
         Files.copy(new File(System.getProperty("user.home") + "/Receipt.xlsx").toPath(), temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
-         workbook = new XSSFWorkbook(OPCPackage.openOrCreate(temp));
+         workbook = new XSSFWorkbook(temp);
 
         sheet = workbook.getSheetAt(0);
 
@@ -202,7 +205,6 @@ public class ReceiptController implements Initializable {
         font.setFontHeightInPoints((short) 11);
         font.setFontName("Calibri");
         cellStyle.setFont(font);
-        cellStyle.setWrapText(true);
         cellStyles.put("normal", cellStyle);
 
         cellStyle = workbook.createCellStyle();
@@ -291,7 +293,7 @@ public class ReceiptController implements Initializable {
         destination.mkdir();
         FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + "/MyReceipt.xlsx");
         workbook.write(outputStream);
-//        workbook.close();
+        workbook.close();
         if (outputStream != null) {
             try {
                 outputStream.close();
@@ -301,6 +303,7 @@ public class ReceiptController implements Initializable {
             outputStream.close();
         }
         Files.move(new File(System.getProperty("user.home") + "/MyReceipt.xlsx").toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        saveReceipt();
         Desktop desktop = Desktop.getDesktop();
         desktop.open(destination);
 

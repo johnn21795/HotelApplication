@@ -91,7 +91,7 @@
                 <Region maxWidth="1.7976931348623157E308" prefHeight="69.0" prefWidth="185.0" HBox.hgrow="ALWAYS" />
                 <VBox>
                     <children>
-                        <Label fx:id="versionLabel" alignment="CENTER" onMouseClicked="#mouseEvent" styleClass="label" text="   Version 3.2.2  " />
+                        <Label fx:id="versionLabel" alignment="CENTER" onMouseClicked="#mouseEvent" styleClass="label" text="   Version 1.0.1  " />
                         <JFXButton fx:id="NotificationButton" maxHeight="27.0" maxWidth="160.0" style="-fx-background-color: linear-gradient(#901500, #490b02); -fx-text-fill: white; -fx-font-weight: bold;"  mnemonicParsing="false" onAction="#MainNavigation" text="0 Notifications" VBox.vgrow="ALWAYS">
 <!--                            <graphic>-->
 <!--                                <FontAwesomeIcon glyphName="BELL" size="1.5em" styleClass="fontawesome" />-->

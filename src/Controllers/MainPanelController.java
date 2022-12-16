@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -75,8 +76,8 @@ public class MainPanelController implements Initializable {
 
 
     Alert alert;
-    static String currentStyle = "file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/MainStyle.css";
-    static File currentStyleFile = new File(System.getProperty("user.home") + "/MainStyle.css");
+    static String currentStyle = "file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/currentTheme.css";
+    static File currentStyleFile = new File(System.getProperty("user.home") + "/currentTheme.css");
     /**
      * Initializes the controller class.
      */
@@ -88,7 +89,7 @@ public class MainPanelController implements Initializable {
 
     String MyTime;
     public static String Staff = "";
-    static String FileLocation = "C:\\Users\\Public\\GraceDominion\\background.jpg";
+    static String FileLocation = "C:\\Users\\Public\\HotelApplication\\background.jpg";
     static String OriginalLocation= "";
     public static String isOnline ="Offline";
     public static String lastState ="Offline";
@@ -109,8 +110,37 @@ public class MainPanelController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             rootPane.getStylesheets().remove(0);
-            rootPane.getStylesheets().add("file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/MainStyle.css");
+            rootPane.getStylesheets().add("file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/currentTheme.css");
             try {
+
+                //TODO
+//                try {
+//                    File file = new File(System.getProperty("user.home") + "/Receipt.xlsx");
+//                    File file2 = new File(System.getProperty("user.home") + "/MyReceipt.xlsx");
+//                    File file3 = new File(System.getProperty("user.home") + "/currentTheme.css");
+//                    File file4 = new File(System.getProperty("user.home") + "/background.jpg");
+//                    if(!file.exists()){
+//                        InputStream in = getClass().getClassLoader().getResourceAsStream("../Raw/Receipt.xlsx");
+//                        InputStream in2 = getClass().getClassLoader().getResourceAsStream("/Raw/MyReceipt.xlsx");
+//                        InputStream in3 = getClass().getClassLoader().getResourceAsStream("/Raw/currentTheme.css");
+//                        InputStream in4 = getClass().getClassLoader().getResourceAsStream("/Raw/background.jpg");
+//                        assert in != null;
+//                        assert in2 != null;
+//                        assert in3 != null;
+//                        assert in4 != null;
+//                        Files.copy(in, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+//                        Files.copy(in2, file2.toPath(), StandardCopyOption.REPLACE_EXISTING);
+//                        Files.copy(in3, file3.toPath(), StandardCopyOption.REPLACE_EXISTING);
+//                        Files.copy(in4, file4.toPath(), StandardCopyOption.REPLACE_EXISTING);
+//                        in.close();
+//                        in2.close();
+//                        in3.close();
+//                        in4.close();
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+
                 Image img = new Image("file:\\"+FileLocation);
                 BackgroundSize size = new BackgroundSize(1.0, 1.0, true, true, true, true );
                 Background background = new Background(new BackgroundImage(img, BackgroundRepeat.NO_REPEAT , BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, size));
@@ -202,7 +232,7 @@ public class MainPanelController implements Initializable {
    }else if(event.getSource().equals(NotificationButton)){
 
 //       Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//       alert.setTitle("New Version 3.2.2");
+//       alert.setTitle("New Version 1.0.1");
 //       alert.setContentText("Under Development");
 //       alert.setHeaderText(null);
 //       alert.showAndWait();
@@ -264,7 +294,7 @@ public class MainPanelController implements Initializable {
         File version = new File(System.getProperty("user.home") + "/AppData/Local/Activation.txt");
         if(event.getSource().equals(versionLabel)){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("New Version 3.2.2");
+            alert.setTitle("New Version 1.0.1");
             alert.setContentText("Update Complete! \n " +
                     "What's New ? \n " +
                     "1. Added Notifications (Under Development) \n " +

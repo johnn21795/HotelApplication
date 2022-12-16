@@ -35,7 +35,7 @@ public class PaySummaryController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         rootPane.getStylesheets().remove(0);
-        rootPane.getStylesheets().add("file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/MainStyle.css");
+        rootPane.getStylesheets().add("file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/currentTheme.css");
     }
 
     public void getInfo(LocalDate startDate, LocalDate endDate)throws Exception{

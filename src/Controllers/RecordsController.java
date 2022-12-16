@@ -261,7 +261,7 @@ public class RecordsController implements Initializable {
             try {
                 Stage stage = new Stage();
                 FXMLLoader Loaders = new FXMLLoader();
-                Parent root1 = Loaders.load(getClass().getResource("../SubPanes/PaySummary.fxml").openStream());
+                Parent root1 = Loaders.load(getClass().getResource("/SubPanes/PaySummary.fxml").openStream());
                 PaySummaryController summaryController;
                 summaryController = Loaders.getController();
                 summaryController.getInfo(StartDate2.getValue(), EndDate2.getValue());
@@ -280,7 +280,7 @@ public class RecordsController implements Initializable {
             try {
                 Stage stage = new Stage();
                 FXMLLoader Loaders = new FXMLLoader();
-                Parent root1 = Loaders.load(getClass().getResource("../SubPanes/Receipt.fxml").openStream());
+                Parent root1 = Loaders.load(getClass().getResource("/SubPanes/Receipt.fxml").openStream());
                 ReceiptController receiptController;
                 receiptController = Loaders.getController();
                 receiptController.fetchData(Integer.parseInt(ReceiptTable.getSelectionModel().getSelectedItem().getCol2()));
@@ -397,6 +397,18 @@ public class RecordsController implements Initializable {
                     m.setCol7("");
                 }
             } LoadRoomTable(Data);
+        }
+        if(actionEvent.getSource().equals(StartDate4)){
+            //TODO
+//            int Room = Integer.parseInt(RoomTable.getSelectionModel().getSelectedItem().getCol1());
+//            String sql = "SELECT  Number, CheckInDate, CheckInTime, ToCheckOutDate, ToCheckOutTime, CheckedOutDate,CheckedOutTime, Type, Name,Rate,Status,Occupant FROM RoomList WHERE Number = "+Room+" ";
+//            ObservableList<String> Data = MainClass.getObservableList(sql, new String[]{"Number","Status","Rate","CheckInDate", "CheckInTime", "ToCheckOutDate", "ToCheckOutTime", "CheckedOutDate","CheckedOutTime","Name","Type","Rate","Occupant"});
+//            sql = "SELECT count(*) as TimesBooked, sum(days) as DaysBooked, sum(Total) as Total FROM Receipts WHERE Room = "+Room+" and Date Between '"++"' AND '"++"'";
+//            Data.addAll(MainClass.getObservableList(sql, new String[]{"TimesBooked","DaysBooked","Total"})) ;
+
+
+//            "SELECT Number,Status,TimesBooked,DaysBooked,Rate,TotalAmount,CheckInDate || ' ' ||CheckInTime as CheckedIn,Name FROM RoomList
+
         }
 
     }

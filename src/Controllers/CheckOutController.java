@@ -255,7 +255,7 @@ public class CheckOutController implements Initializable {
             if(Integer.parseInt(this.Occupants.getText())>1){
                 Stage stage = new Stage();
                 FXMLLoader Loaders = new FXMLLoader();
-                Parent root1 = Loaders.load(getClass().getResource("../SubPanes/Checkout.fxml").openStream());
+                Parent root1 = Loaders.load(getClass().getResource("/SubPanes/Checkout.fxml").openStream());
                 CheckoutController checkoutController;
                 checkoutController = Loaders.getController();
                 checkoutController.getRoom(this.RmNo.getText());

@@ -34,7 +34,7 @@ public class CheckoutController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         rootPane.getStylesheets().remove(0);
-        rootPane.getStylesheets().add("file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/MainStyle.css");
+        rootPane.getStylesheets().add("file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/currentTheme.css");
     }
 
     public void actionEvent(ActionEvent event) throws Exception {

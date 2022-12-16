@@ -1,0 +1,329 @@
+
+ * {
+	 /*Main Theme Color*/
+		MainColor: #3E2723; 
+		BackgroundGradient: linear-gradient(#FFF59D 3%, #FFEB3B 47%, #FDD835 63%,#BF360C 100% ); 
+
+	 /*Button Theme*/
+		ButtonGradient: linear-gradient(#3E2723 0%, #BF360C 100%, #FFFFFF 0%,#FFFFFF 0% ); 
+         ButtonHover: linear-gradient(#FBC02D 0% , #FFF176 50% );
+		ButtonFocused: linear-gradient(to top left,#29ffF6 , #B3FFFC 58% );
+
+     /*Label Theme*/
+        LabelColor: MainColor;
+        LabelGradient: ButtonGradient;
+
+     /*Table Theme*/
+         TableHeader:MainColor;
+         TableSelected: #00ae57;
+         TableText: White;
+		OddRow: #FFF9C4; 
+         OddText:#080f4d ;
+		EvenRow: #FFCCBC; 
+		EvenText: #212121; 
+
+	 /*Tab Theme*/
+	    TabForeGround: ButtonGradient;
+		TabBackground: linear-gradient(#4E342E 12%, #F4511E 100%, #FDD835 0%,#BF360C 0% ); 
+	    TabText: #FFFFFF;
+
+	 /*TextField Theme*/
+		TextFocus: #BF360C; 
+		TextUnFocus: #3E2723; 
+        TextSelected:#000000 ;
+
+     /*Glyph Theme*/
+
+        GlyphFill:#FFFFFF;
+        GlyphStroke:#000000 ;
+
+     /*Scroll Theme*/
+		ScrollForeGround: #3E2723; 
+		ScrollBackground: #FFF59D; 
+
+     /*Progress Theme*/
+        ProgressGradient: linear-gradient(#2fbb04 , #103c02);
+
+ }
+
+ /*Background Class*/
+
+.root, .split-pane:horizontal {
+-fx-background-size: cover;
+	-fx-background-image:url('file:/\/\/C:/\Users/\Public/\ThemeCreator/\background.jpg');  /* BackgroundImage */ 
+-fx-background-color:  BackgroundGradient;
+}
+
+/* Button Class */
+.button {
+	-fx-background-image:url('file:/\/\/C:/\Users/\Public/\ThemeCreator/\buttonImage.jpg');  /* ButtonImage */ 
+    -fx-background-color: ButtonGradient;
+    -fx-background-repeat: no-repeat;
+	-fx-background-size: cover;
+    -fx-text-fill: White;
+	-fx-font-size:13px;
+}
+
+.button:hover {
+	-fx-background-image:url('file:/\/\/C:/\Users/\Public/\ThemeCreator/\butHover.jpg');  /* ButHover */ 
+    -fx-background-color: ButtonHover;
+	-fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+	-fx-text-fill: MainColor;
+}
+
+.button:focused {
+	-fx-background-image:url('file:/\/\/C:/\Users/\Public/\ThemeCreator/\butFocused.jpg');  /* ButFocused */ 
+    -fx-background-color: ButtonFocused;
+	-fx-background-size: 100%;
+	-fx-text-fill: MainColor;
+}
+
+
+/* Glyph Class*/
+.glyph-icon{
+	-fx-fill : GlyphFill;
+	-fx-stroke:GlyphStroke;
+	-fx-font-size:5em;
+}
+
+.glyph-icon:hover{
+	-fx-fill : GlyphFill;
+	-fx-stroke: GlyphStroke;
+}
+
+.button:hover .glyph-icon{
+	-fx-fill : GlyphStroke;
+	-fx-stroke: GlyphFill;
+}
+
+
+/* Label Class */
+.label{
+    -fx-font-size:16px;
+    -fx-text-fill: LabelColor ;
+    -fx-wrap-text: true;
+}
+
+.MainDate{
+	-fx-font-size:20px;
+	-fx-font-weight:bold;
+}
+.boldText{
+    -fx-font-size:16px;
+    -fx-text-fill: LabelColor ;
+    -fx-wrap-text: true;
+	-fx-font-weight:bold;
+}
+.smallText{
+	-fx-font-size:13px;
+	-fx-text-fill:White;
+}
+.boldSmallText{
+    -fx-font-size:13px;
+    -fx-text-fill: LabelColor ;
+    -fx-wrap-text: true;
+	-fx-font-weight:bold;
+}
+
+.MainName{
+	-fx-font-size:27px;
+	-fx-font-weight:Bold;
+}
+
+.MainSubName{
+	-fx-font-size:20px;
+	-fx-text-fill:White;
+	-fx-font-weight:Bold;
+	-fx-background-color: LabelGradient;
+}
+
+.MainSubhead{
+	-fx-font-size:13px;
+	-fx-text-fill:White;
+	-fx-font-weight:Bold;
+	-fx-background-color: LabelGradient;
+}
+
+/*Table-View Class*/
+.table-view{
+        -fx-background-color: WHITE;
+}
+.table-column .label{
+    -fx-text-fill :TableText;
+    -fx-background-color :TableHeader;
+}
+
+.table-view:row-selection .column-header-background .filler{
+-fx-background-color : TableHeader;
+
+}
+
+.table-view:row-selection .virtual-flow .clipped-container .sheet .table-row-cell:focused:filled:even,
+.table-view:row-selection .virtual-flow .clipped-container .sheet .table-row-cell:focused:filled:odd
+{
+-fx-background-color :TableSelected;
+}
+
+.table-view:row-selection .virtual-flow .clipped-container .sheet .table-row-cell:filled:odd{
+-fx-background-color : OddRow;
+}
+.table-view:row-selection .virtual-flow .clipped-container .sheet .table-row-cell:filled:even{
+-fx-background-color : EvenRow;
+}
+.table-view:row-selection .virtual-flow .clipped-container .sheet .table-row-cell:filled:even .table-column:filled:even .text{
+-fx-fill : EvenText;
+-fx-font-size: 14px; /* TableSize*/
+}
+.table-view:row-selection .virtual-flow .clipped-container .sheet .table-row-cell:filled:odd .table-column:filled:odd .text{
+-fx-fill : OddText;
+-fx-font-size:  14px; /* TableSize*/
+}
+
+.jfx-date-picker:editable .arrow-button .arrow
+{
+	-fx-background-color : MainColor;
+}
+
+.jfx-date-picker:editable
+ {
+	-fx-font-size:16px;
+	-jfx-default-color:MainColor;
+}
+.jfx-time-picker:editable
+ {
+	-jfx-default-color:MainColor;
+	-fx-text-fill : White;
+}
+
+.jfx-time-picker:editable .text
+ {
+	-fx-fill : #6b6b6b;
+}
+.jfx-time-picker:editable .arrow-button .jfx-svg-glyph{
+	-jfx-default-color:MainColor;
+}
+.jfx-date-picker {
+	-fx-font-size:16px;
+	-jfx-default-color:MainColor;
+}
+
+/*TabPane Class*/
+.jfx-tab-pane:top .depth-container .tab-header-area .tab-header-background{
+	-fx-background-image:url('file:/\/\/C:/\Users/\Public/\ThemeCreator/\TabBGround.jpg');  /* TabBGround */ 
+       -fx-background-color: TabBackground;
+      -fx-background-size: cover;
+
+}
+/*jfx-tb-pane*/
+.jfx-tab-pane:top .depth-container .tab-header-area .headers-region .tab-selected-line{
+-fx-background-color: TabText ;
+}
+ .jfx-tab-pane:top .depth-container .tab-header-area .headers-region .tab:selected:top .jfx-rippler .tab-container .tab-label .text{
+    -fx-fill: TabText ;
+}
+.jfx-tab-pane:top .depth-container .tab-header-area .headers-region .tab:top{
+	-fx-background-image:url('file:/\/\/C:/\Users/\Public/\ThemeCreator/\TabFGround2.jpg');  /* TabFGround */ 
+    -fx-background-color: TabForeGround;
+    -fx-background-size: cover;
+ }
+
+/*ScrollPane Class*/
+.scroll-pane .scroll-bar:vertical .track-background,.root .scroll-bar:vertical .track-background, .table-view:row-selection .virtual-flow .scroll-bar:vertical .track-background,
+ .table-view:row-selection .virtual-flow .scroll-bar:horizontal .track-background,
+ .scroll-pane .scroll-bar:horizontal .track-background,.root .scroll-bar:horizontal .track-background,
+.table-view:row-selection .virtual-flow .scroll-bar:horizontal .track-background, .table-view:row-selection .virtual-flow .scroll-bar:horizontal .track-background
+{
+-fx-background-color: ScrollBackground ;
+}
+.scroll-pane .scroll-bar:vertical .thumb,.root .scroll-bar:vertical .thumb, .table-view:row-selection .virtual-flow .scroll-bar:vertical .thumb, .table-view:row-selection .virtual-flow .scroll-bar:horizontal .thumb,
+.scroll-pane .scroll-bar:horizontal .thumb,.root .scroll-bar:horizontal .thumb, .table-view:row-selection .virtual-flow .scroll-bar:horizontal .thumb, .table-view:row-selection .virtual-flow .scroll-bar:horizontal .thumb
+{
+-fx-background-color: ScrollForeGround ;
+}
+.scroll-pane .scroll-bar:vertical .increment-button,.root .scroll-bar:vertical .increment-button,
+.scroll-pane .scroll-bar:vertical .decrement-button, .scroll-bar:vertical .decrement-button, .table-view:row-selection .virtual-flow .scroll-bar:vertical .increment-button,
+.table-view:row-selection .virtual-flow .scroll-bar:vertical .decrement-button, .table-view:row-selection .virtual-flow .scroll-bar:vertical .increment-button,
+.table-view:row-selection .virtual-flow .scroll-bar:horizontal .decrement-button,
+.scroll-pane .scroll-bar:horizontal .increment-button,.root .scroll-bar:horizontal .increment-button,
+.scroll-pane .scroll-bar:horizontal .decrement-button, .scroll-bar:horizontal .decrement-button, .table-view:row-selection .virtual-flow .scroll-bar:horizontal .increment-button,
+.table-view:row-selection .virtual-flow .scroll-bar:horizontal .decrement-button, .table-view:row-selection .virtual-flow .scroll-bar:horizontal .increment-button,
+.table-view:row-selection .virtual-flow .scroll-bar:horizontal .decrement-button
+{
+-fx-background-color: White ;
+}
+.scroll-pane .viewport{
+-fx-background-color: BackgroundGradient;
+}
+
+/*Progress Class*/
+.jfx-progress-bar:determinate .bar{
+-fx-background-Color: ProgressGradient;
+-fx-background-size: 100%;
+}
+
+.jfx-progress-bar:determinate .track, .radio-button .radio{
+-fx-background-color: WHITE;
+}
+
+/*Combo Class*/
+.jfx-combo-box{
+	-fx-font-size:14px;
+	-fx-pref-width: 100px;
+	-fx-pref-height: 20px;
+	-jfx-focus-color:TextFocus;
+    -jfx-unfocus-color:TextUnFocus;
+    -fx-font-size:15px;
+}
+.jfx-combo-box:editable .combo-box-button-container .prompt-text{
+	-fx-font-size:15px;
+}
+.jfx-combo-box .text{
+    -fx-fill:TextSelected;
+}
+
+/*Text-Field Class */
+.jfx-text-field .text{
+	-fx-font-size:15px;
+}
+.jfx-text-field , .jfx-date-picker:editable .date-picker-display-node{
+    -jfx-focus-color:TextFocus;
+    -jfx-unfocus-color:TextUnFocus;
+    -fx-text-fill:TextSelected;
+	-fx-font-size:15px;
+}
+
+/* Other Class */
+/*Picker Class */
+.jfx-color-picker .color-label .text, .menu-bar .container .menu:openvertically .label{
+	-fx-fill:black;
+	-fx-font-size: 12px;
+	-fx-text-fill: black;
+}
+
+.titled-pane>*.content>AnchorPane {
+-fx-background-color: BackgroundGradient;
+}
+.titled-pane>*.title {
+-fx-background-color: ButtonGradient;
+}
+.first-titled-pane:expanded .title .text, .titled-pane:collapsed .title .text{
+	-fx-fill: white;
+}
+.titled-pane>*.title>*.arrow-button>*.arrow {
+-fx-background-color:white;
+}
+.slider *.thumb {
+-fx-background-color:#004e2c;
+}
+.slider *.track {
+-fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #9ccc65 0%, #00351E 100%);
+}
+
+.radio-button .text{
+    -fx-background-color: #B71C1C ;
+	-fx-font-size: 16px;
+}
+.split-pane:horizontal .split-pane-divider{
+	-fx-background-color: TabBackground;
+}

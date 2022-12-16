@@ -458,7 +458,7 @@ public class CheckInController implements Initializable {
             try {
                 Stage stage = new Stage();
                 FXMLLoader Loaders = new FXMLLoader();
-                Parent root1 = Loaders.load(getClass().getResource("../SubPanes/Receipt.fxml").openStream());
+                Parent root1 = Loaders.load(getClass().getResource("/SubPanes/Receipt.fxml").openStream());
                 ReceiptController receiptController;
                 receiptController = Loaders.getController();
                 int invoiceNo = Integer.parseInt(ReceiptNo.getText());

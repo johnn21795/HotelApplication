@@ -65,7 +65,7 @@ public class Splashcontroller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try{
             root.getStylesheets().remove(0);
-            root.getStylesheets().add("file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/MainStyle.css");
+            root.getStylesheets().add("file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/currentTheme.css");
 
             LocalDate D = LocalDate.now();
             LocalTime T = LocalTime.now();
@@ -84,19 +84,19 @@ public class Splashcontroller implements Initializable {
             }
             if (version.createNewFile()) {
                 writer = new FileWriter(version);
-                writer.write("3.2.2");
+                writer.write("1.0.1");
                 writer.close();
                 newVersion = true;
             }else{
                 List<String> lines = Files.readAllLines(version.toPath());
                 for (String line : lines) {
-                    if (line.contains("3.2.2")) {
+                    if (line.contains("1.0.1")) {
                         newVersion = false;
                     }else {
                         newVersion = true;
                         version.delete();
                         writer = new FileWriter(version);
-                        writer.write("3.2.2");
+                        writer.write("1.0.1");
                         writer.close();
                     }
 
@@ -178,7 +178,7 @@ private void StartService(){
             }
             if(newVersion){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("New Version 3.2.2");
+            alert.setTitle("New Version 1.0.1");
             alert.setContentText("Database Update Complete! \n " +
                     "What's New ? \n " +
                     "1. Added Work Offline \n " +
@@ -209,7 +209,7 @@ private void LoadService() {
     }
     if(newVersion){
         Update.setVisible(true);
-        Update.setText("Welcome to Version 3.2.2 2022 Edition...Please Wait while the Database Updates!!");
+        Update.setText("Welcome to Version 1.0.1 2022 Edition...Please Wait while the Database Updates!!");
     }
 
         Loadservice = new Service<Void>() {

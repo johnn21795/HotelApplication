@@ -19,7 +19,7 @@ public class SettingsController {
             try {
                 Stage stage = new Stage();
                 FXMLLoader Loaders = new FXMLLoader();
-                Parent root1 = Loaders.load(getClass().getResource("../SubPanes/EditRoom.fxml").openStream());
+                Parent root1 = Loaders.load(getClass().getResource("/SubPanes/EditRoom.fxml").openStream());
                 Scene scene = new Scene(root1);
                 stage.setScene(scene);
                 stage.initStyle(StageStyle.UTILITY);

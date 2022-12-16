@@ -108,7 +108,7 @@
       <HBox layoutX="14.0" layoutY="395.0">
          <children>
             <Label minWidth="85.0" styleClass="boldText" text="CheckOut Date:   " />
-            <Label fx:id="CheckOut" text="5th Dec 2022  11:45pm" />
+            <Label fx:id="CheckOut" text="" />
          </children>
       </HBox>
       <JFXButton fx:id="SaveBut" layoutX="28.0" layoutY="460.0" onAction="#saveReceipt" text="Save" />
