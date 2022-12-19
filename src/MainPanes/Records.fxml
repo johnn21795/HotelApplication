@@ -208,9 +208,9 @@
                                     <TableColumn fx:id="TotalDaysCol" prefWidth="145.0" text="Total Days Booked" />
                                     <TableColumn fx:id="RateCol4" prefWidth="112.0" text="Rate" />
                                     <TableColumn fx:id="AmountCol4" prefWidth="141.0" text="Total Amount" />
-                                    <TableColumn fx:id="CheckInCol4" prefWidth="135.0" text="Checked In" />
-                                    <TableColumn fx:id="ToCheckOutCol4" prefWidth="124.0" text="To Check Out" visible="false" />
-                                    <TableColumn fx:id="isCheckOutCol4" prefWidth="94.0" text="CheckedOut" visible="false" />
+                                    <TableColumn fx:id="CheckInCol4" prefWidth="145.0" text="Checked In" />
+                                    <TableColumn fx:id="ToCheckOutCol4" prefWidth="145.0" text="To Check Out" visible="false" />
+                                    <TableColumn fx:id="isCheckOutCol4" prefWidth="120.0" text="CheckedOut" visible="false" />
                                  </columns>
                               </TableView>
                               <TableView fx:id="ReceiptTable5" editable="true" layoutX="29.0" layoutY="52.0" onMouseClicked="#mouseEvent" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" visible="false" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">

@@ -23,7 +23,7 @@
                         </AnchorPane>
                         <AnchorPane fx:id="CheckInPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <fx:include source="/MainPanes/CheckIn.fxml" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <fx:include  fx:id="checkInPane" source="/MainPanes/CheckIn.fxml" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children></AnchorPane>
 <!--                        <AnchorPane fx:id="ServicesPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">-->
 <!--                            <children>-->
@@ -31,7 +31,7 @@
 <!--                            </children></AnchorPane>-->
                         <AnchorPane fx:id="CheckOutPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <fx:include source="/MainPanes/CheckOut.fxml" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                <fx:include fx:id="checkOutPane" source="/MainPanes/CheckOut.fxml" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                             </children></AnchorPane>
 <!--                        <AnchorPane fx:id="ReportPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">-->
 <!--                     <children>-->
@@ -91,7 +91,7 @@
                 <Region maxWidth="1.7976931348623157E308" prefHeight="69.0" prefWidth="185.0" HBox.hgrow="ALWAYS" />
                 <VBox>
                     <children>
-                        <Label fx:id="versionLabel" alignment="CENTER" onMouseClicked="#mouseEvent" styleClass="label" text="   Version 1.0.1  " />
+                        <Label fx:id="versionLabel" alignment="CENTER" onMouseClicked="#mouseEvent" styleClass="label" text="   Version 1.1.0  " />
                         <JFXButton fx:id="NotificationButton" maxHeight="27.0" maxWidth="160.0" style="-fx-background-color: linear-gradient(#901500, #490b02); -fx-text-fill: white; -fx-font-weight: bold;"  mnemonicParsing="false" onAction="#MainNavigation" text="0 Notifications" VBox.vgrow="ALWAYS">
 <!--                            <graphic>-->
 <!--                                <FontAwesomeIcon glyphName="BELL" size="1.5em" styleClass="fontawesome" />-->

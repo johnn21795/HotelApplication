@@ -5,13 +5,11 @@ import Classes.ModelClassLarge;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
@@ -60,9 +58,7 @@ public class ReceiptController implements Initializable {
 
     }
 
-    public void actionEvent(ActionEvent event) {
 
-    }
 
     public void getData(ObservableList<String> data, ObservableList<Map<String, String>> people) {
         MainData = data;
@@ -290,7 +286,7 @@ public class ReceiptController implements Initializable {
         cell.setCellValue(this.CheckOut.getText());
 
         File destination = new File(System.getProperty("user.home") + "/Desktop/Receipts/"+this.Name.getText()+"-"+this.RNo.getText()+".xlsx");
-        destination.mkdir();
+        destination.mkdirs();
         FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + "/MyReceipt.xlsx");
         workbook.write(outputStream);
         workbook.close();
@@ -302,10 +298,11 @@ public class ReceiptController implements Initializable {
         } else {
             outputStream.close();
         }
+
         Files.move(new File(System.getProperty("user.home") + "/MyReceipt.xlsx").toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
         saveReceipt();
         Desktop desktop = Desktop.getDesktop();
-        desktop.open(destination);
+        desktop.print(destination);
 
     }
 }

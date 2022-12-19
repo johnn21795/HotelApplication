@@ -8,7 +8,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,8 +26,6 @@ public class MainClass {
     public static DateTimeFormatter format3 = DateTimeFormatter.ofPattern("d MMM yyyy");
     public static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a");
 
-    public static boolean isDebugging = false;
-    public static File logFile = new File(System.getProperty("user.home") + "/Desktop/Logs/Log.txt");
 
     public static boolean reloadRecordsTables = false;
     public static boolean reloadRoomListTables = false;
@@ -36,18 +33,7 @@ public class MainClass {
     public static boolean clearCheckInUI = false;
 
 
-    public static ObservableList<String> getCategories() throws Exception{
-        ObservableList<String> Cats = FXCollections.observableArrayList();
-        Connection con = ConnectDB.Main();
-        String sql = "SELECT name FROM Category ";
-        PreparedStatement ps = con.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()){
-            Cats.add(rs.getString("name"));
-        }
-        con.close();
-        return Cats;
-    }
+
 
 
     //  GLOBAL METHODS
@@ -219,47 +205,29 @@ public class MainClass {
         con.close();
         return Data;
     }
-    public static ObservableList<Map<String, Object>> getObservableMap(String sql, String[] keys) throws Exception{
-        ObservableList<Map<String, Object>> Data = FXCollections.observableArrayList();
-        Connection con;
-        con =ConnectDB.Main();
-        PreparedStatement ps = con.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            for (String column: keys){
-                Map<String, Object> data = new HashMap<>();
-                data.put(column,rs.getObject(column) );
-                Data.add(data);
-            }
-        }
-        System.out.println(Data);
-        System.out.println("Data 01: "+Data.get(0));
 
-        con.close();
-        return Data;
-    }
-    public static String getString(String sql, String Column) throws Exception {
-        System.out.println(sql);
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        String x = "";
-        con  =ConnectDB.Main();
-        try {
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            x = rs.getString(Column);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            assert rs != null;
-            assert con != null;
-            rs.close();
-            ps.close();
-            con.close();
-        }
-        return x;
-    }
+//    public static String getString(String sql, String Column) throws Exception {
+//        System.out.println(sql);
+//        Connection con = null;
+//        PreparedStatement ps = null;
+//        ResultSet rs = null;
+//        String x = "";
+//        con  =ConnectDB.Main();
+//        try {
+//            ps = con.prepareStatement(sql);
+//            rs = ps.executeQuery();
+//            x = rs.getString(Column);
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        } finally {
+//            assert rs != null;
+//            assert con != null;
+//            rs.close();
+//            ps.close();
+//            con.close();
+//        }
+//        return x;
+//    }
     public static int getInt(String sql, String Column) throws Exception {
         Connection con;
         con  =ConnectDB.Main();
@@ -370,26 +338,6 @@ public class MainClass {
     }
 
 
-
-
-
-
-
-
-    public static ModelClassLarge NewModelClassLarge(int num, String[] items){
-        ObservableList<String> column =  FXCollections.observableArrayList();
-        column.addAll(Arrays.asList(items));
-        if(column.size() < 21 ){
-            int y = 21 - column.size();
-            for(int z =0; z < y; z++){
-                column.add("");
-            }
-        }
-        ModelClassLarge modelClass = new ModelClassLarge(num, column.get(0).toString(), column.get(1).toString(), column.get(2).toString(),
-                column.get(3).toString(), column.get(4).toString(), column.get(5).toString(), column.get(6).toString(), column.get(7).toString(), column.get(8).toString(), column.get(9).toString(),column.get(10).toString(),column.get(11).toString(),column.get(12).toString(),column.get(13).toString(),column.get(14).toString(),column.get(15).toString(),column.get(16).toString(),column.get(17).toString(),column.get(18).toString(),column.get(19).toString(),column.get(20).toString(), false);
-
-        return modelClass;
-    }
 
     //Application Methods
     public static boolean InsertCheckIn(ObservableList<String> data) {
@@ -519,9 +467,9 @@ public class MainClass {
     }
 
     public static Map<String, String> getCheckOutData(String name, int room) throws  Exception {
-        String sql = "SELECT Name,Phone,Address,Gender,isAdult,Room,Days,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,Receipt FROM Occupants WHERE CheckedOutDate = 'NO' AND  Name = '"+name+"' AND Room = "+room+"";
+        String sql = "SELECT Name,Phone,Address,Gender,isAdult,Room,Days,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,Receipt FROM (SELECT * FROM Occupants WHERE CheckedOutDate = 'NO') WHERE  Name = '"+name+"' AND Room = "+room+"";
         if(name.equalsIgnoreCase("")){
-            sql = "SELECT Name,Phone,Address,Gender,isAdult,Room,Days,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,Receipt FROM Occupants WHERE CheckedOutDate = 'NO' AND Room = "+room+"";
+            sql = "SELECT Name,Phone,Address,Gender,isAdult,Room,Days,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,Receipt FROM (SELECT * FROM Occupants WHERE CheckedOutDate = 'NO') WHERE Room = "+room+"";
         }
 
         String sql2 = "SELECT Name,Type,Rate FROM RoomList WHERE Number = "+room+" ";
@@ -582,19 +530,20 @@ public class MainClass {
     public static boolean InsertPayment(ObservableList<String> data) throws Exception {
         boolean isSuccessful = false;
         try {
+//            (Date,Receipt,Name,Room,Time,Total,Paid,Balance,Method
             String sql;
             Connection con = ConnectDB.Main();
             sql = "INSERT INTO Payments (Date,Receipt,Name,Room,Time,Total,Paid,Balance,Method) VALUES(?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setObject(1, data.get(0));
-            ps.setObject(2, data.get(20));
-            ps.setObject(3, data.get(1));
-            ps.setObject(4, data.get(6));
-            ps.setObject(5, data.get(8));
-            ps.setObject(6, data.get(16));
-            ps.setObject(7, data.get(17));
-            ps.setObject(8, data.get(19));
-            ps.setObject(9, data.get(18));
+            ps.setObject(2, data.get(1));
+            ps.setObject(3, data.get(2));
+            ps.setObject(4, data.get(3));
+            ps.setObject(5, data.get(4));
+            ps.setObject(6, data.get(5));
+            ps.setObject(7, data.get(6));
+            ps.setObject(8, data.get(7));
+            ps.setObject(9, data.get(8));
             ps.execute();
             ps.close();
             isSuccessful = true;
@@ -604,6 +553,31 @@ public class MainClass {
         }
 
        return isSuccessful;
+    }
+
+    public static boolean EditPayment(ObservableList<String> data) throws Exception {
+        boolean isSuccessful = false;
+        try {
+//            (Date,Receipt,Name,Room,Total,Paid
+            String sql;
+            Connection con = ConnectDB.Main();
+            sql = "DELETE FROM Payments WHERE  Date = ? AND Receipt = ? AND Name = ? AND Room = ? AND Total = ? AND  Paid = ?     ";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setObject(1, data.get(0));
+            ps.setInt(2, Integer.parseInt(data.get(1)));
+            ps.setObject(3, data.get(2));
+            ps.setInt(4, Integer.parseInt(data.get(3)));
+            ps.setInt(5, Integer.parseInt(data.get(4)));
+            ps.setInt(6, Integer.parseInt(data.get(5)));
+            ps.execute();
+            ps.close();
+            isSuccessful = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+        return isSuccessful;
     }
 
     public static boolean UpdateRoomList(ObservableList<String> data) throws Exception {
@@ -660,13 +634,6 @@ public class MainClass {
     }
 
 
-    public static void saveOccupants(ObservableList<Map<String, String>> occupants) {
-        if(occupants.size() > 0){
-            String sql = "INSERT INTO Occupants (Date,Receipt,Name,Phone,Address,IsAdult,Gender,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate,CheckOutTime,Days " +
-                    "VALUES ( ) ";
-        }
-    }
-
     public static boolean setCheckOut(String name, int room) throws Exception{
         boolean isSuccessful = false;
         Connection con = ConnectDB.Main();
@@ -709,6 +676,45 @@ e.printStackTrace();
         }
 
 
+        return isSuccessful;
+    }
+
+    public static boolean addGuest(ObservableList<String> data) throws Exception{
+        boolean isSuccessful = false;
+        try {
+            Connection con = ConnectDB.Main();
+            String sql = "UPDATE Receipts SET Occupants = Occupants + 1 WHERE CheckedOutDate = 'NO' AND Room = "+data.get(7)+"";
+            con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.execute();
+
+             sql = "INSERT INTO Occupants (Date,Name,Phone,Address,IsAdult,Gender,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate,CheckedOutTime,Days,Receipt) " +
+                    "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+             ps = con.prepareStatement(sql);
+            ps.setObject(1, data.get(0));
+            ps.setObject(2, MainClass.returnTitleCase(data.get(1) + " " + MainClass.returnTitleCase(data.get(2))));
+            ps.setObject(3,data.get(3));
+            ps.setObject(4, data.get(4));
+            ps.setObject(5, data.get(5));
+            ps.setObject(6, data.get(6));
+            ps.setObject(7, data.get(7));
+            ps.setObject(8, data.get(8));
+            ps.setObject(9, data.get(9));
+            ps.setObject(10, data.get(10));
+            ps.setObject(11, data.get(11));
+            ps.setObject(12, data.get(12));
+            ps.setObject(13, data.get(13));
+            ps.setObject(14, data.get(14));
+            ps.setObject(15, data.get(15));
+            ps.execute();
+
+
+
+            con.close();
+            isSuccessful = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return isSuccessful;
     }
 }

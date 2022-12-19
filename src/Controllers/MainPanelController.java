@@ -7,17 +7,17 @@ package Controllers;
 
 
 import Classes.MainClass;
+import Classes.ModelClassLarge;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -45,7 +45,6 @@ import java.util.ResourceBundle;
  */
 public class MainPanelController implements Initializable {
 
-    public static boolean isDatabaseBusy = false;
     public AnchorPane RecordsPane;
     public Label versionLabel;
     public JFXButton OperatorID;
@@ -53,7 +52,6 @@ public class MainPanelController implements Initializable {
     public JFXButton NotificationButton;
     public JFXButton SettingsButton;
     public JFXButton RecordsButton;
-    public JFXButton ReportButton;
     public AnchorPane CheckInPane;
 
     public BorderPane rootPane;
@@ -73,7 +71,7 @@ public class MainPanelController implements Initializable {
 //    @FXML	private JFXButton ServicesButton;
     @FXML	private JFXButton SignOutButton;
 
-
+    StringBuilder notificationBuilder = new StringBuilder();
 
     Alert alert;
     static String currentStyle = "file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/currentTheme.css";
@@ -81,29 +79,23 @@ public class MainPanelController implements Initializable {
     /**
      * Initializes the controller class.
      */
-
-    Service<Void> keepOfflineAlive;
     ObservableList<AnchorPane> Mpanes;
 
     public Service<Void> Timeservice;
 
     String MyTime;
     public static String Staff = "";
-    static String FileLocation = "C:\\Users\\Public\\HotelApplication\\background.jpg";
+    static String FileLocation = "C:\\Users\\Public\\Louisiana\\background.jpg";
     static String OriginalLocation= "";
-    public static String isOnline ="Offline";
-    public static String lastState ="Offline";
-    public static String isUpdated="Server Offline";
-    public static String lastUpdate ="Server Offline";
-    public static boolean isWorkingOffline = false;
-    public static File offlineQuery = new File("C:\\Users\\Public\\Database\\Offline.txt");
 
-    public static boolean isOfflineDatabaseSet = false;
-    public static boolean isOfflineDatabaseConnected = false;
 
     public static boolean checkIn = false;
+    public static boolean checkOut = false;
 
     Splashcontroller splashcontroller = new Splashcontroller();
+    @FXML CheckOutController checkOutPaneController;
+    @FXML CheckInController checkInPaneController;
+    @FXML RoomListController roomListPaneController;
 
 
     @Override
@@ -112,34 +104,36 @@ public class MainPanelController implements Initializable {
             rootPane.getStylesheets().remove(0);
             rootPane.getStylesheets().add("file:/"+System.getProperty("user.home").replace("\\", "/" ) + "/currentTheme.css");
             try {
+                myChildren();
+
 
                 //TODO
-//                try {
-//                    File file = new File(System.getProperty("user.home") + "/Receipt.xlsx");
-//                    File file2 = new File(System.getProperty("user.home") + "/MyReceipt.xlsx");
-//                    File file3 = new File(System.getProperty("user.home") + "/currentTheme.css");
-//                    File file4 = new File(System.getProperty("user.home") + "/background.jpg");
-//                    if(!file.exists()){
-//                        InputStream in = getClass().getClassLoader().getResourceAsStream("../Raw/Receipt.xlsx");
-//                        InputStream in2 = getClass().getClassLoader().getResourceAsStream("/Raw/MyReceipt.xlsx");
-//                        InputStream in3 = getClass().getClassLoader().getResourceAsStream("/Raw/currentTheme.css");
-//                        InputStream in4 = getClass().getClassLoader().getResourceAsStream("/Raw/background.jpg");
-//                        assert in != null;
-//                        assert in2 != null;
-//                        assert in3 != null;
-//                        assert in4 != null;
-//                        Files.copy(in, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
-//                        Files.copy(in2, file2.toPath(), StandardCopyOption.REPLACE_EXISTING);
-//                        Files.copy(in3, file3.toPath(), StandardCopyOption.REPLACE_EXISTING);
-//                        Files.copy(in4, file4.toPath(), StandardCopyOption.REPLACE_EXISTING);
-//                        in.close();
-//                        in2.close();
-//                        in3.close();
-//                        in4.close();
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    File copiedFile = new File(FileLocation);
+                    File file = new File(System.getProperty("user.home") + "/Receipt.xlsx");
+                    File file2 = new File(System.getProperty("user.home") + "/MyReceipt.xlsx");
+                    File file3 = new File(System.getProperty("user.home") + "/currentTheme.css");
+                    if(!file.exists()){
+                        InputStream in = getClass().getClassLoader().getResourceAsStream("Raw/Receipt.xlsx");
+                        InputStream in2 = getClass().getClassLoader().getResourceAsStream("Raw/MyReceipt.xlsx");
+                        InputStream in3 = getClass().getClassLoader().getResourceAsStream("Raw/currentTheme.css");
+                        InputStream in4 = getClass().getClassLoader().getResourceAsStream("Raw/background.jpg");
+                        assert in != null;
+                        assert in2 != null;
+                        assert in3 != null;
+                        assert in4 != null;
+                        Files.copy(in, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                        Files.copy(in2, file2.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                        Files.copy(in3, file3.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                        Files.copy(in4, copiedFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                        in.close();
+                        in2.close();
+                        in3.close();
+                        in4.close();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 Image img = new Image("file:\\"+FileLocation);
                 BackgroundSize size = new BackgroundSize(1.0, 1.0, true, true, true, true );
@@ -159,8 +153,8 @@ public class MainPanelController implements Initializable {
                 OperatorID.setText(Staff);
             }
 
-            OperatorID.setOnMouseEntered(event -> {OperatorID.setText("Log Out");});
-            OperatorID.setOnMouseExited(event -> {OperatorID.setText(Staff);});
+            OperatorID.setOnMouseEntered(event -> OperatorID.setText("Log Out"));
+            OperatorID.setOnMouseExited(event -> OperatorID.setText(Staff));
             MainDate.setText(LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
             TimeService();
             Mpanes = FXCollections.observableArrayList(HomePane, RoomListPane, CheckInPane,  CheckOutPane, RecordsPane, SettingsPane );
@@ -169,10 +163,6 @@ public class MainPanelController implements Initializable {
 
 
         } catch (Exception e) {
-            if(!isOfflineDatabaseSet){
-                HomePane.setVisible(false);
-                SettingsPane.setVisible(true);
-            }
             e.printStackTrace();
         }
 
@@ -231,26 +221,30 @@ public class MainPanelController implements Initializable {
        HomePane.setBackground(background);
    }else if(event.getSource().equals(NotificationButton)){
 
-//       Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//       alert.setTitle("New Version 1.0.1");
-//       alert.setContentText("Under Development");
-//       alert.setHeaderText(null);
-//       alert.showAndWait();
+       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+       alert.setTitle("Check Outs");
+       alert.setContentText(notificationBuilder.toString());
+       alert.setHeaderText(null);
+       alert.showAndWait();
+       ButtonType result2 = alert.getResult();
+       if(result2.equals(ButtonType.OK)){
+           notificationBuilder = new StringBuilder();
+           NotificationButton.setStyle("-fx-background-color: linear-gradient(#901500, #490b02); -fx-text-fill: white; -fx-font-weight: bold;");
+           NotificationButton.setText("0 Notifications");
+       }
    }
 
 
   }
 
-    public void MainNav(AnchorPane pane)throws Exception {
+    public void MainNav(AnchorPane pane) {
 
-        Mpanes.forEach((action) -> {
-            action.setVisible(false);
-        });
+        Mpanes.forEach((action) -> action.setVisible(false));
         pane.setVisible(true);
 
     }
 
-	public void TimeService()throws Exception{
+	public void TimeService() {
         Timeservice = new Service<Void>() {
             @Override
             public Task<Void> createTask() {
@@ -263,6 +257,14 @@ public class MainPanelController implements Initializable {
                        if(checkIn){
                            break;
                        }
+                       if(checkOut){
+                           break;
+                       }
+                       if(LocalTime.now().getMinute() == 55){
+                           if(LocalTime.now().getSecond() < 3){
+                               break;
+                           }
+                       }
                        Thread.sleep(1000);
                    }
                    return null;
@@ -273,8 +275,11 @@ public class MainPanelController implements Initializable {
     };
      Timeservice.setOnSucceeded(event -> {
          try {
-             MainNav(Mpanes.get(2) );
-             checkIn =false;
+             if(checkIn){
+                 MainNav(Mpanes.get(2));
+                 checkIn =false;
+             }
+             NotificationService();
              TimeService();
          } catch (Exception e) {
              throw new RuntimeException(e);
@@ -285,8 +290,29 @@ public class MainPanelController implements Initializable {
              
     }
 
+    @FXML private void myChildren()throws Exception{
+        checkOutPaneController.myParent(this);
+        checkInPaneController.myParent(this);
+        roomListPaneController.myParent(this);
 
+    }
 
+    public void NotificationService() throws  Exception{
+        String sql = "SELECT Name,Room,ToCheckOutTime FROM (SELECT * FROM Occupants WHERE CheckedOutDate = 'NO') WHERE ToCheckOutTime between '"+LocalTime.now()+"' and '"+LocalTime.now().plusMinutes(11)+"'";
+        ObservableList<ModelClassLarge> Data = MainClass.FillTableLarge(3, sql);
+        notificationBuilder = new StringBuilder();
+        if(!Data.isEmpty()){
+            for(ModelClassLarge M : Data){
+                notificationBuilder.append(M.getCol1()).append(" From Room ").append(M.getCol2()).append(" Should be Checking By ").append(M.getCol3()).append("\n");
+            }
+            NotificationButton.setStyle("-fx-background-color: linear-gradient(#2efb2e, #076b07  ); -fx-text-fill: white; -fx-font-weight: bold;");
+            NotificationButton.setText(Data.size()+" Notifications");
+        }else {
+            NotificationButton.setStyle("-fx-background-color: linear-gradient(#901500, #490b02); -fx-text-fill: white; -fx-font-weight: bold;");
+            NotificationButton.setText("0 Notifications");
+        }
+
+    }
 
 
     public void mouseEvent(MouseEvent event) throws Exception {
@@ -294,7 +320,7 @@ public class MainPanelController implements Initializable {
         File version = new File(System.getProperty("user.home") + "/AppData/Local/Activation.txt");
         if(event.getSource().equals(versionLabel)){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("New Version 1.0.1");
+            alert.setTitle("New Version 1.1.0");
             alert.setContentText("Update Complete! \n " +
                     "What's New ? \n " +
                     "1. Added Notifications (Under Development) \n " +
@@ -307,7 +333,6 @@ public class MainPanelController implements Initializable {
                     "Click on the Version number(Top right corner) to view this message again");
             alert.setHeaderText(null);
             alert.showAndWait();
-            return;
         }
     }
 
@@ -319,6 +344,17 @@ public class MainPanelController implements Initializable {
         fileWriter.close();
         rootPane.getStylesheets().remove(0);
         rootPane.getStylesheets().add(currentStyle);
+    }
+
+    public void setCheckOutUI(String name, int room) throws Exception {
+        MainNav(Mpanes.get(3));
+        checkOutPaneController.NameBox.getEditor().setText(name);
+        checkOutPaneController.loadUI(name, room);
+    }
+    public void setRoom(int room) throws Exception {
+        MainNav(Mpanes.get(2));
+        checkInPaneController.RoomNo.setText(String.valueOf(room));
+        checkInPaneController.getRoomDetails();
     }
 
 

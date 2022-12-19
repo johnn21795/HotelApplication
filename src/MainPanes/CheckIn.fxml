@@ -82,7 +82,7 @@
                                     </HBox>
                                     <HBox>
                                        <children>
-                                          <Label prefHeight="24.0" prefWidth="145.0" text="Total occupants:   " />
+                                          <Label prefHeight="24.0" prefWidth="145.0" text="Total Guests:   " />
                                           <Label fx:id="TotOccupants" alignment="CENTER" prefHeight="25.0" prefWidth="35.0" text="0" />
                                        </children>
                                        <VBox.margin>
@@ -101,7 +101,7 @@
                                     <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="MainDate" text="Room Information" />
                                     <HBox layoutX="10.0" layoutY="141.0" prefHeight="25.0" prefWidth="183.0">
                                        <children>
-                                          <JFXTextField fx:id="RoomNo" maxWidth="80.0" onKeyReleased="#keyEvent" promptText="Room No." />
+                                          <JFXTextField fx:id="RoomNo" maxWidth="80.0" onKeyReleased="#getRoomDetails" promptText="Room No." />
                                           <Label prefHeight="34.0" prefWidth="41.0" styleClass="boldText" text="Days:">
                                              <HBox.margin>
                                                 <Insets left="100.0" right="20.0" />

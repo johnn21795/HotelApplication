@@ -29,7 +29,6 @@ import javafx.stage.StageStyle;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class RecordsController implements Initializable {
@@ -96,10 +95,6 @@ public class RecordsController implements Initializable {
  
     public TableColumn<ModelClassLarge, ?> BalanceCol3;
     public TableColumn<ModelClassLarge, ?> MethodCol3;
-    public JFXTextField SearchField12;
-    public JFXButton SearchBut;
-    public JFXDatePicker StartDate12;
-    public JFXDatePicker EndDate;
     public JFXDatePicker EndDate3;
     public JFXDatePicker StartDate3;
     public JFXButton SearchBut3;
@@ -391,23 +386,38 @@ public class RecordsController implements Initializable {
 
 
         if(actionEvent.getSource().equals(SearchBut4)){
-            ObservableList<ModelClassLarge> Data = MainClass.FillTableLarge(8, "SELECT Number,Status,TimesBooked,DAysBooked,Rate,TotalAmount,CheckInDate || ' ' ||CheckInTime as CheckedIn,Name FROM RoomList ");
-            for(ModelClassLarge m : Data){
-                if(m.getCol7().contains("NO")){
-                    m.setCol7("");
+            ObservableList<ModelClassLarge> Data = MainClass.FillTableLarge(13, "SELECT Number,Status,TimesBooked,DaysBooked,Rate,TotalAmount,CheckInDate,CheckInTime, ToCheckOutDate,ToCheckOutTime,CheckedOutDate, CheckedOutTime,Name FROM RoomList ");
+
+                if(!Data.isEmpty()) {
+                    for (ModelClassLarge m : Data) {
+                        if (!m.getCol7().equalsIgnoreCase("NO")) {
+                            String checkIn = MainClass.returnDate3Format(LocalDate.parse(m.getCol7(), MainClass.DatabaseDateFormat)) + "  " + m.getCol8();
+                            m.setCol7(checkIn);
+                        }
+                        if (!m.getCol9().equalsIgnoreCase("NO")) {
+                            String checkOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol9(), MainClass.DatabaseDateFormat)) + "  " + m.getCol10();
+                            m.setCol9(checkOut);
+                        }
+                        if (!m.getCol11().equalsIgnoreCase("NO")) {
+                            String checkedOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol11(), MainClass.DatabaseDateFormat)) + "  " + m.getCol12();
+                            m.setCol11(checkedOut);
+                        }
+                    }
+                    LoadRoomTable(Data);
                 }
-            } LoadRoomTable(Data);
+
         }
         if(actionEvent.getSource().equals(StartDate4)){
             //TODO
-//            int Room = Integer.parseInt(RoomTable.getSelectionModel().getSelectedItem().getCol1());
-//            String sql = "SELECT  Number, CheckInDate, CheckInTime, ToCheckOutDate, ToCheckOutTime, CheckedOutDate,CheckedOutTime, Type, Name,Rate,Status,Occupant FROM RoomList WHERE Number = "+Room+" ";
-//            ObservableList<String> Data = MainClass.getObservableList(sql, new String[]{"Number","Status","Rate","CheckInDate", "CheckInTime", "ToCheckOutDate", "ToCheckOutTime", "CheckedOutDate","CheckedOutTime","Name","Type","Rate","Occupant"});
-//            sql = "SELECT count(*) as TimesBooked, sum(days) as DaysBooked, sum(Total) as Total FROM Receipts WHERE Room = "+Room+" and Date Between '"++"' AND '"++"'";
-//            Data.addAll(MainClass.getObservableList(sql, new String[]{"TimesBooked","DaysBooked","Total"})) ;
+            if(StartDate4.getValue() == null){
+                return;
+            }
+            int Room = Integer.parseInt(RoomTable.getSelectionModel().getSelectedItem().getCol1());
+            String sql = "SELECT  Number, CheckInDate, CheckInTime, ToCheckOutDate, ToCheckOutTime, CheckedOutDate,CheckedOutTime, Type, Name,Rate,Status,Occupant FROM RoomList WHERE Number = "+Room+" ";
+            ObservableList<String> Data = MainClass.getObservableList(sql, new String[]{"Number","Status","Rate","CheckInDate", "CheckInTime", "ToCheckOutDate", "ToCheckOutTime", "CheckedOutDate","CheckedOutTime","Name","Type","Rate","Occupant"});
+            sql = "SELECT count(*) as TimesBooked, sum(days) as DaysBooked, sum(Total) as Total FROM Receipts WHERE Room = "+Room+" and Date Between '"+StartDate4.getValue().format(MainClass.DatabaseDateFormat)+"' AND '"+EndDate4.getValue().format(MainClass.DatabaseDateFormat)+"'";
+            Data.addAll(MainClass.getObservableList(sql, new String[]{"TimesBooked","DaysBooked","Total"})) ;
 
-
-//            "SELECT Number,Status,TimesBooked,DaysBooked,Rate,TotalAmount,CheckInDate || ' ' ||CheckInTime as CheckedIn,Name FROM RoomList
 
         }
 
@@ -539,11 +549,20 @@ public class RecordsController implements Initializable {
                             Data[1] = MainClass.FillTableLarge(11, "SELECT Date,Receipt,Name,Phone,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime, CheckedOutDate, CheckedOutTime FROM CheckIns ");
                             Data[2] = MainClass.FillTableLarge(9, "SELECT Date,Receipt,Name,Room,Time,Total,Paid,Balance,Method FROM Payments ");
                             Data[3] = MainClass.FillTableLarge(20, "SELECT Date,Receipt,Name,Phone,Address,isAdult,Gender,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate,CheckedOutTime,Occupants,Days,Rate,Total,Paid,Balance,Method FROM Receipts ");
-                            Data[0] = MainClass.FillTableLarge(8, "SELECT Number,Status,TimesBooked,DaysBooked,Rate,TotalAmount,CheckInDate || ' ' ||CheckInTime as CheckedIn,Name FROM RoomList  ");
+                            Data[0] = MainClass.FillTableLarge(13, "SELECT Number,Status,TimesBooked,DaysBooked,Rate,TotalAmount,CheckInDate,CheckInTime, ToCheckOutDate,ToCheckOutTime,CheckedOutDate, CheckedOutTime,Name FROM RoomList ");
                             for(ModelClassLarge m : Data[0]){
-                                if(m.getCol7().contains("NO")){
-                                    m.setCol7("");
+                                if (!m.getCol7().equalsIgnoreCase("NO")) {
+                                    String checkIn = MainClass.returnDate3Format(LocalDate.parse(m.getCol7(), MainClass.DatabaseDateFormat)) + "  " + m.getCol8();
+                                    m.setCol7(checkIn);
                                 }
+                                if (!m.getCol9().equalsIgnoreCase("NO")) {
+                                    String checkOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol9(), MainClass.DatabaseDateFormat)) + "  " + m.getCol10();
+                                    m.setCol9(checkOut);
+                                }
+                                    if (!m.getCol11().equalsIgnoreCase("NO")) {
+                                        String checkedOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol11(), MainClass.DatabaseDateFormat)) + "  " + m.getCol12();
+                                        m.setCol11(checkedOut);
+                                    }
                             }
                             for(ModelClassLarge m : Data[1]){
                                 String checkIn = MainClass.returnDate3Format(LocalDate.parse(m.getCol6(), MainClass.DatabaseDateFormat)) +"  "+m.getCol7();
@@ -637,7 +656,9 @@ public class RecordsController implements Initializable {
         RateCol4.setCellValueFactory(new PropertyValueFactory<>("col5"));
         AmountCol4.setCellValueFactory(new PropertyValueFactory<>("col6"));
         CheckInCol4.setCellValueFactory(new PropertyValueFactory<>("col7"));
-        RoomNameCol4.setCellValueFactory(new PropertyValueFactory<>("col8"));
+        ToCheckOutCol4.setCellValueFactory(new PropertyValueFactory<>("col9"));
+        isCheckOutCol4.setCellValueFactory(new PropertyValueFactory<>("col10"));
+        RoomNameCol4.setCellValueFactory(new PropertyValueFactory<>("col13"));
         RoomTable.setItems(data);
     }
     public void LoadCheckInTable(ObservableList<ModelClassLarge> data)throws Exception   {

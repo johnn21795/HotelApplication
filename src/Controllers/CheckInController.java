@@ -16,12 +16,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.awt.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -70,6 +68,7 @@ public class CheckInController implements Initializable {
 
 
     ObservableList<Map<String, String>> People = FXCollections.observableArrayList();
+    private  MainPanelController mainPanelController;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -77,6 +76,8 @@ public class CheckInController implements Initializable {
 
             clearUI();
             Male.selectedProperty().set(!Female.isSelected());
+            TPicker.setValue(LocalTime.of(12,0));
+            ChTime.setText(TPicker.getValue().format(MainClass.timeFormatter));
             RoomNo2 = RoomNo;
             //Get Receipt Number
 
@@ -247,7 +248,65 @@ public class CheckInController implements Initializable {
     }
 
     public void keyEvent(KeyEvent keyEvent) throws Exception{
-        if(keyEvent.getSource().equals(RoomNo)){
+        if(keyEvent.getSource().equals(Deposit)){
+            if(Deposit.getText().isEmpty()){
+                return;
+            }
+            if(TAmount.getText().isEmpty() || TAmount.getText().equalsIgnoreCase("")){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setContentText("Select CheckOut Date First");
+                alert.showAndWait();
+                return;
+            }
+            int Total = Integer.parseInt(this.TAmount.getText());
+            int Paid;
+            try {
+                Paid = Integer.parseInt(Deposit.getText());
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setContentText("Only Number Allowed");
+                alert.showAndWait();
+                return;
+            }
+            int Balance = Total - Paid;
+            if(Balance < 0){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setContentText("Excess Amount Entered");
+                alert.showAndWait();
+                Paid = 0;
+                Balance = Total - Paid;
+                this.TPaid.setText(String.valueOf(Paid));
+                this.Deposit.setText(String.valueOf(Paid));
+                this.TBalance.setText(String.valueOf(Balance));
+                return;
+            }
+            this.TPaid.setText(String.valueOf(Paid));
+            this.TBalance.setText(String.valueOf(Balance));
+        }
+        if(keyEvent.getSource().equals(Method)) {
+            String method = Method.getText().toLowerCase();
+            if(keyEvent.getCode().equals(KeyCode.BACK_SPACE)){
+                return;
+            }
+            switch (method){
+                case "c":
+                    Method.setText("Cash");
+                    break;
+                case "p":
+                    Method.setText("Pos");
+                    break;
+                case "t":
+                case "b":
+                    Method.setText("Transfer");
+            }
+            this.Via.setText(MainClass.returnTitleCase(Method.getText()));
+        }
+    }
+
+    public void getRoomDetails()throws Exception{
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             RmNo.setText(RoomNo.getText());
             if(RoomNo.getText().isEmpty()){
@@ -302,50 +361,7 @@ public class CheckInController implements Initializable {
             }
 
 
-        }
-        if(keyEvent.getSource().equals(Deposit)){
-            if(Deposit.getText().isEmpty()){
-                return;
-            }
-            if(TAmount.getText().isEmpty() || TAmount.getText().equalsIgnoreCase("")){
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setHeaderText(null);
-                alert.setContentText("Select CheckOut Date First");
-                alert.showAndWait();
-                return;
-            }
-            int Total = Integer.parseInt(this.TAmount.getText());
-            int Paid = 0;
 
-
-            try {
-                Paid = Integer.parseInt(Deposit.getText());
-            } catch (NumberFormatException e) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setHeaderText(null);
-                alert.setContentText("Only Number Allowed");
-                alert.showAndWait();
-                return;
-            }
-            int Balance = Total - Paid;
-            if(Balance < 0){
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setHeaderText(null);
-                alert.setContentText("Excess Amount Entered");
-                alert.showAndWait();
-                Paid = 0;
-                Balance = Total - Paid;
-                this.TPaid.setText(String.valueOf(Paid));
-                this.Deposit.setText(String.valueOf(Paid));
-                this.TBalance.setText(String.valueOf(Balance));
-                return;
-            }
-            this.TPaid.setText(String.valueOf(Paid));
-            this.TBalance.setText(String.valueOf(Balance));
-        }
-        if(keyEvent.getSource().equals(Method)) {
-            this.Via.setText(MainClass.returnTitleCase(Method.getText()));
-        }
     }
 
     public void clearUI() throws Exception {
@@ -486,5 +502,11 @@ public class CheckInController implements Initializable {
                 e.printStackTrace();
 
             }
+    }
+
+
+
+    public void myParent(MainPanelController mainPanelController) {
+        this.mainPanelController = mainPanelController;
     }
 }

@@ -20,11 +20,8 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
@@ -46,20 +43,16 @@ public class Splashcontroller implements Initializable {
     private Label Update;
 
     public Service<Void> Loadservice, startservice;
-    public Stage MainStage, AuthView;
+    public Stage AuthView;
     public AnchorPane root;
     public Scene cene;
     FileWriter writer;
-    InputStream in, in2;
-    static boolean mousecode;
     static boolean isLoading;
-    LocalDate expirationdate = LocalDate.of(2023, 1, 20);
+    LocalDate expirationdate = LocalDate.of(2024, 1, 20);
     boolean newVersion;
     Alert alert;
     DateTimeFormatter format  = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public String ClassName = "SplashController ";
-    public Alert Erroralert;
 
        @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -84,19 +77,19 @@ public class Splashcontroller implements Initializable {
             }
             if (version.createNewFile()) {
                 writer = new FileWriter(version);
-                writer.write("1.0.1");
+                writer.write("1.1.0");
                 writer.close();
                 newVersion = true;
             }else{
                 List<String> lines = Files.readAllLines(version.toPath());
                 for (String line : lines) {
-                    if (line.contains("1.0.1")) {
+                    if (line.contains("1.1.0")) {
                         newVersion = false;
                     }else {
                         newVersion = true;
                         version.delete();
                         writer = new FileWriter(version);
-                        writer.write("1.0.1");
+                        writer.write("1.1.0");
                         writer.close();
                     }
 
@@ -112,15 +105,6 @@ public class Splashcontroller implements Initializable {
             StartService();
 
         }catch (Exception e){
-            try {
-                StringBuilder writer = new StringBuilder();
-                Files.write(MainClass.logFile.toPath(), (writer.append("\n").append(ClassName).append(e.getMessage()).append("  ").append(e.getLocalizedMessage()).toString()).getBytes(), StandardOpenOption.APPEND);
-                if(MainClass.isDebugging){
-                    Erroralert.show();
-                }
-            } catch (Exception ioException) {
-                ioException.printStackTrace();
-            }
             e.printStackTrace();
         }
 
@@ -143,13 +127,6 @@ private void StartService(){
                                 Thread.sleep(500);
                             }
                         } catch (Exception e) {
-                            try {
-                                StringBuilder writer = new StringBuilder();
-                                Files.write(MainClass.logFile.toPath(), (writer.append("\n").append(ClassName).append(e.getMessage()).append("  ").append(e.getLocalizedMessage()).toString()).getBytes(), StandardOpenOption.APPEND);
-
-                            } catch (Exception ioException) {
-                                ioException.printStackTrace();
-                            }
                             e.printStackTrace();
                         }
                         return null;
@@ -165,20 +142,11 @@ private void StartService(){
                 System.out.println("Doneee ");
                 Done((Stage)Bar.getScene().getWindow());
             } catch (Exception e) {
-                try {
-                    StringBuilder writer = new StringBuilder();
-                    Files.write(MainClass.logFile.toPath(), (writer.append("\n").append(ClassName).append(e.getMessage()).append("  ").append(e.getLocalizedMessage()).toString()).getBytes(), StandardOpenOption.APPEND);
-                    if(MainClass.isDebugging){
-                        Erroralert.show();
-                    }
-                } catch (Exception ioException) {
-                    ioException.printStackTrace();
-                }
                 e.printStackTrace();
             }
             if(newVersion){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("New Version 1.0.1");
+            alert.setTitle("New Version 1.1.0");
             alert.setContentText("Database Update Complete! \n " +
                     "What's New ? \n " +
                     "1. Added Work Offline \n " +
@@ -209,7 +177,7 @@ private void LoadService() {
     }
     if(newVersion){
         Update.setVisible(true);
-        Update.setText("Welcome to Version 1.0.1 2022 Edition...Please Wait while the Database Updates!!");
+        Update.setText("Welcome to Version 1.1.0 2022 Edition...Please Wait while the Database Updates!!");
     }
 
         Loadservice = new Service<Void>() {
@@ -247,6 +215,7 @@ File LocalConnectionFile = new File("C:\\Users\\Public\\Database\\LocalConnectio
 File directory = new File("C:\\Users\\Public\\Database\\HotelApplication\\");
 File MainFile = new File("C:\\Users\\Public\\Database\\HotelApplication\\Main.zny");
 directory.mkdirs();
+new File("C:\\Users\\Public\\Louisiana\\background.jpg").mkdirs();
 
 boolean isNew = LocalConnectionFile.createNewFile();
     if(isNew){
@@ -507,7 +476,7 @@ boolean isNew = LocalConnectionFile.createNewFile();
 
 private void CheckTrial() throws Exception {
 
-        File activation = new File(System.getProperty("user.home") + "/AppData/Local/Activation.txt");
+        File activation = new File(System.getProperty("user.home") + "/AppData/Local/LouisianaActivation.txt");
 
         if (activation.createNewFile()) {
             writer = new FileWriter(activation);
@@ -530,16 +499,6 @@ private void CheckTrial() throws Exception {
 
 
 
-        AuthView = new Stage();
-        FXMLLoader Loader = new FXMLLoader();
-        Parent root =(Parent) Loader.load(getClass().getResource("/Main/MainPanes/Expired.fxml").openStream());
-        cene = new Scene(root);
-        AuthView.setScene(cene);
-        AuthView.centerOnScreen();
-        AuthView.showAndWait();
-        Stage window = (Stage) Bar.getScene().getWindow();
-        window.close();
-
 
 }
 
@@ -552,7 +511,8 @@ private void CheckTrial() throws Exception {
 
                 AuthView = new Stage();
                 Loader = new FXMLLoader();
-                root = Loader.load(getClass().getResource("/MainPanes/Expired.fxml").openStream());
+                root = Loader.load(getClass().getResource("/MainPanes/Activation.fxml").openStream());
+                Loader.getController();
                 cene = new Scene(root);
                 AuthView.setScene(cene);
                 AuthView.centerOnScreen();
@@ -576,15 +536,7 @@ private void CheckTrial() throws Exception {
                 Stage window = (Stage) Bar.getScene().getWindow();
                 window.close();
             } catch (Exception e) {
-                try {
-                    StringBuilder writer = new StringBuilder();
-                    Files.write(MainClass.logFile.toPath(), (writer.append("\n").append(ClassName).append(e.getMessage()).append("  ").append(e.getLocalizedMessage()).toString()).getBytes(), StandardOpenOption.APPEND);
-                    if(MainClass.isDebugging){
-                        Erroralert.show();
-                    }
-                } catch (Exception ioException) {
-                    ioException.printStackTrace();
-                }
+               e.printStackTrace();
 
             }
         }

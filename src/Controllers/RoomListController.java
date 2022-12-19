@@ -2,6 +2,7 @@ package Controllers;
 
 import Classes.MainClass;
 import Classes.ModelClassLarge;
+import Controllers.MiniControllers.AddGuestController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -10,17 +11,23 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+
+
 
 public class RoomListController implements Initializable {
     public TableView<ModelClassLarge> RoomListTable;
@@ -33,9 +40,7 @@ public class RoomListController implements Initializable {
     public TableColumn<ModelClassLarge, ?> StatusCol;
     public TableColumn<ModelClassLarge, ?> OccupantCol;
     public TableColumn<ModelClassLarge, ?> OtherCol;
-    public JFXButton SearchBut;
     public JFXComboBox<String> StatusBox1;
-    public JFXTextField Search;
     public JFXButton SearchBut1;
     public TableView<ModelClassLarge> GuestListTable;
     public TableColumn<ModelClassLarge, ?> NoCol2;
@@ -51,8 +56,11 @@ public class RoomListController implements Initializable {
     public JFXTextField Search2;
     public JFXButton SearchBut2;
     public JFXButton CheckBut;
-    public JFXButton ReservedBut;
     public JFXTextField Search1;
+    public JFXButton AddBut;
+    public JFXButton OutBut;
+
+    private  MainPanelController mainPanelController;
 
     public RoomListController(){
         try {
@@ -66,8 +74,8 @@ public class RoomListController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try{
-            StatusBox1.setItems(FXCollections.observableArrayList("All","Available","Occupied","Reserved"));
-            StatusBox1.getSelectionModel().select(1);
+            StatusBox1.setItems(FXCollections.observableArrayList("All","Available","Occupied"));
+            StatusBox1.getSelectionModel().select(0);
 //            FirstLoad();
         }catch (Exception e){
             e.printStackTrace();
@@ -105,8 +113,8 @@ public class RoomListController implements Initializable {
 
         };
         keepAlive.setOnSucceeded(event -> {
-            LoadRoomList(data[0]);
             LoadGuestList(data[1]);
+            LoadRoomList(data[0]);
             ReloadTableService();
         });
         keepAlive.setOnFailed(event -> {
@@ -156,7 +164,18 @@ public class RoomListController implements Initializable {
         }
         if(keyEvent.getSource().equals(Search2)){
             String query = Search2.getText();
-            ObservableList<ModelClassLarge> data = MainClass.FillTableLarge(12, "SELECT Date,Receipt,Name,Phone,Gender,isAdult,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate FROM Occupants WHERE CheckedOutDate = 'NO' AND  Phone Like '%" + query + "%' or Name Like '%" + query + "%' or Room = '" + query + "' or Receipt = '" + query + "' ");
+            if(Search2.getText().isEmpty()){
+                return;
+            }
+            String sql;
+            try {
+                int room = Integer.parseInt(query);
+                sql = "SELECT Date,Receipt,Name,Phone,Gender,isAdult,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate FROM (SELECT * FROM Occupants WHERE CheckedOutDate = 'NO') WHERE  Phone Like '%"+query+"%' OR Room = "+room+" OR Receipt = "+room+" ";
+            } catch (NumberFormatException ignore) {
+                sql = "SELECT Date,Receipt,Name,Phone,Gender,isAdult,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate FROM (SELECT * FROM Occupants WHERE CheckedOutDate = 'NO') WHERE Name Like '%"+query+"%' ";
+            }
+
+            ObservableList<ModelClassLarge> data = MainClass.FillTableLarge(12, sql);
             for(ModelClassLarge m : data){
                 String checkIn = MainClass.returnDate3Format(LocalDate.parse(m.getCol8(), MainClass.DatabaseDateFormat)) +"  "+m.getCol9();
                 String checkOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol10(), MainClass.DatabaseDateFormat)) +"  "+m.getCol11();
@@ -167,15 +186,6 @@ public class RoomListController implements Initializable {
             }
             LoadGuestList(data);
         }
-    }
-
-    public void mouseEvent(MouseEvent mouseEvent) {
-    }
-
-    public void dragAction(MouseEvent mouseEvent) {
-    }
-
-    public void dragStart(MouseEvent mouseEvent) {
     }
 
     public void actionEvent(ActionEvent event) throws Exception {
@@ -201,7 +211,7 @@ public class RoomListController implements Initializable {
                 }
                 LoadGuestList(data);
             }else {
-                ObservableList<ModelClassLarge> data = MainClass.FillTableLarge(12, "SELECT Date,Receipt,Name,Phone,Gender,isAdult,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate FROM Occupants WHERE CheckedOutDate = 'NO' AND Phone Like '%"+query+"%' or Name Like '%"+query+"%' or Room = "+query+" or Receipt = "+query+" ");
+                ObservableList<ModelClassLarge> data = MainClass.FillTableLarge(12, "SELECT Date,Receipt,Name,Phone,Gender,isAdult,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate FROM Occupants WHERE CheckedOutDate = 'NO' AND Phone Like '%"+query+"%' or Name Like '%"+query+"%' AND Room = "+query+" AND Receipt = "+query+" ");
                 for(ModelClassLarge m : data){
                     String checkIn = MainClass.returnDate3Format(LocalDate.parse(m.getCol8(), MainClass.DatabaseDateFormat)) +"  "+m.getCol9();
                     String checkOut = MainClass.returnDate3Format(LocalDate.parse(m.getCol10(), MainClass.DatabaseDateFormat)) +"  "+m.getCol11();
@@ -232,12 +242,43 @@ public class RoomListController implements Initializable {
             }
         }
         if(event.getSource().equals(CheckBut)){
-            CheckInController.setRoom(Integer.parseInt(RoomListTable.getSelectionModel().getSelectedItem().getCol1()));
+            mainPanelController.setRoom(Integer.parseInt(RoomListTable.getSelectionModel().getSelectedItem().getCol1()));
             MainPanelController.checkIn = true;
         }
-        if(event.getSource().equals(ReservedBut)){
-            MainClass.EditDatabase("UPDATE RoomList SET Status = 'Reserved' WHERE Number = "+Integer.parseInt(RoomListTable.getSelectionModel().getSelectedItem().getCol1()));
-            LoadRoomList(MainClass.FillTableLarge(6, "SELECT Number,Name,Type,Rate,Status,Occupant FROM RoomList WHERE Status = 'Available' "));
+        if(event.getSource().equals(OutBut)){
+            String Name = GuestListTable.getSelectionModel().getSelectedItem().getCol3();
+            int Room = Integer.parseInt(GuestListTable.getSelectionModel().getSelectedItem().getCol7());
+            mainPanelController.setCheckOutUI(Name, Room);
+
+        }
+        if(event.getSource().equals(AddBut)){
+            try {
+                Stage stage = new Stage();
+                FXMLLoader Loaders = new FXMLLoader();
+                Parent root1 = Loaders.load(getClass().getResource("/SubPanes/AddGuest.fxml").openStream());
+                AddGuestController addGuestController;
+                addGuestController = Loaders.getController();
+
+                ObservableList<String> Data = FXCollections.observableArrayList();
+                ModelClassLarge selected = GuestListTable.getSelectionModel().getSelectedItem();
+                LocalDate checkOut = LocalDate.parse(selected.getCol9().split("  ")[0].replace("nd", "").replace("th", "").replace("rd", ""), MainClass.format3);
+                //Room,CheckOutDate,CheckoutTime,Receipt,
+                System.out.println();
+                Data.addAll(
+                        selected.getCol7(),checkOut.format(MainClass.DatabaseDateFormat),selected.getCol9().split("  ")[1], selected.getCol2()
+                );
+                addGuestController.getInfo(Data);
+
+                Scene scene = new Scene(root1);
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.showAndWait();
+                MainClass.reloadRoomListTables = true;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
         }
     }
 
@@ -270,4 +311,7 @@ public class RoomListController implements Initializable {
     }
 
 
+    public void myParent(MainPanelController mainPanelController) {
+        this.mainPanelController = mainPanelController;
+    }
 }

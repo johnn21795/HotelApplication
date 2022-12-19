@@ -2,7 +2,6 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -11,11 +10,10 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.RoomListController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.RoomListController">
    <children>
       <JFXTabPane prefHeight="593.0" prefWidth="1015.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <tabs>
@@ -25,29 +23,24 @@
                      <children>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <TableView fx:id="RoomListTable" editable="true" layoutX="29.0" layoutY="52.0" onDragDetected="#dragStart" onKeyReleased="#keyEvent" onMouseClicked="#mouseEvent" onMouseDragged="#dragAction" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
+                              <TableView fx:id="RoomListTable" editable="true" layoutX="29.0" layoutY="52.0" onKeyReleased="#keyEvent" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
                                  <columns>
                                     <TableColumn fx:id="NoCol" prefWidth="50" text="No" />
                                     <TableColumn fx:id="IDCol" prefWidth="74.0" text="RoomID" visible="false" />
-                                    <TableColumn fx:id="RoomNoCol" prefWidth="81.99996948242188" text="Room No."/>
+                                    <TableColumn fx:id="RoomNoCol" prefWidth="81.99996948242188" text="Room No." />
                                     <TableColumn fx:id="RoomCol" prefWidth="150.0" text="Room" />
                                     <TableColumn fx:id="TypeCol" prefWidth="150.0" text="Type" />
                                     <TableColumn fx:id="RateCol" prefWidth="70.0" text="Rate" />
                                     <TableColumn fx:id="StatusCol" prefWidth="150.0" text="Status" />
-                                    <TableColumn fx:id="OccupantCol" prefWidth="150.0" text="Occupant" />
+                                    <TableColumn fx:id="OccupantCol" prefWidth="150.0" text="Guests" />
                                     <TableColumn fx:id="OtherCol" prefWidth="150.0" text="Comment" visible="false" />
                                  </columns>
                                  <contextMenu>
-                                    <ContextMenu fx:id="CMenu" anchorLocation="CONTENT_TOP_RIGHT" autoFix="false" consumeAutoHidingEvents="false">
+                                    <ContextMenu anchorLocation="CONTENT_TOP_RIGHT" autoFix="false" consumeAutoHidingEvents="false">
                                       <items>
-                                        <MenuItem fx:id="MenuItem" mnemonicParsing="false">
+                                        <MenuItem mnemonicParsing="false">
                                              <graphic>
                                                 <JFXButton fx:id="CheckBut" onAction="#actionEvent" text="Check-In" />
-                                             </graphic>
-                                          </MenuItem>
-                                          <MenuItem mnemonicParsing="false">
-                                             <graphic>
-                                                <JFXButton fx:id="ReservedBut" onAction="#actionEvent" text="Reserve Room" />
                                              </graphic>
                                           </MenuItem>
                                       </items>
@@ -66,7 +59,7 @@
                                           <Insets right="20.0" />
                                        </HBox.margin>
                                     </JFXButton>
-                                    <JFXComboBox fx:id="StatusBox1" onAction="#actionEvent" labelFloat="true" minWidth="150.0" promptText="Status">
+                                    <JFXComboBox fx:id="StatusBox1" labelFloat="true" minWidth="150.0" onAction="#actionEvent" promptText="Status">
                                        <HBox.margin>
                                           <Insets left="50.0" right="100.0" />
                                        </HBox.margin>
@@ -85,7 +78,7 @@
                      <children>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <TableView fx:id="GuestListTable" editable="true" layoutX="29.0" layoutY="52.0" onDragDetected="#dragStart" onKeyReleased="#keyEvent" onMouseClicked="#mouseEvent" onMouseDragged="#dragAction" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
+                              <TableView fx:id="GuestListTable" editable="true" layoutX="29.0" layoutY="52.0" onKeyReleased="#keyEvent" prefHeight="501.0" prefWidth="1133.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="52.0">
                                  <columns>
                                     <TableColumn fx:id="NoCol2" prefWidth="50" text="No" />
                                     <TableColumn fx:id="DateCol2" prefWidth="100.0" text="Date" visible="false" />
@@ -98,6 +91,22 @@
                                     <TableColumn fx:id="CheckInCol2" prefWidth="190.0" text="Checked In" />
                                     <TableColumn fx:id="CheckOutCol2" prefWidth="190.0" text="To Check Out" />
                                  </columns>
+                                 <contextMenu>
+                                    <ContextMenu anchorLocation="CONTENT_TOP_RIGHT" autoFix="false" consumeAutoHidingEvents="false">
+                                       <items>
+                                          <MenuItem mnemonicParsing="false">
+                                             <graphic>
+                                                <JFXButton fx:id="AddBut" onAction="#actionEvent" text="Add Guest" />
+                                             </graphic>
+                                          </MenuItem>
+                                          <MenuItem mnemonicParsing="false">
+                                             <graphic>
+                                                <JFXButton fx:id="OutBut" onAction="#actionEvent" text="Check Out" />
+                                             </graphic>
+                                          </MenuItem>
+                                       </items>
+                                    </ContextMenu>
+                                 </contextMenu>
                               </TableView>
                               <HBox layoutX="31.0" layoutY="14.0" prefHeight="31.0" prefWidth="1134.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="15.0">
                                  <children>

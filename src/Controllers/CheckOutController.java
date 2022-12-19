@@ -2,7 +2,6 @@ package Controllers;
 
 import Classes.MainClass;
 import Controllers.MiniControllers.CheckoutController;
-import Controllers.MiniControllers.ReceiptController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -16,8 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -58,10 +57,20 @@ public class CheckOutController implements Initializable {
     public JFXButton PayBut;
     public JFXButton ChkBut;
     public VBox PayBox;
+    public static JFXComboBox<String> NameBox2;
 
     ObservableList<String> NameList;
     int PrePaid = 0;
     int TotalAmount = 0;
+
+    private  MainPanelController mainPanelController;
+
+    public void myParent(MainPanelController mainPanelController) {
+        this.mainPanelController = mainPanelController;
+    }
+
+
+
 
     public void actionEvent(ActionEvent event)  {
         System.out.println("Starting Action Event "+event.getSource().toString());
@@ -120,9 +129,22 @@ public class CheckOutController implements Initializable {
             if(PayBut.getText().equalsIgnoreCase("Edit Payment")){
                 Deposit.setDisable(false);
                 Method.setDisable(false);
-                PayBut.setText("Pay");
-                Deposit.setText("");
-                Method.setText("");
+                ObservableList<String> Data = FXCollections.observableArrayList();
+                Data.clear();
+//                Date,Receipt,Name,Room,Total,Paid
+                Data.addAll(
+                        LocalDate.now().format(MainClass.DatabaseDateFormat),Receipt.getText(),Name.getText().trim(),RoomNo.getText(), String.valueOf(0), Deposit.getText()
+                );
+                try {
+                    if(MainClass.EditPayment(Data)){
+                        PayBut.setText("Pay");
+                        Deposit.setText("");
+                        Method.setText("");
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
                 return;
             }
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -133,8 +155,9 @@ public class CheckOutController implements Initializable {
             if(result2.equals(ButtonType.OK)){
 //                (Date,Receipt,Name,Room,Time,Total,Paid,Balance,Method
                 ObservableList<String> Data = FXCollections.observableArrayList();
+                Data.clear();
                 Data.addAll(
-                        LocalDate.now().format(MainClass.DatabaseDateFormat),Receipt.getText(),Name.getText().trim(),RoomNo.getText(), LocalTime.now().format(MainClass.timeFormatter), Deposit.getText(), this.TBalance.getText(),Via.getText()
+                        LocalDate.now().format(MainClass.DatabaseDateFormat),Receipt.getText(),Name.getText().trim(),RoomNo.getText(), LocalTime.now().format(MainClass.timeFormatter), String.valueOf(0), Deposit.getText(), this.TBalance.getText(),Via.getText()
 
                 );
                 try {
@@ -156,6 +179,7 @@ public class CheckOutController implements Initializable {
 
     public void keyEvent(KeyEvent event) throws Exception {
         if(event.getSource().equals(NameBox)){
+            NameBox.setVisibleRowCount(6);
             NameBox.setOnAction(action->{});
             String service = NameBox.getEditor().getText();
             if(NameBox.getEditor().getText().isEmpty()){
@@ -216,6 +240,22 @@ public class CheckOutController implements Initializable {
             this.TBalance.setText(String.valueOf(Balance));
         }
         if(event.getSource().equals(Method)) {
+            String method = Method.getText().toLowerCase();
+            if(event.getCode().equals(KeyCode.BACK_SPACE)){
+                return;
+            }
+            switch (method){
+                case "c":
+                    Method.setText("Cash");
+                    break;
+                case "p":
+                    Method.setText("Pos");
+                    break;
+                case "t":
+                case "b":
+                    Method.setText("Transfer");
+            }
+
             this.Via.setText(MainClass.returnTitleCase(Method.getText()));
         }
         if(event.getSource().equals(RoomNo)){
@@ -243,8 +283,6 @@ public class CheckOutController implements Initializable {
         NameBox.arm();
     }
 
-    public void mouseEvent(MouseEvent mouseEvent) {
-    }
 
 
     public void checkOut() {
@@ -263,21 +301,6 @@ public class CheckOutController implements Initializable {
                 stage.setScene(scene);
                 stage.initStyle(StageStyle.UTILITY);
                 stage.showAndWait();
-                    if(!Deposit.getText().isEmpty()) {
-                        ObservableList<String> Data = FXCollections.observableArrayList();
-                        Data.addAll(
-                                LocalDate.now().format(MainClass.DatabaseDateFormat), Receipt.getText(), this.Name.getText().trim(), RoomNo.getText(), LocalTime.now().format(MainClass.timeFormatter), Deposit.getText(), this.TBalance.getText(), Via.getText()
-                        );
-                        try {
-                            if (MainClass.InsertPayment(Data)) {
-                                Deposit.setDisable(true);
-                                Method.setDisable(true);
-                                PayBut.setText("Edit Payment");
-                            }
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
                 clearUI();
                 MainClass.reloadRecordsTables = true;
                 MainClass.reloadRoomListTables = true;
@@ -285,45 +308,29 @@ public class CheckOutController implements Initializable {
                 alert.setHeaderText(null);
                 alert.setContentText("Confirm Checkout of "+this.Name.getText().trim()+" ? ");
                 alert.setOnCloseRequest(event1 -> {
-
                 });
                 alert.showAndWait();
                 ButtonType result2 = alert.getResult();
-                if(result2.equals(ButtonType.OK)){
-                    if(!Deposit.getText().isEmpty()){
-                        ObservableList<String> Data = FXCollections.observableArrayList();
-                        Data.addAll(
-                                LocalDate.now().format(MainClass.DatabaseDateFormat),Receipt.getText(),this.Name.getText().trim(),RoomNo.getText(), LocalTime.now().format(MainClass.timeFormatter), Deposit.getText(), this.TBalance.getText(),Via.getText()
-                        );
-                        try {
-                            if(MainClass.InsertPayment(Data)){
-                                Deposit.setDisable(true);
-                                Method.setDisable(true);
-                                PayBut.setText("Edit Payment");
-                            }
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
+                try {
+                    if(result2.equals(ButtonType.OK)){
+                        if(MainClass.setCheckOut(Name, room)){
+                            alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setHeaderText(null);
+                            alert.setContentText("CheckOut Successful...Thanks for Your Patronage");
+                            alert.showAndWait();
+                            clearUI();
+                            MainClass.reloadRecordsTables = true;
+                            MainClass.reloadRoomListTables = true;
                         }
                     }
-                    if(MainClass.setCheckOut(Name, room)){
-                        alert = new Alert(Alert.AlertType.CONFIRMATION);
-                        alert.setHeaderText(null);
-                        alert.setContentText("CheckOut Successful...Thanks for Your Patronage");
-                        alert.showAndWait();
-                        clearUI();
-                        MainClass.reloadRecordsTables = true;
-                        MainClass.reloadRoomListTables = true;
-                    }
+                } catch (Exception ignored) {
+
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
 
         }
-
-
-
-
     }
 
     public void clearUI(){
@@ -367,11 +374,13 @@ public class CheckOutController implements Initializable {
     public void loadUI(String name, int Room) throws Exception {
         Map<String,String> Data = MainClass.getCheckOutData(name, Room);
         if(Data.get("Name")==null){
+            clearUI();
+            RoomNo.setText(String.valueOf(Room));
             return;
         }
         if(name.equalsIgnoreCase("")){
             System.out.println("Room:  "+Room+" Name: "+name+" Receipt: "+Data.get("Receipt"));
-            NameList = MainClass.getCheckOut("SELECT Name,Room FROM Occupants WHERE Room = "+Room+" AND Receipt = "+Data.get("Receipt")+"", new String[]{"Name", "Room"});
+            NameList = MainClass.getCheckOut("SELECT Name,Room FROM (SELECT * FROM Occupants WHERE CheckedOutDate = 'NO') WHERE Room = "+Room+" AND Receipt = "+Data.get("Receipt")+"", new String[]{"Name", "Room"});
             System.out.println(NameList);
             System.out.println("NameList:  "+NameList.size());
             NameBox.setOnAction(action->{});
@@ -427,6 +436,10 @@ public class CheckOutController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         clearUI();
+
+        NameBox2 = NameBox;
     }
+
 }

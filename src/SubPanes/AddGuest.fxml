@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="478.0" prefWidth="275.0" stylesheets="@../../../../Users/JAMES/currentTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MiniControllers.AddGuestController">
+   <children>
+      <VBox layoutX="21.0" layoutY="7.0" prefHeight="344.0" prefWidth="235.0">
+         <children>
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="MainDate" text="Guest Information" />
+            <HBox>
+               <children>
+                  <Label minHeight="25.0" prefHeight="25.0" prefWidth="41.0" styleClass="boldSmallText" text="Date: " />
+                  <Label fx:id="Date" minHeight="25.0" prefHeight="25.0" prefWidth="99.0" style="-fx-text-fill: black;" styleClass="smallText" text="25th Dec 2022" />
+                  <Label layoutX="47.0" layoutY="10.0" minHeight="25.0" prefHeight="25.0" prefWidth="43.0" styleClass="boldSmallText" text="Time:  " />
+                  <Label fx:id="Time" layoutX="84.0" layoutY="10.0" minHeight="25.0" prefHeight="11.0" prefWidth="59.0" style="-fx-text-fill: black;" styleClass="smallText" text="12:45 PM" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <JFXTextField fx:id="FName" labelFloat="true" promptText="First Name">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="LName" labelFloat="true" promptText="Last Name">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="Phone" labelFloat="true" promptText="Phone">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="Address" labelFloat="true" promptText="Address">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <HBox>
+               <children>
+                  <RadioButton fx:id="Male" mnemonicParsing="false" onAction="#actionEvent" selected="true" text="Male">
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="Female" mnemonicParsing="false" onAction="#actionEvent" text="Female" />
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox>
+               <children>
+                  <JFXCheckBox fx:id="isAdult" checkedColor="#075e05" prefHeight="18.0" prefWidth="90.0" selected="true" text="Adult" />
+                  <Label minHeight="25.0" prefHeight="25.0" prefWidth="53.0" styleClass="boldSmallText" text="Room:   " />
+                  <Label fx:id="Room" minHeight="25.0" prefHeight="25.0" prefWidth="99.0" style="-fx-text-fill: black;" styleClass="smallText" text="3" />
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+      <JFXButton fx:id="SaveBut" layoutX="61.0" layoutY="392.0" onAction="#actionEvent" prefHeight="48.0" prefWidth="154.0" text="Add Guest" textAlignment="CENTER" />
+   </children>
+</AnchorPane>
