@@ -12,10 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -97,6 +94,8 @@ public class ReceiptController implements Initializable {
         this.Balance.setText(String.valueOf(Data.get(0).getCol20()));
         if(!Data.get(0).getCol13().equalsIgnoreCase("NO")){
             this.CheckOut.setText(MainClass.returnDate3Format(LocalDate.parse(String.valueOf( Data.get(0).getCol13()), MainClass.DatabaseDateFormat))+"  "+ Data.get(0).getCol14());
+        }else {
+            this.CheckOut.setText(MainClass.returnDate3Format(LocalDate.parse(String.valueOf( Data.get(0).getCol11()), MainClass.DatabaseDateFormat))+"  "+ Data.get(0).getCol12());
         }
 
     }
@@ -155,7 +154,7 @@ public class ReceiptController implements Initializable {
             row = sheet.getRow(6);
             cell = row.createCell(1);
             cell.setCellStyle(cellStyles.get("Details"));
-            cell.setCellValue(this.Date.getText()+"     "+this.Time.getText());
+            cell.setCellValue(this.Date.getText()+"   "+this.Time.getText());
 
             //NAME
             row = sheet.getRow(8);
@@ -173,7 +172,7 @@ public class ReceiptController implements Initializable {
             row = sheet.getRow(11);
             cell = row.createCell(1);
             cell.setCellStyle(cellStyles.get("Details"));
-            cell.setCellValue(this.Room.getText());
+            cell.setCellValue(MainClass.getString("SELECT Name FROM RoomList WHERE Number = "+Room.getText()+" ", "Name"));
 
             //AMOUNT
             row = sheet.getRow(13);
@@ -199,6 +198,15 @@ public class ReceiptController implements Initializable {
             cell.setCellStyle(cellStyles.get("Details"));
             cell.setCellValue(this.CheckOut.getText());
 
+            sheet.setMargin(PageMargin.BOTTOM, 0.0);
+            sheet.setMargin(PageMargin.TOP, 0.0);
+            sheet.setMargin(PageMargin.LEFT, 0.0);
+            sheet.setMargin(PageMargin.RIGHT, 0.0);
+            sheet.setMargin(PageMargin.HEADER, 0.0);
+            sheet.setMargin(PageMargin.FOOTER, 0.0);
+
+            sheet.setFitToPage(true);
+
             File destination = new File(System.getProperty("user.home") + "/Desktop/Receipts/"+this.Name.getText()+"-"+this.RNo.getText()+".xlsx");
             FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + "/MyReceipt.xlsx");
             workbook.write(outputStream);
@@ -214,7 +222,9 @@ public class ReceiptController implements Initializable {
 
             Files.move(new File(System.getProperty("user.home") + "/MyReceipt.xlsx").toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
             Desktop desktop = Desktop.getDesktop();
-            desktop.open(destination);
+            desktop.print(destination);
+            Stage window = (Stage) Days.getScene().getWindow();
+            window.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -223,9 +233,6 @@ public class ReceiptController implements Initializable {
 
     public void saveReceipt() throws Exception {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText(null);
-        alert.setContentText("Saving Receipt Please Wait");
-        alert.show();
 
         //Check-Ins
         ObservableList<String> Data = FXCollections.observableArrayList();
@@ -239,10 +246,7 @@ public class ReceiptController implements Initializable {
         );
        if(MainClass.InsertCheckIn(Data)){
            System.out.println("Check in Room List Successful ");
-           alert.close();
-           alert.setHeaderText(null);
-           alert.setContentText("Check in Successful");
-           alert.show();
+
        }
 
         //Receipts
@@ -262,10 +266,7 @@ public class ReceiptController implements Initializable {
         );
         if(MainClass.InsertReceipt(Data, Occupants)){
             System.out.println("InsertReceipt Room List Successful ");
-            alert.close();
-            alert.setHeaderText(null);
-            alert.setContentText("InsertReceipt in Successful");
-            alert.show();
+
             MainClass.reloadRecordsTables = true;
             MainClass.reloadRoomListTables = true;
         }
@@ -282,7 +283,7 @@ public class ReceiptController implements Initializable {
         if(MainClass.UpdateRoomList(Data)){
             System.out.println("Updating Room List Successful ");
             MainClass.clearCheckInUI = true;
-            alert.close();
+
             alert.setHeaderText(null);
             alert.setContentText("Check-In Successful!...Have a Wonderful Stay");
             alert.showAndWait();
@@ -297,6 +298,7 @@ public class ReceiptController implements Initializable {
     }
 
     public void printAddress() throws Exception {
+        saveReceipt();
         XSSFWorkbook workbook;
         XSSFSheet sheet;
         XSSFCellStyle cellStyle;
@@ -349,7 +351,7 @@ public class ReceiptController implements Initializable {
         row = sheet.getRow(6);
         cell = row.createCell(1);
         cell.setCellStyle(cellStyles.get("Details"));
-        cell.setCellValue(this.Date.getText()+"     "+this.Time.getText());
+        cell.setCellValue(this.Date.getText()+"   "+this.Time.getText());
 
         //NAME
         row = sheet.getRow(8);
@@ -367,7 +369,7 @@ public class ReceiptController implements Initializable {
         row = sheet.getRow(11);
         cell = row.createCell(1);
         cell.setCellStyle(cellStyles.get("Details"));
-        cell.setCellValue(this.Room.getText());
+        cell.setCellValue(MainClass.getString("SELECT Name FROM RoomList WHERE Number = "+Room.getText()+" ", "Name"));
 
         //AMOUNT
         row = sheet.getRow(13);
@@ -393,6 +395,16 @@ public class ReceiptController implements Initializable {
         cell.setCellStyle(cellStyles.get("Details"));
         cell.setCellValue(this.CheckOut.getText());
 
+
+        sheet.setMargin(PageMargin.BOTTOM, 0.0);
+        sheet.setMargin(PageMargin.TOP, 0.0);
+        sheet.setMargin(PageMargin.LEFT, 0.0);
+        sheet.setMargin(PageMargin.RIGHT, 0.0);
+        sheet.setMargin(PageMargin.HEADER, 0.0);
+        sheet.setMargin(PageMargin.FOOTER, 0.0);
+
+        sheet.setFitToPage(true);
+
         File destination = new File(System.getProperty("user.home") + "/Desktop/Receipts/"+this.Name.getText()+"-"+this.RNo.getText()+".xlsx");
         FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + "/MyReceipt.xlsx");
         workbook.write(outputStream);
@@ -407,9 +419,9 @@ public class ReceiptController implements Initializable {
         }
 
         Files.move(new File(System.getProperty("user.home") + "/MyReceipt.xlsx").toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        saveReceipt();
+
         Desktop desktop = Desktop.getDesktop();
-        desktop.open(destination);
+        desktop.print(destination);
     }
 
 }

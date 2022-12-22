@@ -244,12 +244,23 @@ public class CheckInController implements Initializable {
             }
 
         }
+        if(actionEvent.getSource().equals(Deposit)){
+          Deposit.setText(TAmount.getText());
+          this.TPaid.setText(String.valueOf(TAmount.getText()));
+          this.TBalance.setText(String.valueOf(0));
+        }
 
     }
 
     public void keyEvent(KeyEvent keyEvent) throws Exception{
         if(keyEvent.getSource().equals(Deposit)){
             if(Deposit.getText().isEmpty()){
+                return;
+            }
+            if(keyEvent.getCode().equals(KeyCode.ENTER)){
+                Deposit.setText(TAmount.getText());
+                this.TPaid.setText(String.valueOf(TAmount.getText()));
+                this.TBalance.setText(String.valueOf(0));
                 return;
             }
             if(TAmount.getText().isEmpty() || TAmount.getText().equalsIgnoreCase("")){

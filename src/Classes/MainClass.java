@@ -206,28 +206,28 @@ public class MainClass {
         return Data;
     }
 
-//    public static String getString(String sql, String Column) throws Exception {
-//        System.out.println(sql);
-//        Connection con = null;
-//        PreparedStatement ps = null;
-//        ResultSet rs = null;
-//        String x = "";
-//        con  =ConnectDB.Main();
-//        try {
-//            ps = con.prepareStatement(sql);
-//            rs = ps.executeQuery();
-//            x = rs.getString(Column);
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        } finally {
-//            assert rs != null;
-//            assert con != null;
-//            rs.close();
-//            ps.close();
-//            con.close();
-//        }
-//        return x;
-//    }
+    public static String getString(String sql, String Column) throws Exception {
+        System.out.println(sql);
+        Connection con;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String x = "";
+        con  =ConnectDB.Main();
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            x = rs.getString(Column);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            assert rs != null;
+            assert con != null;
+            rs.close();
+            ps.close();
+            con.close();
+        }
+        return x;
+    }
     public static int getInt(String sql, String Column) throws Exception {
         Connection con;
         con  =ConnectDB.Main();
@@ -340,12 +340,13 @@ public class MainClass {
 
 
     //Application Methods
-    public static boolean InsertCheckIn(ObservableList<String> data) {
+    public static boolean InsertCheckIn(ObservableList<String> data) throws SQLException {
         String sql = "INSERT INTO CheckIns (Date,Receipt,Name,Phone,Address,isAdult,Gender,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate,CheckedOutTime,Days) " +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?); ";
         boolean isSuccessful = false;
+        Connection con = null;
         try {
-            Connection con = ConnectDB.Main();
+            con = ConnectDB.Main();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setObject(1, data.get(0));
             ps.setObject(2, data.get(1));
@@ -364,18 +365,22 @@ public class MainClass {
             ps.setObject(15, data.get(14));
             ps.execute();
             isSuccessful = true;
+            con.close();
         } catch (Exception e) {
+            assert con != null;
+            con.close();
             e.printStackTrace();
         }
         return isSuccessful;
     }
 
-    public static boolean InsertReceipt(ObservableList<String> data, ObservableList<Map<String, String>> occupants) {
+    public static boolean InsertReceipt(ObservableList<String> data, ObservableList<Map<String, String>> occupants) throws SQLException {
         String sql = "INSERT INTO Receipts (Date,Name,Phone,Address,isAdult,Gender,Room,CheckInDate,CheckInTime,ToCheckOutDate,ToCheckOutTime,CheckedOutDate,CheckedOutTime,Occupants,Days,Rate,Total,Paid,Method,Balance) " +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?); ";
         boolean isSuccessful = false;
+        Connection con =null;
         try {
-            Connection con = ConnectDB.Main();
+            con = ConnectDB.Main();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setObject(1, data.get(0));
             ps.setObject(2, data.get(1));
@@ -446,6 +451,7 @@ public class MainClass {
             con.close();
 
         } catch (Exception e) {
+            con.close();
             e.printStackTrace();
         }
         return isSuccessful;
@@ -547,6 +553,7 @@ public class MainClass {
             ps.execute();
             ps.close();
             isSuccessful = true;
+            con.close();
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -572,6 +579,7 @@ public class MainClass {
             ps.execute();
             ps.close();
             isSuccessful = true;
+            con.close();
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -629,6 +637,7 @@ public class MainClass {
         if(rs.next()){
             newReceipt = rs.getInt("Receipt");
         }
+        con.close();
 
         return newReceipt;
     }
