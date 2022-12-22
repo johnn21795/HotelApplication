@@ -15,7 +15,7 @@
          </font></Label>
       <JFXProgressBar fx:id="Bar" layoutX="24.0" layoutY="288.0" prefHeight="30.0" prefWidth="547.0" progress="0.1" style="-fx-background-color: red;" />
       <Label fx:id="accounttech" alignment="CENTER" layoutX="84.0" layoutY="56.0" onMouseClicked="#mouseEvent" prefHeight="47.0" prefWidth="459.0" styleClass="MainSubName" text="Hotel Management Application" textFill="WHITE" />
-      <Label layoutX="32.0" layoutY="178.0" style="-fx-font-weight: bold; -fx-font-size: 14; -fx-text-fill: #000077;" text="Version  1.1.5" />
+      <Label layoutX="32.0" layoutY="178.0" style="-fx-font-weight: bold; -fx-font-size: 14; -fx-text-fill: #000077;" text="Version  1.1.6" />
       <HBox layoutX="229.0" layoutY="261.0">
          <children>
             <Label style="-fx-font-weight: bold; -fx-text-fill: #000077;" styleClass="labelx" text="Loading:   " />

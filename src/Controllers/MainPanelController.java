@@ -320,7 +320,7 @@ public class MainPanelController implements Initializable {
         File version = new File(System.getProperty("user.home") + "/AppData/Local/Activation.txt");
         if(event.getSource().equals(versionLabel)){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("New Version 1.1.5");
+            alert.setTitle("New Version 1.1.6");
             alert.setContentText("Update Complete! \n " +
                     "What's New ? \n " +
                     "1. Added Notifications (Under Development) \n " +
