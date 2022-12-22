@@ -368,6 +368,7 @@ public class CheckInController implements Initializable {
         Receipt = MainClass.getReceipt();
         People.clear();
         FName.setText("");
+        PayBut.setText("Pay");
         LName.setText("");
         Phone.setText("");
         Address.setText("");
@@ -391,7 +392,6 @@ public class CheckInController implements Initializable {
         Status.setText("");
         Rate.setText("");
         ChDate.setText("");
-        ChTime.setText("");
         TAmount.setText("");
         TPaid.setText("");
         Via.setText("");
@@ -399,7 +399,8 @@ public class CheckInController implements Initializable {
         Deposit.setText("");
         Method.setText("");
         ReceiptNo.setText(String.valueOf(Receipt));
-
+        TPicker.setValue(LocalTime.of(12,0));
+        ChTime.setText(TPicker.getValue().format(MainClass.timeFormatter));
     }
 
     public void checkIn() {
